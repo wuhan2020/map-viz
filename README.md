@@ -45,6 +45,7 @@ npm start
 
 [qq实时疫情数据](https://news.qq.com/zt2020/page/feiyan.htm)
 
+[财新实时+历史数据](http://datanews.caixin.com/2020-01-20/101506236.html)
 
 #### 临时接口
 
@@ -54,11 +55,22 @@ npm start
 
 [百度迁徙](https://service-8o85sm22-1252957949.gz.apigw.tencentcs.com/release/qianxi) 
 
++ [city_rank](https://service-8o85sm22-1252957949.gz.apigw.tencentcs.com/release/qianxi?action=city_rank)
+
++ [history_curve](https://service-8o85sm22-1252957949.gz.apigw.tencentcs.com/release/qianxi?action=history_curve)
+
+
 [丁香园实时疫情](https://service-0gg71fu4-1252957949.gz.apigw.tencentcs.com/release/dingxiangyuan)
 
 [qq实时+历史疫情](https://service-n9zsbooc-1252957949.gz.apigw.tencentcs.com/release/qq )
 
+[财新实时+历史数据](https://service-qjf6zmby-1252957949.gz.apigw.tencentcs.com/release/caixin)
 
++  [json](https://service-qjf6zmby-1252957949.gz.apigw.tencentcs.com/release/caixin)
++  [csv](https://service-qjf6zmby-1252957949.gz.apigw.tencentcs.com/release/caixin?action=csv)
++  [pneumonia](https://service-qjf6zmby-1252957949.gz.apigw.tencentcs.com/release/caixin?action=pneumonia)
++  [total](https://service-qjf6zmby-1252957949.gz.apigw.tencentcs.com/release/caixin?action=total)
++  [data2](https://service-qjf6zmby-1252957949.gz.apigw.tencentcs.com/release/caixin?action=data2)
 
 
 
