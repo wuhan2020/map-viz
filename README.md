@@ -55,9 +55,9 @@ npm start
 
 [百度迁徙](https://service-8o85sm22-1252957949.gz.apigw.tencentcs.com/release/qianxi) 
 
-+ [city_rank](https://service-8o85sm22-1252957949.gz.apigw.tencentcs.com/release/qianxi?action=city_rank)
++ [city_rank](https://service-8o85sm22-1252957949.gz.apigw.tencentcs.com/release/qianxi?action=city_rank?date=20200125&id=420100&type=move_out)
 
-+ [history_curve](https://service-8o85sm22-1252957949.gz.apigw.tencentcs.com/release/qianxi?action=history_curve)
++ [history_curve](https://service-8o85sm22-1252957949.gz.apigw.tencentcs.com/release/qianxi?action=history_curve&id=420100&endDate=20200125)
 
 
 [丁香园实时疫情](https://service-0gg71fu4-1252957949.gz.apigw.tencentcs.com/release/dingxiangyuan)
