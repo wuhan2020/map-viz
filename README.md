@@ -5,7 +5,7 @@
 
 ### 例子
 
-[百度迁徙](https://qianxi.baidu.com/?from=shoubai)
+[百度迁徙](https://qianxi.baidu.com/?from=shoubai#city=420100)
 
 [百度实时疫情数据](https://voice.baidu.com/act/newpneumonia/newpneumonia)
 
