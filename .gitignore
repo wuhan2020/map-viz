@@ -1,4 +1,9 @@
 /lib/
 node_modules/
 tmp/*
-
+.vscode/
+.idea/
+.DS_Store
+package-lock.json
+dist/
+.cache/
