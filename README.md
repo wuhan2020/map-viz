@@ -43,6 +43,8 @@ npm start
 
 [丁香园实时疫情数据](https://3g.dxy.cn/newh5/view/pneumonia)
 
+[qq实时疫情数据](https://news.qq.com/zt2020/page/feiyan.htm)
+
 
 #### 临时接口
 
@@ -51,6 +53,8 @@ npm start
 [baidu](https://service-nxxl1y2s-1252957949.gz.apigw.tencentcs.com/release/newpneumonia)
 
 [dingxiangyuan](https://service-0gg71fu4-1252957949.gz.apigw.tencentcs.com/release/dingxiangyuan)
+
+[qq](https://service-n9zsbooc-1252957949.gz.apigw.tencentcs.com/release/qq )
 
 
 
