@@ -14,6 +14,10 @@
 -   打包工具: [Parcel v1][10]
 -   CI / CD: [Travis CI][11] + [GitHub Pages][12]
 
+## 讨论
+欢迎大家加入[Slack 交流群组](https://join.slack.com/t/wuhan2020/shared_invite/enQtOTIzNjA2MDYwOTUxLWVjMjA4MjdhNGVmZmZlZTgxYjM1ZDY1NGVkZDVkNGI0NzhjZGVlYTM2Mjc5Mjk2YjgyYTk1NDJmNTkxODZlOTE)，我们在 `#map-visualization` channel.
+slack群组也另有channel分别负责前端、后端、数据录入等不同方面，有兴趣参与讨论其他问题的童鞋也热烈欢迎加入！
+
 ## 本地开发
 
 ### 配置
