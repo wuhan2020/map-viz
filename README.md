@@ -48,13 +48,15 @@ npm start
 
 #### 临时接口
 
-[省市历史数据](http://ncov.nosensor.com:8080/api/)
+[疫情省市历史数据](http://ncov.nosensor.com:8080/api/)
 
-[baidu](https://service-nxxl1y2s-1252957949.gz.apigw.tencentcs.com/release/newpneumonia)
+[百度实时疫情](https://service-nxxl1y2s-1252957949.gz.apigw.tencentcs.com/release/newpneumonia)
 
-[dingxiangyuan](https://service-0gg71fu4-1252957949.gz.apigw.tencentcs.com/release/dingxiangyuan)
+[百度迁徙](https://service-8o85sm22-1252957949.gz.apigw.tencentcs.com/release/qianxi) 
 
-[qq](https://service-n9zsbooc-1252957949.gz.apigw.tencentcs.com/release/qq )
+[丁香园实时疫情](https://service-0gg71fu4-1252957949.gz.apigw.tencentcs.com/release/dingxiangyuan)
+
+[qq实时+历史疫情](https://service-n9zsbooc-1252957949.gz.apigw.tencentcs.com/release/qq )
 
 
 
