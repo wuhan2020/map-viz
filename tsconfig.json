@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "rootDir": "source/",
+        "target": "ES5",
+        "module": "ES6",
+        "moduleResolution": "Node",
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "jsx": "react",
+        "jsxFactory": "createCell",
+        "lib": ["ES2019", "DOM"]
+    }
+}
