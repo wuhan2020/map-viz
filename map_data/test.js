@@ -213,7 +213,7 @@ pinyin2province={
 
 
 
-    //注册大区地图
+    //注册省地图
     test=()=>{
         //echarts=...
         mapName="北京"
@@ -223,7 +223,7 @@ pinyin2province={
         echarts.registerMap(mapName, r)
     }
 
-    //注册省地图
+    //注册大区地图
     test1=()=>{
         //echarts=...
         mapName="北京"
