@@ -11,12 +11,24 @@
 
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
-import { EchartsMap } from "../components/EchartsMap";
+import { EchartsMap } from '../components/EchartsMap';
+
+interface dataObject {
+  name: string;
+  confirmed: number;
+  suspect: number;
+  cured: number;
+  death: number;
+}
 
 interface VirusMapProps {
   mapUrl?: string;
-  data?: Array<any>;
+  data?: Array<dataObject>;
   chartOnClickCallBack?: Function;
+}
+
+interface VirusMapState {
+  mapScale: number;
 }
 
 @observer
@@ -24,7 +36,7 @@ interface VirusMapProps {
   tagName: 'virus-map',
   renderTarget: 'children'
 })
-export class VirusMap extends mixin<VirusMapProps, {}>() {
+export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
   @attribute
   @watch
   mapUrl = '';
@@ -35,23 +47,34 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
 
   @attribute
   @watch
-  chartOnClickCallBack = (param) => { console.log(param) };
+  chartOnClickCallBack = (param, chart) => { console.log(param, chart) };
 
-  public render() {
-    const {mapUrl, data, chartOnClickCallBack} = this.props;
-    const chartOptions = {
+  state = {
+    mapScale: 1
+  };
+
+  getChartOptions(data, mapScale) {
+    return {
       title: {
-        text: "疫情地图"
+        text: '疫情地图'
       },
       tooltip: {
-        trigger: "item",
+        trigger: 'item',
         formatter: function (params) {
-          const suspectStr = data[params.dataIndex].suspect === undefined ? '' : '<br/>疑似：' + data[params.dataIndex].suspect
-          const output = '确诊：' + data[params.dataIndex].confirmed
-            + suspectStr
-              + '<br/>治愈：' + data[params.dataIndex].cured
-                + '<br/>死亡：' + data[params.dataIndex].death
-          return output;
+          const outputArray = [params.name]
+          if (data[params.dataIndex].confirmed !== undefined) {
+            outputArray.push('确诊：' + data[params.dataIndex].confirmed)
+          }
+          if (data[params.dataIndex].suspect !== undefined) {
+            outputArray.push('疑似：' + data[params.dataIndex].suspect)
+          }
+          if (data[params.dataIndex].cured !== undefined) {
+            outputArray.push('治愈：' + data[params.dataIndex].cured)
+          }
+          if (data[params.dataIndex].death !== undefined) {
+            outputArray.push('死亡：' + data[params.dataIndex].death)
+          }
+          return outputArray.join('<br/>');
         }
       },
       dataRange: {
@@ -72,16 +95,39 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           name: '疫情数据',
           type: 'map',
           mapType: 'map',
+          roam: true,
+          label: {
+              show: mapScale > 2.5,
+              fontSize: 2 * mapScale
+          },
+          emphasis: {
+            label: {
+              show: mapScale > 2.5,
+              fontSize: 2 * mapScale
+            }
+          },
           data: data.map((item) => { return { name: item.name, value: item.confirmed } })
         }
       ]
     };
+  }
 
+  public render({ mapUrl, data, chartOnClickCallBack }: VirusMapProps, { mapScale }: VirusMapState) {
+    // 缩放时间重新set一下option
+    const chartGeoRoamCallBack = (params, chart) => {
+      this.setState({
+        mapScale: mapScale *= params.zoom
+      });
+      // 这里使用防抖函数
+      chart.setOption(this.getChartOptions(data, mapScale));
+    }
     return (
       <EchartsMap
         mapUrl={mapUrl}
-        chartOptions={chartOptions}
+        chartOptions={this.getChartOptions(data, mapScale)}
         chartOnClickCallBack={chartOnClickCallBack}
-      />);
+        chartGeoRoamCallBack={chartGeoRoamCallBack}
+      />
+    );
   }
 }
