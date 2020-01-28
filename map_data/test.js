@@ -216,7 +216,7 @@ pinyin2province={
     //注册大区地图
     test=()=>{
         //echarts=...
-        mapName="北京市"
+        mapName="北京"
         d=province2pinyin[mapName]
         url=MAP_SERVER+"/map/china/"+d+".json"
         r=await get(url)
@@ -226,7 +226,7 @@ pinyin2province={
     //注册省地图
     test1=()=>{
         //echarts=...
-        mapName="北京市"
+        mapName="北京"
         d=province2daqu[mapName]
         url=MAP_SERVER+"/map/"+d+".json"
         r=await get(url)
