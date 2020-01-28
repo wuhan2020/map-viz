@@ -1,0 +1,1992 @@
+[
+  {
+    "areaCode": 513200,
+    "areaName": "阿坝藏族羌族自治州",
+    "pinyin": "a ba zang zu qiang zu zi zhi zhou"
+  },
+  {
+    "areaCode": 652900,
+    "areaName": "阿克苏地区",
+    "pinyin": "a ke su di qu"
+  },
+  {
+    "areaCode": 659002,
+    "areaName": "阿拉尔市",
+    "pinyin": "a la er shi"
+  },
+  {
+    "areaCode": 152900,
+    "areaName": "阿拉善盟",
+    "pinyin": "a la shan meng"
+  },
+  {
+    "areaCode": 654300,
+    "areaName": "阿勒泰地区",
+    "pinyin": "a le tai di qu"
+  },
+  {
+    "areaCode": 542500,
+    "areaName": "阿里地区",
+    "pinyin": "a li di qu"
+  },
+  {
+    "areaCode": 610900,
+    "areaName": "安康市",
+    "pinyin": "an kang shi"
+  },
+  {
+    "areaCode": 340800,
+    "areaName": "安庆市",
+    "pinyin": "an qing shi"
+  },
+  {
+    "areaCode": 210300,
+    "areaName": "鞍山市",
+    "pinyin": "an shan shi"
+  },
+  {
+    "areaCode": 520400,
+    "areaName": "安顺市",
+    "pinyin": "an shun shi"
+  },
+  {
+    "areaCode": 410500,
+    "areaName": "安阳市",
+    "pinyin": "an yang shi"
+  },
+  {
+    "areaCode": 820100,
+    "areaName": "澳门半岛",
+    "pinyin": "ao men ban dao"
+  },
+  {
+    "areaCode": 150800,
+    "areaName": "巴彦淖尔市",
+    "pinyin": "ba yan nao er shi"
+  },
+  {
+    "areaCode": 652800,
+    "areaName": "巴音郭楞蒙古自治州",
+    "pinyin": "ba yin guo leng meng gu zi zhi zhou"
+  },
+  {
+    "areaCode": 511900,
+    "areaName": "巴中市",
+    "pinyin": "ba zhong shi"
+  },
+  {
+    "areaCode": 220800,
+    "areaName": "白城市",
+    "pinyin": "bai cheng shi"
+  },
+  {
+    "areaCode": 451000,
+    "areaName": "百色市",
+    "pinyin": "bai se shi"
+  },
+  {
+    "areaCode": 469025,
+    "areaName": "白沙黎族自治县",
+    "pinyin": "bai sha li zu zi zhi xian"
+  },
+  {
+    "areaCode": 220600,
+    "areaName": "白山市",
+    "pinyin": "bai shan shi"
+  },
+  {
+    "areaCode": 620400,
+    "areaName": "白银市",
+    "pinyin": "bai yin shi"
+  },
+  {
+    "areaCode": 130600,
+    "areaName": "保定市",
+    "pinyin": "bao ding shi"
+  },
+  {
+    "areaCode": 610300,
+    "areaName": "宝鸡市",
+    "pinyin": "bao ji shi"
+  },
+  {
+    "areaCode": 530500,
+    "areaName": "保山市",
+    "pinyin": "bao shan shi"
+  },
+  {
+    "areaCode": 469029,
+    "areaName": "保亭黎族苗族自治县",
+    "pinyin": "bao ting li zu miao zu zi zhi xian"
+  },
+  {
+    "areaCode": 150200,
+    "areaName": "包头市",
+    "pinyin": "bao tou shi"
+  },
+  {
+    "areaCode": 450500,
+    "areaName": "北海市",
+    "pinyin": "bei hai shi"
+  },
+  {
+    "areaCode": 110100,
+    "areaName": "北京市",
+    "pinyin": "bei jing shi"
+  },
+  {
+    "areaCode": 659005,
+    "areaName": "北屯市",
+    "pinyin": "bei tun shi"
+  },
+  {
+    "areaCode": 210500,
+    "areaName": "本溪市",
+    "pinyin": "ben xi shi"
+  },
+  {
+    "areaCode": 340300,
+    "areaName": "蚌埠市",
+    "pinyin": "beng bu shi"
+  },
+  {
+    "areaCode": 520500,
+    "areaName": "毕节市",
+    "pinyin": "bi jie shi"
+  },
+  {
+    "areaCode": 371600,
+    "areaName": "滨州市",
+    "pinyin": "bin zhou shi"
+  },
+  {
+    "areaCode": 652700,
+    "areaName": "博尔塔拉蒙古自治州",
+    "pinyin": "bo er ta la meng gu zi zhi zhou"
+  },
+  {
+    "areaCode": 341600,
+    "areaName": "亳州市",
+    "pinyin": "bo zhou shi"
+  },
+  {
+    "areaCode": 130900,
+    "areaName": "沧州市",
+    "pinyin": "cang zhou shi"
+  },
+  {
+    "areaCode": 220100,
+    "areaName": "长春市",
+    "pinyin": "chang chun shi"
+  },
+  {
+    "areaCode": 430700,
+    "areaName": "常德市",
+    "pinyin": "chang de shi"
+  },
+  {
+    "areaCode": 540300,
+    "areaName": "昌都市",
+    "pinyin": "chang du shi"
+  },
+  {
+    "areaCode": 652300,
+    "areaName": "昌吉回族自治州",
+    "pinyin": "chang ji hui zu zi zhi zhou"
+  },
+  {
+    "areaCode": 469026,
+    "areaName": "昌江黎族自治县",
+    "pinyin": "chang jiang li zu zi zhi xian"
+  },
+  {
+    "areaCode": 430100,
+    "areaName": "长沙市",
+    "pinyin": "chang sha shi"
+  },
+  {
+    "areaCode": 140400,
+    "areaName": "长治市",
+    "pinyin": "chang zhi shi"
+  },
+  {
+    "areaCode": 320400,
+    "areaName": "常州市",
+    "pinyin": "chang zhou shi"
+  },
+  {
+    "areaCode": 211300,
+    "areaName": "朝阳市",
+    "pinyin": "chao yang shi"
+  },
+  {
+    "areaCode": 445100,
+    "areaName": "潮州市",
+    "pinyin": "chao zhou shi"
+  },
+  {
+    "areaCode": 431000,
+    "areaName": "郴州市",
+    "pinyin": "chen zhou shi"
+  },
+  {
+    "areaCode": 130800,
+    "areaName": "承德市",
+    "pinyin": "cheng de shi"
+  },
+  {
+    "areaCode": 510100,
+    "areaName": "成都市",
+    "pinyin": "cheng du shi"
+  },
+  {
+    "areaCode": 469023,
+    "areaName": "澄迈县",
+    "pinyin": "cheng mai xian"
+  },
+  {
+    "areaCode": 150400,
+    "areaName": "赤峰市",
+    "pinyin": "chi feng shi"
+  },
+  {
+    "areaCode": 341700,
+    "areaName": "池州市",
+    "pinyin": "chi zhou shi"
+  },
+  {
+    "areaCode": 500100,
+    "areaName": "重庆市",
+    "pinyin": "chong qing shi"
+  },
+  {
+    "areaCode": 451400,
+    "areaName": "崇左市",
+    "pinyin": "chong zuo shi"
+  },
+  {
+    "areaCode": 532300,
+    "areaName": "楚雄彝族自治州",
+    "pinyin": "chu xiong yi zu zi zhi zhou"
+  },
+  {
+    "areaCode": 341100,
+    "areaName": "滁州市",
+    "pinyin": "chu zhou shi"
+  },
+  {
+    "areaCode": 532900,
+    "areaName": "大理白族自治州",
+    "pinyin": "da li bai zu zi zhi zhou"
+  },
+  {
+    "areaCode": 210200,
+    "areaName": "大连市",
+    "pinyin": "da lian shi"
+  },
+  {
+    "areaCode": 230600,
+    "areaName": "大庆市",
+    "pinyin": "da qing shi"
+  },
+  {
+    "areaCode": 140200,
+    "areaName": "大同市",
+    "pinyin": "da tong shi"
+  },
+  {
+    "areaCode": 232700,
+    "areaName": "大兴安岭地区",
+    "pinyin": "da xing an ling di qu"
+  },
+  {
+    "areaCode": 511700,
+    "areaName": "达州市",
+    "pinyin": "da zhou shi"
+  },
+  {
+    "areaCode": 210600,
+    "areaName": "丹东市",
+    "pinyin": "dan dong shi"
+  },
+  {
+    "areaCode": 460400,
+    "areaName": "儋州市",
+    "pinyin": "dan zhou shi"
+  },
+  {
+    "areaCode": 533100,
+    "areaName": "德宏傣族景颇族自治州",
+    "pinyin": "de hong dai zu jing po zu zi zhi zhou"
+  },
+  {
+    "areaCode": 510600,
+    "areaName": "德阳市",
+    "pinyin": "de yang shi"
+  },
+  {
+    "areaCode": 371400,
+    "areaName": "德州市",
+    "pinyin": "de zhou shi"
+  },
+  {
+    "areaCode": 533400,
+    "areaName": "迪庆藏族自治州",
+    "pinyin": "di qing zang zu zi zhi zhou"
+  },
+  {
+    "areaCode": 469021,
+    "areaName": "定安县",
+    "pinyin": "ding an xian"
+  },
+  {
+    "areaCode": 621100,
+    "areaName": "定西市",
+    "pinyin": "ding xi shi"
+  },
+  {
+    "areaCode": 469007,
+    "areaName": "东方市",
+    "pinyin": "dong fang shi"
+  },
+  {
+    "areaCode": 441900,
+    "areaName": "东莞市",
+    "pinyin": "dong guan shi"
+  },
+  {
+    "areaCode": 442101,
+    "areaName": "东沙群岛",
+    "pinyin": "dong sha qun dao"
+  },
+  {
+    "areaCode": 370500,
+    "areaName": "东营市",
+    "pinyin": "dong ying shi"
+  },
+  {
+    "areaCode": 150600,
+    "areaName": "鄂尔多斯市",
+    "pinyin": "e er duo si shi"
+  },
+  {
+    "areaCode": 420700,
+    "areaName": "鄂州市",
+    "pinyin": "e zhou shi"
+  },
+  {
+    "areaCode": 422800,
+    "areaName": "恩施土家族苗族自治州",
+    "pinyin": "en shi tu jia zu miao zu zi zhi zhou"
+  },
+  {
+    "areaCode": 450600,
+    "areaName": "防城港市",
+    "pinyin": "fang cheng gang shi"
+  },
+  {
+    "areaCode": 440600,
+    "areaName": "佛山市",
+    "pinyin": "fo shan shi"
+  },
+  {
+    "areaCode": 210400,
+    "areaName": "抚顺市",
+    "pinyin": "fu shun shi"
+  },
+  {
+    "areaCode": 210900,
+    "areaName": "阜新市",
+    "pinyin": "fu xin shi"
+  },
+  {
+    "areaCode": 341200,
+    "areaName": "阜阳市",
+    "pinyin": "fu yang shi"
+  },
+  {
+    "areaCode": 350100,
+    "areaName": "福州市",
+    "pinyin": "fu zhou shi"
+  },
+  {
+    "areaCode": 361000,
+    "areaName": "抚州市",
+    "pinyin": "fu zhou shi"
+  },
+  {
+    "areaCode": 623000,
+    "areaName": "甘南藏族自治州",
+    "pinyin": "gan nan zang zu zi zhi zhou"
+  },
+  {
+    "areaCode": 360700,
+    "areaName": "赣州市",
+    "pinyin": "gan zhou shi"
+  },
+  {
+    "areaCode": 513300,
+    "areaName": "甘孜藏族自治州",
+    "pinyin": "gan zi zang zu zi zhi zhou"
+  },
+  {
+    "areaCode": 710200,
+    "areaName": "高雄市",
+    "pinyin": "gao xiong shi"
+  },
+  {
+    "areaCode": 640400,
+    "areaName": "固原市",
+    "pinyin": "gu yuan shi"
+  },
+  {
+    "areaCode": 511600,
+    "areaName": "广安市",
+    "pinyin": "guang an shi"
+  },
+  {
+    "areaCode": 510800,
+    "areaName": "广元市",
+    "pinyin": "guang yuan shi"
+  },
+  {
+    "areaCode": 440100,
+    "areaName": "广州市",
+    "pinyin": "guang zhou shi"
+  },
+  {
+    "areaCode": 450800,
+    "areaName": "贵港市",
+    "pinyin": "gui gang shi"
+  },
+  {
+    "areaCode": 450300,
+    "areaName": "桂林市",
+    "pinyin": "gui lin shi"
+  },
+  {
+    "areaCode": 520100,
+    "areaName": "贵阳市",
+    "pinyin": "gui yang shi"
+  },
+  {
+    "areaCode": 632600,
+    "areaName": "果洛藏族自治州",
+    "pinyin": "guo luo zang zu zi zhi zhou"
+  },
+  {
+    "areaCode": 230100,
+    "areaName": "哈尔滨市",
+    "pinyin": "ha er bin shi"
+  },
+  {
+    "areaCode": 650500,
+    "areaName": "哈密市",
+    "pinyin": "ha mi shi"
+  },
+  {
+    "areaCode": 632200,
+    "areaName": "海北藏族自治州",
+    "pinyin": "hai bei zang zu zi zhi zhou"
+  },
+  {
+    "areaCode": 630200,
+    "areaName": "海东市",
+    "pinyin": "hai dong shi"
+  },
+  {
+    "areaCode": 460100,
+    "areaName": "海口市",
+    "pinyin": "hai kou shi"
+  },
+  {
+    "areaCode": 632500,
+    "areaName": "海南藏族自治州",
+    "pinyin": "hai nan zang zu zi zhi zhou"
+  },
+  {
+    "areaCode": 632800,
+    "areaName": "海西蒙古族藏族自治州",
+    "pinyin": "hai xi meng gu zu zang zu zi zhi zhou"
+  },
+  {
+    "areaCode": 130400,
+    "areaName": "邯郸市",
+    "pinyin": "han dan shi"
+  },
+  {
+    "areaCode": 610700,
+    "areaName": "汉中市",
+    "pinyin": "han zhong shi"
+  },
+  {
+    "areaCode": 330100,
+    "areaName": "杭州市",
+    "pinyin": "hang zhou shi"
+  },
+  {
+    "areaCode": 410600,
+    "areaName": "鹤壁市",
+    "pinyin": "he bi shi"
+  },
+  {
+    "areaCode": 451200,
+    "areaName": "河池市",
+    "pinyin": "he chi shi"
+  },
+  {
+    "areaCode": 340100,
+    "areaName": "合肥市",
+    "pinyin": "he fei shi"
+  },
+  {
+    "areaCode": 230400,
+    "areaName": "鹤岗市",
+    "pinyin": "he gang shi"
+  },
+  {
+    "areaCode": 653200,
+    "areaName": "和田地区",
+    "pinyin": "he tian di qu"
+  },
+  {
+    "areaCode": 441600,
+    "areaName": "河源市",
+    "pinyin": "he yuan shi"
+  },
+  {
+    "areaCode": 371700,
+    "areaName": "菏泽市",
+    "pinyin": "he ze shi"
+  },
+  {
+    "areaCode": 451100,
+    "areaName": "贺州市",
+    "pinyin": "he zhou shi"
+  },
+  {
+    "areaCode": 231100,
+    "areaName": "黑河市",
+    "pinyin": "hei he shi"
+  },
+  {
+    "areaCode": 131100,
+    "areaName": "衡水市",
+    "pinyin": "heng shui shi"
+  },
+  {
+    "areaCode": 430400,
+    "areaName": "衡阳市",
+    "pinyin": "heng yang shi"
+  },
+  {
+    "areaCode": 532500,
+    "areaName": "红河哈尼族彝族自治州",
+    "pinyin": "hong he ha ni zu yi zu zi zhi zhou"
+  },
+  {
+    "areaCode": 150100,
+    "areaName": "呼和浩特市",
+    "pinyin": "hu he hao te shi"
+  },
+  {
+    "areaCode": 211400,
+    "areaName": "葫芦岛市",
+    "pinyin": "hu lu dao shi"
+  },
+  {
+    "areaCode": 150700,
+    "areaName": "呼伦贝尔市",
+    "pinyin": "hu lun bei er shi"
+  },
+  {
+    "areaCode": 330500,
+    "areaName": "湖州市",
+    "pinyin": "hu zhou shi"
+  },
+  {
+    "areaCode": 712600,
+    "areaName": "花莲县",
+    "pinyin": "hua lian xian"
+  },
+  {
+    "areaCode": 320800,
+    "areaName": "淮安市",
+    "pinyin": "huai an shi"
+  },
+  {
+    "areaCode": 340600,
+    "areaName": "淮北市",
+    "pinyin": "huai bei shi"
+  },
+  {
+    "areaCode": 431200,
+    "areaName": "怀化市",
+    "pinyin": "huai hua shi"
+  },
+  {
+    "areaCode": 340400,
+    "areaName": "淮南市",
+    "pinyin": "huai nan shi"
+  },
+  {
+    "areaCode": 421100,
+    "areaName": "黄冈市",
+    "pinyin": "huang gang shi"
+  },
+  {
+    "areaCode": 632300,
+    "areaName": "黄南藏族自治州",
+    "pinyin": "huang nan zang zu zi zhi zhou"
+  },
+  {
+    "areaCode": 341000,
+    "areaName": "黄山市",
+    "pinyin": "huang shan shi"
+  },
+  {
+    "areaCode": 420200,
+    "areaName": "黄石市",
+    "pinyin": "huang shi shi"
+  },
+  {
+    "areaCode": 441300,
+    "areaName": "惠州市",
+    "pinyin": "hui zhou shi"
+  },
+  {
+    "areaCode": 360800,
+    "areaName": "吉安市",
+    "pinyin": "ji an shi"
+  },
+  {
+    "areaCode": 220200,
+    "areaName": "吉林市",
+    "pinyin": "ji lin shi"
+  },
+  {
+    "areaCode": 710700,
+    "areaName": "基隆市",
+    "pinyin": "ji long shi"
+  },
+  {
+    "areaCode": 370100,
+    "areaName": "济南市",
+    "pinyin": "ji nan shi"
+  },
+  {
+    "areaCode": 370800,
+    "areaName": "济宁市",
+    "pinyin": "ji ning shi"
+  },
+  {
+    "areaCode": 230300,
+    "areaName": "鸡西市",
+    "pinyin": "ji xi shi"
+  },
+  {
+    "areaCode": 419001,
+    "areaName": "济源市",
+    "pinyin": "ji yuan shi"
+  },
+  {
+    "areaCode": 230800,
+    "areaName": "佳木斯市",
+    "pinyin": "jia mu si shi"
+  },
+  {
+    "areaCode": 330400,
+    "areaName": "嘉兴市",
+    "pinyin": "jia xing shi"
+  },
+  {
+    "areaCode": 710900,
+    "areaName": "嘉义市",
+    "pinyin": "jia yi shi"
+  },
+  {
+    "areaCode": 711900,
+    "areaName": "嘉义县",
+    "pinyin": "jia yi xian"
+  },
+  {
+    "areaCode": 620200,
+    "areaName": "嘉峪关市",
+    "pinyin": "jia yu guan shi"
+  },
+  {
+    "areaCode": 440700,
+    "areaName": "江门市",
+    "pinyin": "jiang men shi"
+  },
+  {
+    "areaCode": 410800,
+    "areaName": "焦作市",
+    "pinyin": "jiao zuo shi"
+  },
+  {
+    "areaCode": 445200,
+    "areaName": "揭阳市",
+    "pinyin": "jie yang shi"
+  },
+  {
+    "areaCode": 620300,
+    "areaName": "金昌市",
+    "pinyin": "jin chang shi"
+  },
+  {
+    "areaCode": 140500,
+    "areaName": "晋城市",
+    "pinyin": "jin cheng shi"
+  },
+  {
+    "areaCode": 330700,
+    "areaName": "金华市",
+    "pinyin": "jin hua shi"
+  },
+  {
+    "areaCode": 710500,
+    "areaName": "金门县",
+    "pinyin": "jin men xian"
+  },
+  {
+    "areaCode": 140700,
+    "areaName": "晋中市",
+    "pinyin": "jin zhong shi"
+  },
+  {
+    "areaCode": 210700,
+    "areaName": "锦州市",
+    "pinyin": "jin zhou shi"
+  },
+  {
+    "areaCode": 360200,
+    "areaName": "景德镇市",
+    "pinyin": "jing de zhen shi"
+  },
+  {
+    "areaCode": 420800,
+    "areaName": "荆门市",
+    "pinyin": "jing men shi"
+  },
+  {
+    "areaCode": 421000,
+    "areaName": "荆州市",
+    "pinyin": "jing zhou shi"
+  },
+  {
+    "areaCode": 360400,
+    "areaName": "九江市",
+    "pinyin": "jiu jiang shi"
+  },
+  {
+    "areaCode": 810200,
+    "areaName": "九龙",
+    "pinyin": "jiu long"
+  },
+  {
+    "areaCode": 620900,
+    "areaName": "酒泉市",
+    "pinyin": "jiu quan shi"
+  },
+  {
+    "areaCode": 653100,
+    "areaName": "喀什地区",
+    "pinyin": "ka shi di qu"
+  },
+  {
+    "areaCode": 410200,
+    "areaName": "开封市",
+    "pinyin": "kai feng shi"
+  },
+  {
+    "areaCode": 659008,
+    "areaName": "可克达拉市",
+    "pinyin": "ke ke da la shi"
+  },
+  {
+    "areaCode": 650200,
+    "areaName": "克拉玛依市",
+    "pinyin": "ke la ma yi shi"
+  },
+  {
+    "areaCode": 653000,
+    "areaName": "克孜勒苏柯尔克孜自治州",
+    "pinyin": "ke zi le su ke er ke zi zi zhi zhou"
+  },
+  {
+    "areaCode": 530100,
+    "areaName": "昆明市",
+    "pinyin": "kun ming shi"
+  },
+  {
+    "areaCode": 659009,
+    "areaName": "昆玉市",
+    "pinyin": "kun yu shi"
+  },
+  {
+    "areaCode": 540100,
+    "areaName": "拉萨市",
+    "pinyin": "la sa shi"
+  },
+  {
+    "areaCode": 451300,
+    "areaName": "来宾市",
+    "pinyin": "lai bin shi"
+  },
+  {
+    "areaCode": 371200,
+    "areaName": "莱芜市",
+    "pinyin": "lai wu shi"
+  },
+  {
+    "areaCode": 620100,
+    "areaName": "兰州市",
+    "pinyin": "lan zhou shi"
+  },
+  {
+    "areaCode": 131000,
+    "areaName": "廊坊市",
+    "pinyin": "lang fang shi"
+  },
+  {
+    "areaCode": 469027,
+    "areaName": "乐东黎族自治县",
+    "pinyin": "le dong li zu zi zhi xian"
+  },
+  {
+    "areaCode": 511100,
+    "areaName": "乐山市",
+    "pinyin": "le shan shi"
+  },
+  {
+    "areaCode": 820200,
+    "areaName": "离岛",
+    "pinyin": "li dao"
+  },
+  {
+    "areaCode": 530700,
+    "areaName": "丽江市",
+    "pinyin": "li jiang shi"
+  },
+  {
+    "areaCode": 331100,
+    "areaName": "丽水市",
+    "pinyin": "li shui shi"
+  },
+  {
+    "areaCode": 712800,
+    "areaName": "连江县",
+    "pinyin": "lian jiang xian"
+  },
+  {
+    "areaCode": 320700,
+    "areaName": "连云港市",
+    "pinyin": "lian yun gang shi"
+  },
+  {
+    "areaCode": 513400,
+    "areaName": "凉山彝族自治州",
+    "pinyin": "liang shan yi zu zi zhi zhou"
+  },
+  {
+    "areaCode": 371500,
+    "areaName": "聊城市",
+    "pinyin": "liao cheng shi"
+  },
+  {
+    "areaCode": 211000,
+    "areaName": "辽阳市",
+    "pinyin": "liao yang shi"
+  },
+  {
+    "areaCode": 220400,
+    "areaName": "辽源市",
+    "pinyin": "liao yuan shi"
+  },
+  {
+    "areaCode": 530900,
+    "areaName": "临沧市",
+    "pinyin": "lin cang shi"
+  },
+  {
+    "areaCode": 141000,
+    "areaName": "临汾市",
+    "pinyin": "lin fen shi"
+  },
+  {
+    "areaCode": 469024,
+    "areaName": "临高县",
+    "pinyin": "lin gao xian"
+  },
+  {
+    "areaCode": 622900,
+    "areaName": "临夏回族自治州",
+    "pinyin": "lin xia hui zu zi zhi zhou"
+  },
+  {
+    "areaCode": 371300,
+    "areaName": "临沂市",
+    "pinyin": "lin yi shi"
+  },
+  {
+    "areaCode": 540400,
+    "areaName": "林芝市",
+    "pinyin": "lin zhi shi"
+  },
+  {
+    "areaCode": 469028,
+    "areaName": "陵水黎族自治县",
+    "pinyin": "ling shui li zu zi zhi xian"
+  },
+  {
+    "areaCode": 520200,
+    "areaName": "六盘水市",
+    "pinyin": "liu pan shui shi"
+  },
+  {
+    "areaCode": 450200,
+    "areaName": "柳州市",
+    "pinyin": "liu zhou shi"
+  },
+  {
+    "areaCode": 621200,
+    "areaName": "陇南市",
+    "pinyin": "long nan shi"
+  },
+  {
+    "areaCode": 350800,
+    "areaName": "龙岩市",
+    "pinyin": "long yan shi"
+  },
+  {
+    "areaCode": 431300,
+    "areaName": "娄底市",
+    "pinyin": "lou di shi"
+  },
+  {
+    "areaCode": 341500,
+    "areaName": "六安市",
+    "pinyin": "lu an shi"
+  },
+  {
+    "areaCode": 510500,
+    "areaName": "泸州市",
+    "pinyin": "lu zhou shi"
+  },
+  {
+    "areaCode": 411100,
+    "areaName": "漯河市",
+    "pinyin": "luo he shi"
+  },
+  {
+    "areaCode": 410300,
+    "areaName": "洛阳市",
+    "pinyin": "luo yang shi"
+  },
+  {
+    "areaCode": 141100,
+    "areaName": "吕梁市",
+    "pinyin": "lv liang shi"
+  },
+  {
+    "areaCode": 340500,
+    "areaName": "马鞍山市",
+    "pinyin": "ma an shan shi"
+  },
+  {
+    "areaCode": 440900,
+    "areaName": "茂名市",
+    "pinyin": "mao ming shi"
+  },
+  {
+    "areaCode": 511400,
+    "areaName": "眉山市",
+    "pinyin": "mei shan shi"
+  },
+  {
+    "areaCode": 441400,
+    "areaName": "梅州市",
+    "pinyin": "mei zhou shi"
+  },
+  {
+    "areaCode": 510700,
+    "areaName": "绵阳市",
+    "pinyin": "mian yang shi"
+  },
+  {
+    "areaCode": 711500,
+    "areaName": "苗栗县",
+    "pinyin": "miao li xian"
+  },
+  {
+    "areaCode": 231000,
+    "areaName": "牡丹江市",
+    "pinyin": "mu dan jiang shi"
+  },
+  {
+    "areaCode": 540600,
+    "areaName": "那曲市",
+    "pinyin": "na qu shi"
+  },
+  {
+    "areaCode": 360100,
+    "areaName": "南昌市",
+    "pinyin": "nan chang shi"
+  },
+  {
+    "areaCode": 511300,
+    "areaName": "南充市",
+    "pinyin": "nan chong shi"
+  },
+  {
+    "areaCode": 320100,
+    "areaName": "南京市",
+    "pinyin": "nan jing shi"
+  },
+  {
+    "areaCode": 450100,
+    "areaName": "南宁市",
+    "pinyin": "nan ning shi"
+  },
+  {
+    "areaCode": 350700,
+    "areaName": "南平市",
+    "pinyin": "nan ping shi"
+  },
+  {
+    "areaCode": 469038,
+    "areaName": "南沙群岛",
+    "pinyin": "nan sha qun dao"
+  },
+  {
+    "areaCode": 320600,
+    "areaName": "南通市",
+    "pinyin": "nan tong shi"
+  },
+  {
+    "areaCode": 710600,
+    "areaName": "南投县",
+    "pinyin": "nan tou xian"
+  },
+  {
+    "areaCode": 411300,
+    "areaName": "南阳市",
+    "pinyin": "nan yang shi"
+  },
+  {
+    "areaCode": 511000,
+    "areaName": "内江市",
+    "pinyin": "nei jiang shi"
+  },
+  {
+    "areaCode": 330200,
+    "areaName": "宁波市",
+    "pinyin": "ning bo shi"
+  },
+  {
+    "areaCode": 350900,
+    "areaName": "宁德市",
+    "pinyin": "ning de shi"
+  },
+  {
+    "areaCode": 533300,
+    "areaName": "怒江傈僳族自治州",
+    "pinyin": "nu jiang li su zu zi zhi zhou"
+  },
+  {
+    "areaCode": 211100,
+    "areaName": "盘锦市",
+    "pinyin": "pan jin shi"
+  },
+  {
+    "areaCode": 510400,
+    "areaName": "攀枝花市",
+    "pinyin": "pan zhi hua shi"
+  },
+  {
+    "areaCode": 712700,
+    "areaName": "澎湖县",
+    "pinyin": "peng hu xian"
+  },
+  {
+    "areaCode": 410400,
+    "areaName": "平顶山市",
+    "pinyin": "ping ding shan shi"
+  },
+  {
+    "areaCode": 712400,
+    "areaName": "屏东县",
+    "pinyin": "ping dong xian"
+  },
+  {
+    "areaCode": 620800,
+    "areaName": "平凉市",
+    "pinyin": "ping liang shi"
+  },
+  {
+    "areaCode": 360300,
+    "areaName": "萍乡市",
+    "pinyin": "ping xiang shi"
+  },
+  {
+    "areaCode": 530800,
+    "areaName": "普洱市",
+    "pinyin": "pu er shi"
+  },
+  {
+    "areaCode": 350300,
+    "areaName": "莆田市",
+    "pinyin": "pu tian shi"
+  },
+  {
+    "areaCode": 410900,
+    "areaName": "濮阳市",
+    "pinyin": "pu yang shi"
+  },
+  {
+    "areaCode": 230200,
+    "areaName": "齐齐哈尔市",
+    "pinyin": "qi qi ha er shi"
+  },
+  {
+    "areaCode": 230900,
+    "areaName": "七台河市",
+    "pinyin": "qi tai he shi"
+  },
+  {
+    "areaCode": 522600,
+    "areaName": "黔东南苗族侗族自治州",
+    "pinyin": "qian dong nan miao zu dong zu zi zhi zhou"
+  },
+  {
+    "areaCode": 429005,
+    "areaName": "潜江市",
+    "pinyin": "qian jiang shi"
+  },
+  {
+    "areaCode": 522700,
+    "areaName": "黔南布依族苗族自治州",
+    "pinyin": "qian nan bu yi zu miao zu zi zhi zhou"
+  },
+  {
+    "areaCode": 522300,
+    "areaName": "黔西南布依族苗族自治州",
+    "pinyin": "qian xi nan bu yi zu miao zu zi zhi zhou"
+  },
+  {
+    "areaCode": 130300,
+    "areaName": "秦皇岛市",
+    "pinyin": "qin huang dao shi"
+  },
+  {
+    "areaCode": 450700,
+    "areaName": "钦州市",
+    "pinyin": "qin zhou shi"
+  },
+  {
+    "areaCode": 370200,
+    "areaName": "青岛市",
+    "pinyin": "qing dao shi"
+  },
+  {
+    "areaCode": 621000,
+    "areaName": "庆阳市",
+    "pinyin": "qing yang shi"
+  },
+  {
+    "areaCode": 441800,
+    "areaName": "清远市",
+    "pinyin": "qing yuan shi"
+  },
+  {
+    "areaCode": 469002,
+    "areaName": "琼海市",
+    "pinyin": "qiong hai shi"
+  },
+  {
+    "areaCode": 469030,
+    "areaName": "琼中黎族苗族自治县",
+    "pinyin": "qiong zhong li zu miao zu zi zhi xian"
+  },
+  {
+    "areaCode": 530300,
+    "areaName": "曲靖市",
+    "pinyin": "qu jing shi"
+  },
+  {
+    "areaCode": 330800,
+    "areaName": "衢州市",
+    "pinyin": "qu zhou shi"
+  },
+  {
+    "areaCode": 350500,
+    "areaName": "泉州市",
+    "pinyin": "quan zhou shi"
+  },
+  {
+    "areaCode": 540200,
+    "areaName": "日喀则市",
+    "pinyin": "ri ka ze shi"
+  },
+  {
+    "areaCode": 371100,
+    "areaName": "日照市",
+    "pinyin": "ri zhao shi"
+  },
+  {
+    "areaCode": 411200,
+    "areaName": "三门峡市",
+    "pinyin": "san men xia shi"
+  },
+  {
+    "areaCode": 350400,
+    "areaName": "三明市",
+    "pinyin": "san ming shi"
+  },
+  {
+    "areaCode": 460300,
+    "areaName": "三沙市",
+    "pinyin": "san sha shi"
+  },
+  {
+    "areaCode": 460200,
+    "areaName": "三亚市",
+    "pinyin": "san ya shi"
+  },
+  {
+    "areaCode": 540500,
+    "areaName": "山南市",
+    "pinyin": "shan nan shi"
+  },
+  {
+    "areaCode": 440500,
+    "areaName": "汕头市",
+    "pinyin": "shan tou shi"
+  },
+  {
+    "areaCode": 441500,
+    "areaName": "汕尾市",
+    "pinyin": "shan wei shi"
+  },
+  {
+    "areaCode": 310100,
+    "areaName": "上海市",
+    "pinyin": "shang hai shi"
+  },
+  {
+    "areaCode": 611000,
+    "areaName": "商洛市",
+    "pinyin": "shang luo shi"
+  },
+  {
+    "areaCode": 411400,
+    "areaName": "商丘市",
+    "pinyin": "shang qiu shi"
+  },
+  {
+    "areaCode": 361100,
+    "areaName": "上饶市",
+    "pinyin": "shang rao shi"
+  },
+  {
+    "areaCode": 440200,
+    "areaName": "韶关市",
+    "pinyin": "shao guan shi"
+  },
+  {
+    "areaCode": 330600,
+    "areaName": "绍兴市",
+    "pinyin": "shao xing shi"
+  },
+  {
+    "areaCode": 430500,
+    "areaName": "邵阳市",
+    "pinyin": "shao yang shi"
+  },
+  {
+    "areaCode": 429021,
+    "areaName": "神农架林区",
+    "pinyin": "shen nong jia lin qu"
+  },
+  {
+    "areaCode": 210100,
+    "areaName": "沈阳市",
+    "pinyin": "shen yang shi"
+  },
+  {
+    "areaCode": 440300,
+    "areaName": "深圳市",
+    "pinyin": "shen zhen shi"
+  },
+  {
+    "areaCode": 659001,
+    "areaName": "石河子市",
+    "pinyin": "shi he zi shi"
+  },
+  {
+    "areaCode": 130100,
+    "areaName": "石家庄市",
+    "pinyin": "shi jia zhuang shi"
+  },
+  {
+    "areaCode": 420300,
+    "areaName": "十堰市",
+    "pinyin": "shi yan shi"
+  },
+  {
+    "areaCode": 640200,
+    "areaName": "石嘴山市",
+    "pinyin": "shi zui shan shi"
+  },
+  {
+    "areaCode": 659007,
+    "areaName": "双河市",
+    "pinyin": "shuang he shi"
+  },
+  {
+    "areaCode": 230500,
+    "areaName": "双鸭山市",
+    "pinyin": "shuang ya shan shi"
+  },
+  {
+    "areaCode": 140600,
+    "areaName": "朔州市",
+    "pinyin": "shuo zhou shi"
+  },
+  {
+    "areaCode": 220300,
+    "areaName": "四平市",
+    "pinyin": "si ping shi"
+  },
+  {
+    "areaCode": 220700,
+    "areaName": "松原市",
+    "pinyin": "song yuan shi"
+  },
+  {
+    "areaCode": 321300,
+    "areaName": "宿迁市",
+    "pinyin": "su qian shi"
+  },
+  {
+    "areaCode": 341300,
+    "areaName": "宿州市",
+    "pinyin": "su zhou shi"
+  },
+  {
+    "areaCode": 320500,
+    "areaName": "苏州市",
+    "pinyin": "su zhou shi"
+  },
+  {
+    "areaCode": 231200,
+    "areaName": "绥化市",
+    "pinyin": "sui hua shi"
+  },
+  {
+    "areaCode": 510900,
+    "areaName": "遂宁市",
+    "pinyin": "sui ning shi"
+  },
+  {
+    "areaCode": 421300,
+    "areaName": "随州市",
+    "pinyin": "sui zhou shi"
+  },
+  {
+    "areaCode": 654200,
+    "areaName": "塔城地区",
+    "pinyin": "ta cheng di qu"
+  },
+  {
+    "areaCode": 370900,
+    "areaName": "泰安市",
+    "pinyin": "tai an shi"
+  },
+  {
+    "areaCode": 710100,
+    "areaName": "台北市",
+    "pinyin": "tai bei shi"
+  },
+  {
+    "areaCode": 712500,
+    "areaName": "台东县",
+    "pinyin": "tai dong xian"
+  },
+  {
+    "areaCode": 710300,
+    "areaName": "台南市",
+    "pinyin": "tai nan shi"
+  },
+  {
+    "areaCode": 140100,
+    "areaName": "太原市",
+    "pinyin": "tai yuan shi"
+  },
+  {
+    "areaCode": 710400,
+    "areaName": "台中市",
+    "pinyin": "tai zhong shi"
+  },
+  {
+    "areaCode": 331000,
+    "areaName": "台州市",
+    "pinyin": "tai zhou shi"
+  },
+  {
+    "areaCode": 321200,
+    "areaName": "泰州市",
+    "pinyin": "tai zhou shi"
+  },
+  {
+    "areaCode": 130200,
+    "areaName": "唐山市",
+    "pinyin": "tang shan shi"
+  },
+  {
+    "areaCode": 711400,
+    "areaName": "桃园市",
+    "pinyin": "tao yuan shi"
+  },
+  {
+    "areaCode": 120100,
+    "areaName": "天津市",
+    "pinyin": "tian jin shi"
+  },
+  {
+    "areaCode": 429006,
+    "areaName": "天门市",
+    "pinyin": "tian men shi"
+  },
+  {
+    "areaCode": 620500,
+    "areaName": "天水市",
+    "pinyin": "tian shui shi"
+  },
+  {
+    "areaCode": 211200,
+    "areaName": "铁岭市",
+    "pinyin": "tie ling shi"
+  },
+  {
+    "areaCode": 659006,
+    "areaName": "铁门关市",
+    "pinyin": "tie men guan shi"
+  },
+  {
+    "areaCode": 610200,
+    "areaName": "铜川市",
+    "pinyin": "tong chuan shi"
+  },
+  {
+    "areaCode": 220500,
+    "areaName": "通化市",
+    "pinyin": "tong hua shi"
+  },
+  {
+    "areaCode": 150500,
+    "areaName": "通辽市",
+    "pinyin": "tong liao shi"
+  },
+  {
+    "areaCode": 340700,
+    "areaName": "铜陵市",
+    "pinyin": "tong ling shi"
+  },
+  {
+    "areaCode": 520600,
+    "areaName": "铜仁市",
+    "pinyin": "tong ren shi"
+  },
+  {
+    "areaCode": 650400,
+    "areaName": "吐鲁番市",
+    "pinyin": "tu lu fan shi"
+  },
+  {
+    "areaCode": 659003,
+    "areaName": "图木舒克市",
+    "pinyin": "tu mu shu ke shi"
+  },
+  {
+    "areaCode": 469022,
+    "areaName": "屯昌县",
+    "pinyin": "tun chang xian"
+  },
+  {
+    "areaCode": 469006,
+    "areaName": "万宁市",
+    "pinyin": "wan ning shi"
+  },
+  {
+    "areaCode": 370700,
+    "areaName": "潍坊市",
+    "pinyin": "wei fang shi"
+  },
+  {
+    "areaCode": 371000,
+    "areaName": "威海市",
+    "pinyin": "wei hai shi"
+  },
+  {
+    "areaCode": 610500,
+    "areaName": "渭南市",
+    "pinyin": "wei nan shi"
+  },
+  {
+    "areaCode": 469005,
+    "areaName": "文昌市",
+    "pinyin": "wen chang shi"
+  },
+  {
+    "areaCode": 532600,
+    "areaName": "文山壮族苗族自治州",
+    "pinyin": "wen shan zhuang zu miao zu zi zhi zhou"
+  },
+  {
+    "areaCode": 330300,
+    "areaName": "温州市",
+    "pinyin": "wen zhou shi"
+  },
+  {
+    "areaCode": 150300,
+    "areaName": "乌海市",
+    "pinyin": "wu hai shi"
+  },
+  {
+    "areaCode": 420100,
+    "areaName": "武汉市",
+    "pinyin": "wu han shi"
+  },
+  {
+    "areaCode": 340200,
+    "areaName": "芜湖市",
+    "pinyin": "wu hu shi"
+  },
+  {
+    "areaCode": 659004,
+    "areaName": "五家渠市",
+    "pinyin": "wu jia qu shi"
+  },
+  {
+    "areaCode": 150900,
+    "areaName": "乌兰察布市",
+    "pinyin": "wu lan cha bu shi"
+  },
+  {
+    "areaCode": 650100,
+    "areaName": "乌鲁木齐市",
+    "pinyin": "wu lu mu qi shi"
+  },
+  {
+    "areaCode": 620600,
+    "areaName": "武威市",
+    "pinyin": "wu wei shi"
+  },
+  {
+    "areaCode": 320200,
+    "areaName": "无锡市",
+    "pinyin": "wu xi shi"
+  },
+  {
+    "areaCode": 469001,
+    "areaName": "五指山市",
+    "pinyin": "wu zhi shan shi"
+  },
+  {
+    "areaCode": 640300,
+    "areaName": "吴忠市",
+    "pinyin": "wu zhong shi"
+  },
+  {
+    "areaCode": 450400,
+    "areaName": "梧州市",
+    "pinyin": "wu zhou shi"
+  },
+  {
+    "areaCode": 610100,
+    "areaName": "西安市",
+    "pinyin": "xi an shi"
+  },
+  {
+    "areaCode": 152500,
+    "areaName": "锡林郭勒盟",
+    "pinyin": "xi lin guo le meng"
+  },
+  {
+    "areaCode": 630100,
+    "areaName": "西宁市",
+    "pinyin": "xi ning shi"
+  },
+  {
+    "areaCode": 469037,
+    "areaName": "西沙群岛",
+    "pinyin": "xi sha qun dao"
+  },
+  {
+    "areaCode": 532800,
+    "areaName": "西双版纳傣族自治州",
+    "pinyin": "xi shuang ban na dai zu zi zhi zhou"
+  },
+  {
+    "areaCode": 350200,
+    "areaName": "厦门市",
+    "pinyin": "xia men shi"
+  },
+  {
+    "areaCode": 421200,
+    "areaName": "咸宁市",
+    "pinyin": "xian ning shi"
+  },
+  {
+    "areaCode": 429004,
+    "areaName": "仙桃市",
+    "pinyin": "xian tao shi"
+  },
+  {
+    "areaCode": 610400,
+    "areaName": "咸阳市",
+    "pinyin": "xian yang shi"
+  },
+  {
+    "areaCode": 810100,
+    "areaName": "香港岛",
+    "pinyin": "xiang gang dao"
+  },
+  {
+    "areaCode": 430300,
+    "areaName": "湘潭市",
+    "pinyin": "xiang tan shi"
+  },
+  {
+    "areaCode": 433100,
+    "areaName": "湘西土家族苗族自治州",
+    "pinyin": "xiang xi tu jia zu miao zu zi zhi zhou"
+  },
+  {
+    "areaCode": 420600,
+    "areaName": "襄阳市",
+    "pinyin": "xiang yang shi"
+  },
+  {
+    "areaCode": 420900,
+    "areaName": "孝感市",
+    "pinyin": "xiao gan shi"
+  },
+  {
+    "areaCode": 711100,
+    "areaName": "新北市",
+    "pinyin": "xin bei shi"
+  },
+  {
+    "areaCode": 810300,
+    "areaName": "新界",
+    "pinyin": "xin jie"
+  },
+  {
+    "areaCode": 410700,
+    "areaName": "新乡市",
+    "pinyin": "xin xiang shi"
+  },
+  {
+    "areaCode": 411500,
+    "areaName": "信阳市",
+    "pinyin": "xin yang shi"
+  },
+  {
+    "areaCode": 360500,
+    "areaName": "新余市",
+    "pinyin": "xin yu shi"
+  },
+  {
+    "areaCode": 140900,
+    "areaName": "忻州市",
+    "pinyin": "xin zhou shi"
+  },
+  {
+    "areaCode": 710800,
+    "areaName": "新竹市",
+    "pinyin": "xin zhu shi"
+  },
+  {
+    "areaCode": 711300,
+    "areaName": "新竹县",
+    "pinyin": "xin zhu xian"
+  },
+  {
+    "areaCode": 152200,
+    "areaName": "兴安盟",
+    "pinyin": "xing an meng"
+  },
+  {
+    "areaCode": 130500,
+    "areaName": "邢台市",
+    "pinyin": "xing tai shi"
+  },
+  {
+    "areaCode": 411000,
+    "areaName": "许昌市",
+    "pinyin": "xu chang shi"
+  },
+  {
+    "areaCode": 320300,
+    "areaName": "徐州市",
+    "pinyin": "xu zhou shi"
+  },
+  {
+    "areaCode": 341800,
+    "areaName": "宣城市",
+    "pinyin": "xuan cheng shi"
+  },
+  {
+    "areaCode": 511800,
+    "areaName": "雅安市",
+    "pinyin": "ya an shi"
+  },
+  {
+    "areaCode": 610600,
+    "areaName": "延安市",
+    "pinyin": "yan an shi"
+  },
+  {
+    "areaCode": 222400,
+    "areaName": "延边朝鲜族自治州",
+    "pinyin": "yan bian chao xian zu zi zhi zhou"
+  },
+  {
+    "areaCode": 320900,
+    "areaName": "盐城市",
+    "pinyin": "yan cheng shi"
+  },
+  {
+    "areaCode": 370600,
+    "areaName": "烟台市",
+    "pinyin": "yan tai shi"
+  },
+  {
+    "areaCode": 441700,
+    "areaName": "阳江市",
+    "pinyin": "yang jiang shi"
+  },
+  {
+    "areaCode": 140300,
+    "areaName": "阳泉市",
+    "pinyin": "yang quan shi"
+  },
+  {
+    "areaCode": 321000,
+    "areaName": "扬州市",
+    "pinyin": "yang zhou shi"
+  },
+  {
+    "areaCode": 511500,
+    "areaName": "宜宾市",
+    "pinyin": "yi bin shi"
+  },
+  {
+    "areaCode": 420500,
+    "areaName": "宜昌市",
+    "pinyin": "yi chang shi"
+  },
+  {
+    "areaCode": 360900,
+    "areaName": "宜春市",
+    "pinyin": "yi chun shi"
+  },
+  {
+    "areaCode": 230700,
+    "areaName": "伊春市",
+    "pinyin": "yi chun shi"
+  },
+  {
+    "areaCode": 711200,
+    "areaName": "宜兰县",
+    "pinyin": "yi lan xian"
+  },
+  {
+    "areaCode": 654000,
+    "areaName": "伊犁哈萨克自治州",
+    "pinyin": "yi li ha sa ke zi zhi zhou"
+  },
+  {
+    "areaCode": 430900,
+    "areaName": "益阳市",
+    "pinyin": "yi yang shi"
+  },
+  {
+    "areaCode": 640100,
+    "areaName": "银川市",
+    "pinyin": "yin chuan shi"
+  },
+  {
+    "areaCode": 210800,
+    "areaName": "营口市",
+    "pinyin": "ying kou shi"
+  },
+  {
+    "areaCode": 360600,
+    "areaName": "鹰潭市",
+    "pinyin": "ying tan shi"
+  },
+  {
+    "areaCode": 431100,
+    "areaName": "永州市",
+    "pinyin": "yong zhou shi"
+  },
+  {
+    "areaCode": 610800,
+    "areaName": "榆林市",
+    "pinyin": "yu lin shi"
+  },
+  {
+    "areaCode": 450900,
+    "areaName": "玉林市",
+    "pinyin": "yu lin shi"
+  },
+  {
+    "areaCode": 632700,
+    "areaName": "玉树藏族自治州",
+    "pinyin": "yu shu zang zu zi zhi zhou"
+  },
+  {
+    "areaCode": 530400,
+    "areaName": "玉溪市",
+    "pinyin": "yu xi shi"
+  },
+  {
+    "areaCode": 430600,
+    "areaName": "岳阳市",
+    "pinyin": "yue yang shi"
+  },
+  {
+    "areaCode": 140800,
+    "areaName": "运城市",
+    "pinyin": "yun cheng shi"
+  },
+  {
+    "areaCode": 445300,
+    "areaName": "云浮市",
+    "pinyin": "yun fu shi"
+  },
+  {
+    "areaCode": 712100,
+    "areaName": "云林县",
+    "pinyin": "yun lin xian"
+  },
+  {
+    "areaCode": 370400,
+    "areaName": "枣庄市",
+    "pinyin": "zao zhuang shi"
+  },
+  {
+    "areaCode": 440800,
+    "areaName": "湛江市",
+    "pinyin": "zhan jiang shi"
+  },
+  {
+    "areaCode": 711700,
+    "areaName": "彰化县",
+    "pinyin": "zhang hua xian"
+  },
+  {
+    "areaCode": 430800,
+    "areaName": "张家界市",
+    "pinyin": "zhang jia jie shi"
+  },
+  {
+    "areaCode": 130700,
+    "areaName": "张家口市",
+    "pinyin": "zhang jia kou shi"
+  },
+  {
+    "areaCode": 620700,
+    "areaName": "张掖市",
+    "pinyin": "zhang ye shi"
+  },
+  {
+    "areaCode": 350600,
+    "areaName": "漳州市",
+    "pinyin": "zhang zhou shi"
+  },
+  {
+    "areaCode": 441200,
+    "areaName": "肇庆市",
+    "pinyin": "zhao qing shi"
+  },
+  {
+    "areaCode": 530600,
+    "areaName": "昭通市",
+    "pinyin": "zhao tong shi"
+  },
+  {
+    "areaCode": 321100,
+    "areaName": "镇江市",
+    "pinyin": "zhen jiang shi"
+  },
+  {
+    "areaCode": 410100,
+    "areaName": "郑州市",
+    "pinyin": "zheng zhou shi"
+  },
+  {
+    "areaCode": 469039,
+    "areaName": "中沙群岛的岛礁及其海域",
+    "pinyin": "zhong sha qun dao de dao jiao ji qi hai yu"
+  },
+  {
+    "areaCode": 442000,
+    "areaName": "中山市",
+    "pinyin": "zhong shan shi"
+  },
+  {
+    "areaCode": 640500,
+    "areaName": "中卫市",
+    "pinyin": "zhong wei shi"
+  },
+  {
+    "areaCode": 411600,
+    "areaName": "周口市",
+    "pinyin": "zhou kou shi"
+  },
+  {
+    "areaCode": 330900,
+    "areaName": "舟山市",
+    "pinyin": "zhou shan shi"
+  },
+  {
+    "areaCode": 440400,
+    "areaName": "珠海市",
+    "pinyin": "zhu hai shi"
+  },
+  {
+    "areaCode": 411700,
+    "areaName": "驻马店市",
+    "pinyin": "zhu ma dian shi"
+  },
+  {
+    "areaCode": 430200,
+    "areaName": "株洲市",
+    "pinyin": "zhu zhou shi"
+  },
+  {
+    "areaCode": 370300,
+    "areaName": "淄博市",
+    "pinyin": "zi bo shi"
+  },
+  {
+    "areaCode": 510300,
+    "areaName": "自贡市",
+    "pinyin": "zi gong shi"
+  },
+  {
+    "areaCode": 512000,
+    "areaName": "资阳市",
+    "pinyin": "zi yang shi"
+  },
+  {
+    "areaCode": 520300,
+    "areaName": "遵义市",
+    "pinyin": "zun yi shi"
+  }
+]
