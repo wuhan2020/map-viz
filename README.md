@@ -2,6 +2,43 @@
 
 本项目负责平台的信息展示，可视化地理信息。
 
+## 任务
+
+基于ECharts可视化库及其他技术栈：
+
+### 创建一个完整独立的疫情地图
+- **目的&设计**：创建一个独立的疫情地图可视化，有两个主要目标
+  1. 地理精度：有市级地理粒度，最开始是一个全国地图的heatmap，点击一个省重绘成省map。（[重绘参考](https://gallery.echartsjs.com/editor.html?c=xm3iS_cb0g)）
+  2. 时间信息：有时间轴，点击一个地区可以画出[stacked area chart](https://echarts.apache.org/examples/en/editor.html?c=area-stack)之类的疫情发展图 (确诊/疑似/死亡为不同层)，也可以根据选择的时间点重绘地图。([时间轴参考案例](https://echarts.apache.org/examples/en/editor.html?c=mix-timeline-finance))
+- **使用**：单独webpage，最终作为iframe整合进前端页面
+  - 与下面的通用组件不同，疫情地图与前端其他组件交互较少，且数据可以[通过API直接获取](http://lab.isaaclin.cn/nCoV/api/area?latest=0)，单独成项目更合理。
+
+### 创建一个通用地图组件
+- **目的**：用于可视化gge中不同地理信息（例如医院位置，酒店位置，etc.）
+- **使用**：作为组件被前端调用，数据来自前端。
+- **基础设计**：点图+地图（[参考例子](https://www.echartsjs.com/examples/zh/editor.html?c=effectScatter-bmap)）
+- **交互**：
+  - 不自带过滤等交互组件，上层应该自己创建checkbox, slider, etc. 过滤后数据传入地图组件可以重绘地图
+  - 接受传入的mouseEvent，可以帮助做信息过滤及定位（e.g., 点击一个省选中它的信息）
+  - ([相关讨论](https://github.com/wuhan2020/map-viz/issues/2#issuecomment-578626578))
+- [数据格式设计讨论](https://github.com/wuhan2020/map-viz/issues/3)
+
+### 任务细化
+
+#### 疫情图
+- [x] 基础疫情地图
+- [ ] 添加时间信息
+  - [ ] 做带有时间信息mockup数据
+  - [ ] 做时间轴+数据统计stacked area chart/line chart
+- [ ] 实现交互
+  - [ ] 点击省重绘省内地图/双击或提供按钮退出省内地图，同时重绘stacked area chart
+  - [ ] 点时间轴改变地图颜色
+
+#### 通用地图
+- [ ] 基础通用地图
+- [ ] 做医院/酒店的数据mockup
+
+
 ## 技术栈
 
 -   可视化库: [ECharts v4][13]
