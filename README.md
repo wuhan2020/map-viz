@@ -14,7 +14,7 @@
   - 与下面的通用组件不同，疫情地图与前端其他组件交互较少，且数据可以[通过API直接获取](http://lab.isaaclin.cn/nCoV/api/area?latest=0)，单独成项目更合理。
 
 ### 创建一个通用地图组件
-- **目的**：用于可视化gge中不同地理信息（例如医院位置，酒店位置，etc.）
+- **目的**：用于可视化各种不同地理信息（例如医院位置，酒店位置，etc.）
 - **使用**：作为组件被前端调用，数据来自前端。
 - **基础设计**：点图+地图（[参考例子](https://www.echartsjs.com/examples/zh/editor.html?c=effectScatter-bmap)）
 - **交互**：
