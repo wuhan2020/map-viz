@@ -1,0 +1,22 @@
+{
+  "江苏大区": "jiangsudaqu",
+  "华南大区": "huanandaqu",
+  "中西大区": "zhoangxidaqu",
+  "华中大区": "huazhongdaqu",
+  "华东大区": "huadongdaqu",
+  "华北大区": "huabeidaqu",
+  "东北大区": "dongbeidaqu",
+  "北方大区": "beifangdaqu",
+  "东南大区": "dongnandaqu",
+  "西南大区": "xinandaqu",
+  "jiangsudaqu": "江苏大区",
+  "huanandaqu": "华南大区",
+  "zhoangxidaqu": "中西大区",
+  "huazhongdaqu": "华中大区",
+  "huadongdaqu": "华东大区",
+  "huabeidaqu": "华北大区",
+  "dongbeidaqu": "东北大区",
+  "beifangdaqu": "北方大区",
+  "dongnandaqu": "东南大区",
+  "xinandaqu": "西南大区"
+}
