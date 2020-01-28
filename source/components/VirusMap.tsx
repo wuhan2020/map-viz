@@ -46,9 +46,9 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
       tooltip: {
         trigger: "item",
         formatter: function (params) {
-          console.log(params)
+          const suspectStr = data[params.dataIndex].suspect === undefined ? '' : '<br/>疑似：' + data[params.dataIndex].suspect
           const output = '确诊：' + data[params.dataIndex].confirmed
-            + '<br/>疑似：' + data[params.dataIndex].suspect
+            + suspectStr
               + '<br/>治愈：' + data[params.dataIndex].cured
                 + '<br/>死亡：' + data[params.dataIndex].death
           return output;

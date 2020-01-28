@@ -37,7 +37,7 @@ export class MapViz extends mixin<{}, MapVizState>() {
   renderTarget: 'children'
 })
 export class MapViz extends mixin<{}, State>() {
-  state = { index: 1 };
+  state = { index: 0 };
 
   getVirusMapConfig(index) {
     return {
