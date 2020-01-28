@@ -24,11 +24,11 @@
 - [数据格式设计讨论](https://github.com/wuhan2020/map-viz/issues/3)
 
 ### 任务细化
-
+（可以自己创建issue开始做）
 #### 疫情图
 - [x] 基础疫情地图
+- [ ] 链接API拿到实时数据(QQ或丁香医生)
 - [ ] 添加时间信息
-  - [ ] 做带有时间信息mockup数据
   - [ ] 做时间轴+数据统计stacked area chart/line chart
 - [ ] 实现交互
   - [ ] 点击省重绘省内地图/双击或提供按钮退出省内地图，同时重绘stacked area chart
