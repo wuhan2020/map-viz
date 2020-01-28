@@ -101,8 +101,7 @@ npm start
 
 [qq实时+历史疫情](https://service-n9zsbooc-1252957949.gz.apigw.tencentcs.com/release/qq )
 
-
-
+[百度地图地址转经纬度](https://service-qf7o2c4u-1252957949.gz.apigw.tencentcs.com/release/bmap?address=华中科技大学)
 
 
 [1]: https://developers.google.cn/web/progressive-web-apps
