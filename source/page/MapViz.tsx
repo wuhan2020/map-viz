@@ -6,8 +6,8 @@
 
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch, on } from 'web-cell';
-import { VirusMap } from "../components/VirusMap";
-import mockData from "../../mock/map_viz_mock_data.js";
+import { VirusMap } from '../components/VirusMap';
+import mockData from '../../mock/map_viz_mock_data.js';
 
 interface State {
   index: number;
