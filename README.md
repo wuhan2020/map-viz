@@ -34,6 +34,8 @@ npm start
 
 [echarts example](https://gallery.echartsjs.com/explore.html#sort=rank~timeframe=all~author=all)
 
+[百度地图](http://lbsyun.baidu.com/jsdemo.htm#canvaslayer)
+
 
 #### 例子
 
