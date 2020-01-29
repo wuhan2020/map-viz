@@ -29,7 +29,10 @@ export class MapViz extends mixin<{}, State>() {
     if (params.name) {
       this.setState({ path: [...this.state.path, params.name] });
     } else if (this.state.path.length > 0) {
-      this.setState({ path: this.state.path.slice(0, this.state.length - 1) });
+      // TODO: will not trigger, try other approach
+      this.setState({
+        path: this.state.path.slice(0, this.state.path.length - 1)
+      });
     }
     // console.log(params);
   }
