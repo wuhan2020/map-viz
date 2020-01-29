@@ -101,13 +101,13 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
           mapType: 'map',
           roam: true,
           label: {
-            show: mapScale > 2.5,
-            fontSize: 2 * mapScale
+            show: true, //mapScale > 2.5,
+            fontSize: 10//2 * mapScale
           },
           emphasis: {
             label: {
-              show: mapScale > 2.5,
-              fontSize: 2 * mapScale
+              show: true, //mapScale > 2.5,
+              fontSize: 10//2 * mapScale
             }
           },
           data: Object.keys(data).map(name => ({

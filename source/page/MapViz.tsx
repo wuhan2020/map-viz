@@ -60,7 +60,7 @@ export class MapViz extends mixin<{}, State>() {
   };
 
 
-  public render({ }, { index }: State) {
+  public render({ }, { path }: State) {
     const config = this.getVirusMapConfig(path);
     return (
       <div>
