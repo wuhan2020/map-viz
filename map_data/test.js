@@ -155,8 +155,8 @@ pinyin2province={
       china: [ '中国' ],
       world: [ '世界' ],
       xianggang: [ '香港' ],
-      aomen: [ '澳门' ]
-      taiwan: [ '台湾' ]
+      aomen: [ '澳门' ],
+      taiwan: [ '台湾' ],
       jsdq: [ '上海', '江苏' ],
       hbdq: [ '河北', '北京', '天津' ],
       bfdq: [ '山西', '内蒙古', '宁夏', '新疆' ],
