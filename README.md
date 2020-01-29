@@ -26,7 +26,7 @@
 ## 任务拆分&参与指南
 [合作指南参考主repo](https://github.com/wuhan2020/wuhan2020/blob/master/CONTRIBUTING.md)（viz没有项目机器人+注意将demo script改成我们的repo）
 TL;DR:
-1. 请在[project面板](https://github.com/wuhan2020/map-viz/projects/1)自行认领&self-assign issues
+1. 请在[project面板](https://github.com/wuhan2020/map-viz/projects/1)自行认领&self-assign issues（如果不能更改assignee，请回复issue表示认领，我们会后面添加assign）
 2. 对数据和设计如果有讨论请参见如下issue:
   - [地图设计讨论](https://github.com/wuhan2020/map-viz/issues/2)
   - [数据格式设计讨论](https://github.com/wuhan2020/map-viz/issues/3)
