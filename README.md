@@ -103,6 +103,7 @@ npm start
 
 [百度地图地址转经纬度](https://service-qf7o2c4u-1252957949.gz.apigw.tencentcs.com/release/bmap?address=华中科技大学)
 
+[新闻收集接口](http://ncov.news.dragon-yuan.me/api/news?search=&page=)
 
 [1]: https://developers.google.cn/web/progressive-web-apps
 [2]: https://david-dm.org/wuhan2020/wuhan2020.github.io
