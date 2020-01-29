@@ -89,7 +89,7 @@ npm start
 
 [Baidu migration](https://huiyan.baidu.com/migration/cityrank.jsonp?dt=city&id=420100&type=move_out&date=20200128&callback=jsonp_1580257678289_5758459) 
 
-[DingXiangYuan real-time epidemic data(https://service-0gg71fu4-1252957949.gz.apigw.tencentcs.com/release/dingxiangyuan)
+[DingXiangYuan real-time epidemic data](https://service-0gg71fu4-1252957949.gz.apigw.tencentcs.com/release/dingxiangyuan)
 
 [DingXiangYuan historical data per minute](http://lab.isaaclin.cn/nCoV/api/area?latest=0)
 
