@@ -23,20 +23,16 @@
   - ([相关讨论](https://github.com/wuhan2020/map-viz/issues/2#issuecomment-578626578))
 - [数据格式设计讨论](https://github.com/wuhan2020/map-viz/issues/3)
 
-### 任务细化
-（可以自己创建issue开始做）
-#### 疫情图
-- [x] 基础疫情地图
-- [ ] 链接API拿到实时数据(QQ或丁香医生)
-- [ ] 添加时间信息
-  - [ ] 做时间轴+数据统计stacked area chart/line chart
-- [ ] 实现交互
-  - [ ] 点击省重绘省内地图/双击或提供按钮退出省内地图，同时重绘stacked area chart
-  - [ ] 点时间轴改变地图颜色
-
-#### 通用地图
-- [ ] 基础通用地图
-- [ ] 做医院/酒店的数据mockup
+## 任务拆分&参与指南
+[合作指南参考主repo](https://github.com/wuhan2020/wuhan2020/blob/master/CONTRIBUTING.md)（viz没有项目机器人+注意将demo script改成我们的repo）
+TL;DR:
+1. 请在[project面板](https://github.com/wuhan2020/map-viz/projects/1)自行认领&self-assign issues
+2. 对数据和设计如果有讨论请参见如下issue:
+  - [地图设计讨论](https://github.com/wuhan2020/map-viz/issues/2)
+  - [数据格式设计讨论](https://github.com/wuhan2020/map-viz/issues/3)
+  - [收集已有数据及可视化](https://github.com/wuhan2020/map-viz/issues/7)
+3. 如有其它建议请开issue
+4. 参与更多讨论请加入[slack讨论组](https://join.slack.com/t/wuhan2020/shared_invite/enQtOTI2NTU1NzU3MTM2LWQ1YjIzMDllYjYzYTE1OTNhMWU4OTZkOGYzOGJhOWM2MzdlMjgwMmZiOWEzYTQwNmJkZDI4OWRmM2Q2ZDM1MTc)，我们在channel #proj-map-visualization
 
 
 ## 技术栈
