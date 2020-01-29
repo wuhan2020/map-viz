@@ -7,7 +7,7 @@ This project is responsible for platform information display and visual geograph
 
 Based on ECharts visualization library and other technology repository:
 
-### 1)	Create a complete and independent outbreak map for Pneumonia Caused by the Novel Coronavirus (2019-nCoV)
+### Create a complete and independent outbreak map for Pneumonia Caused by the Novel Coronavirus (2019-nCoV)
 - **Purpose & Design**：Create an independent epidemic map visualization with two main goals
   i.Geographical accuracy: There is a city-level geographic granularity, and the beginning is a heatmap of a national map. Click on a province to redraw it into a provincial map. （[Redraw reference](https://gallery.echartsjs.com/editor.html?c=xm3iS_cb0g)）
   ii.Time information: There is a time axis. Click on an area to draw an epidemic development chart such as a[stacked area chart](https://echarts.apache.org/examples/en/editor.html?c=area-stack).([Timeline reference case](https://echarts.apache.org/examples/en/editor.html?c=mix-timeline-finance))

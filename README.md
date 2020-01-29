@@ -1,3 +1,5 @@
+# WE PROVIDE ENGLISH VERSION, PLEASE CLICK [HERE](https://github.com/wuhan2020/map-viz/blob/master/README_EN.md)
+
 # 武汉新型冠状病毒防疫信息收集平台-地图可视化项目
 
 本项目负责平台的信息展示，可视化地理信息。
