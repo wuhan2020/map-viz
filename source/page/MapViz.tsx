@@ -28,11 +28,6 @@ export class MapViz extends mixin<{}, State>() {
   chartOnClickCallBack(params) {
     if (params.name) {
       this.setState({ path: [...this.state.path, params.name] });
-    } else if (this.state.path.length > 0) {
-      // TODO: will not trigger, try other approach
-      this.setState({
-        path: this.state.path.slice(0, this.state.path.length - 1)
-      });
     }
     // console.log(params);
   }
@@ -52,12 +47,20 @@ export class MapViz extends mixin<{}, State>() {
       chartOnClickCallBack: this.chartOnClickCallBack.bind(this)
     };
   }
+  onClick = () => {
+    // back to country view
+    if (this.state.path.length > 0) {
+      this.setState({
+        path: this.state.path.slice(0, this.state.path.length - 1)
+      });
+    }
+  };
 
   public render({}, { path }: State) {
     const config = this.getVirusMapConfig(path);
     return (
       <div>
-        <div style={{ width: '100%', height: '90%' }}>
+        <div style={{ width: '100%', height: '100%' }} onClick={this.onClick}>
           <VirusMap
             name={config.name}
             data={config.data}
