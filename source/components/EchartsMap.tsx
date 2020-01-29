@@ -2,7 +2,7 @@
  * WebCell地图可视化通用组件
  * 本地图组件为地图定制化开发提供了最高的自由度
  * @author: shadowingszy
- * 
+ *
  * 传入props说明:
  * mapUrl: 地图json文件地址。
  * chartOptions: echarts中的所有options，注意，地图的map项值为'map'。
@@ -37,11 +37,15 @@ export class EchartsMap extends mixin<MapProps, {}>() {
 
   @attribute
   @watch
-  chartOnClickCallBack = (param, chart) => { console.log(param, chart) };
+  chartOnClickCallBack = (param, chart) => {
+    console.log(param, chart);
+  };
 
   @attribute
   @watch
-  chartGeoRoamCallBack = (param, chart) => { console.log(param, chart) };
+  chartGeoRoamCallBack = (param, chart) => {
+    console.log(param, chart);
+  };
 
   chartId = this.generateChartId();
 
@@ -54,8 +58,13 @@ export class EchartsMap extends mixin<MapProps, {}>() {
     return 'map' + random.toString() + dateStr.toString();
   }
 
-  connectedCallback() {
-    const { mapUrl, chartOptions, chartOnClickCallBack, chartGeoRoamCallBack } = this.props;
+  updatedCallback() {
+    const {
+      mapUrl,
+      chartOptions,
+      chartOnClickCallBack,
+      chartGeoRoamCallBack
+    } = this.props;
     setTimeout(() => {
       fetch(mapUrl)
         .then(response => response.json())
@@ -63,17 +72,17 @@ export class EchartsMap extends mixin<MapProps, {}>() {
           echarts.registerMap('map', data);
           const myChart = echarts.init(document.getElementById(this.chartId));
           myChart.setOption(chartOptions);
-          myChart.on('click', function (params) {
+          myChart.on('click', function(params) {
             chartOnClickCallBack(params, myChart);
           });
-          myChart.on("georoam", function (params) {
+          myChart.on('georoam', function(params) {
             if (params.dy === undefined && params.dx === undefined) {
               chartGeoRoamCallBack(params, myChart);
             }
           });
         })
         .catch(e => console.log('获取地图失败', e));
-    }, 0)
+    }, 0);
   }
 
   public render() {

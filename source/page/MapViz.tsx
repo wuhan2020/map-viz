@@ -7,11 +7,16 @@
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch, on } from 'web-cell';
 import { VirusMap } from '../components/VirusMap';
-import mockData from '../../mock/map_viz_mock_data.js';
+// import mockData from '../../mock/map_viz_mock_data.js';
+import rawData from '../../data/isaaclin/current.json';
+import { convertCountry } from '../adapters/isaaclin';
+import { PatientStatData } from '../adapters/patientStatInterface';
 
 interface State {
-  index: number;
+  path: string[];
 }
+
+const data = convertCountry(rawData['results']);
 
 @observer
 @component({
@@ -19,31 +24,40 @@ interface State {
   renderTarget: 'children'
 })
 export class MapViz extends mixin<{}, State>() {
-  state = { index: 0 };
+  state = { path: [] };
+  chartOnClickCallBack(params) {
+    // this.setState({ path: [...this.state.path, params.name] });
+    console.log(params);
+  }
+  getVirusMapConfig(path) {
+    let name = '中国';
 
-  getVirusMapConfig(index) {
-    return {
-      mapUrl: mockData[index].mapUrl,
-      data: mockData[index].data,
-      chartOnClickCallBack: function (params) {
-        console.log(params);
-      }
+    let mapData: PatientStatData[];
+    if (path.length === 0) {
+      mapData = Object.values(data.provinces);
+    } else if (path.length === 1) {
+      name = path[0];
+      mapData = Object.values(data.provinces[name].cities);
     }
+    return {
+      name,
+      data: mapData,
+      chartOnClickCallBack: this.chartOnClickCallBack.bind(this)
+    };
   }
 
-  public render({}, { index }: State) {
-    const config = this.getVirusMapConfig(index);
+  public render({}, { path }: State) {
+    const config = this.getVirusMapConfig(path);
     return (
       <div>
         <div style={{ width: '100%', height: '90%' }}>
           <VirusMap
-            mapUrl={config.mapUrl}
+            name={config.name}
             data={config.data}
             chartOnClickCallBack={config.chartOnClickCallBack}
           />
         </div>
       </div>
-
     );
   }
 }
