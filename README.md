@@ -91,7 +91,7 @@ npm start
 
 [百度实时疫情](https://service-nxxl1y2s-1252957949.gz.apigw.tencentcs.com/release/newpneumonia)
 
-[百度迁徙](https://service-8o85sm22-1252957949.gz.apigw.tencentcs.com/release/qianxi) 
+[百度迁徙](https://huiyan.baidu.com/migration/cityrank.jsonp?dt=city&id=420100&type=move_out&date=20200128&callback=jsonp_1580257678289_5758459) 
 
 [丁香园实时疫情](https://service-0gg71fu4-1252957949.gz.apigw.tencentcs.com/release/dingxiangyuan)
 
