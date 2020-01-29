@@ -4,6 +4,7 @@ import {
   CityData,
   PatientStatData
 } from './patientStatInterface';
+import long2short from './long2short'; // some city names are NOT short names so we also convert them here
 
 function convertStat(source): PatientStatData {
   return {
@@ -37,7 +38,8 @@ function convertProvince(source): ProvinceData {
   let cities = {};
   if (source.cities && source.cities.length > 0) {
     source.cities.forEach(
-      (c: { cityName: string }) => (cities[c.cityName] = convertCity(c))
+      (c: { cityName: string }) =>
+        (cities[long2short(c.cityName)] = convertCity(c))
     );
   }
   return {
@@ -49,7 +51,7 @@ function convertProvince(source): ProvinceData {
 }
 
 function convertCity(source): CityData {
-  return { name: source.cityName, ...convertStat(source) };
+  return { name: long2short(source.cityName), ...convertStat(source) };
 }
 
 export { convertCountry, convertProvince, convertCity };

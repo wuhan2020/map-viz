@@ -49,7 +49,7 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
     mapScale: 1
   };
 
-  getChartOptions(data, mapScale) {
+  getChartOptions(data: { [name: string]: PatientStatData }, mapScale) {
     return {
       title: {
         text: '疫情地图'
@@ -58,17 +58,25 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
         trigger: 'item',
         formatter: function(params) {
           const outputArray = [params.name];
-          if (data[params.dataIndex].confirmed !== undefined) {
-            outputArray.push('确诊：' + data[params.dataIndex].confirmed);
+          if (data[params.name] === undefined) {
+            data[params.name] = {
+              confirmed: 0,
+              suspected: 0,
+              cured: 0,
+              dead: 0
+            };
           }
-          if (data[params.dataIndex].suspect !== undefined) {
-            outputArray.push('疑似：' + data[params.dataIndex].suspect);
+          if (data[params.name].confirmed !== undefined) {
+            outputArray.push('确诊：' + data[params.name].confirmed);
           }
-          if (data[params.dataIndex].cured !== undefined) {
-            outputArray.push('治愈：' + data[params.dataIndex].cured);
+          if (data[params.name].suspected !== undefined) {
+            outputArray.push('疑似：' + data[params.name].suspected);
           }
-          if (data[params.dataIndex].death !== undefined) {
-            outputArray.push('死亡：' + data[params.dataIndex].death);
+          if (data[params.name].cured !== undefined) {
+            outputArray.push('治愈：' + data[params.name].cured);
+          }
+          if (data[params.name].dead !== undefined) {
+            outputArray.push('死亡：' + data[params.name].dead);
           }
           return outputArray.join('<br/>');
         }
@@ -102,9 +110,10 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
               fontSize: 2 * mapScale
             }
           },
-          data: data.map(item => {
-            return { name: item.name, value: item.confirmed };
-          })
+          data: Object.keys(data).map(name => ({
+            name,
+            value: data[name].confirmed || 0
+          }))
         }
       ]
     };

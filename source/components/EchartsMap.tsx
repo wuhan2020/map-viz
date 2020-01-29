@@ -13,12 +13,17 @@
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import echarts from 'echarts';
+import long2short from '../adapters/long2short';
 
 interface MapProps {
   mapUrl?: string;
   chartOptions?: Object;
   chartOnClickCallBack?: Function;
   chartGeoRoamCallBack?: Function;
+}
+// This is a workaround to
+function findMatchPlaces(places: string[], tested: string) {
+  return places.find(p => p.includes(tested));
 }
 
 @observer
@@ -69,6 +74,11 @@ export class EchartsMap extends mixin<MapProps, {}>() {
       fetch(mapUrl)
         .then(response => response.json())
         .then(data => {
+          // convert to short names, better to use a map already with short names
+          data.features.forEach(
+            (f: { properties: { name: string } }) =>
+              (f.properties.name = long2short(f.properties.name))
+          );
           echarts.registerMap('map', data);
           const myChart = echarts.init(document.getElementById(this.chartId));
           myChart.setOption(chartOptions);

@@ -26,22 +26,26 @@ const data = convertCountry(rawData['results']);
 export class MapViz extends mixin<{}, State>() {
   state = { path: [] };
   chartOnClickCallBack(params) {
-    // this.setState({ path: [...this.state.path, params.name] });
-    console.log(params);
+    if (params.name) {
+      this.setState({ path: [...this.state.path, params.name] });
+    } else if (this.state.path.length > 0) {
+      this.setState({ path: this.state.path.slice(0, this.state.length - 1) });
+    }
+    // console.log(params);
   }
   getVirusMapConfig(path) {
     let name = '中国';
 
-    let mapData: PatientStatData[];
+    let dataOnMap: { [name: string]: PatientStatData };
     if (path.length === 0) {
-      mapData = Object.values(data.provinces);
+      dataOnMap = data.provinces;
     } else if (path.length === 1) {
       name = path[0];
-      mapData = Object.values(data.provinces[name].cities);
+      dataOnMap = data.provinces[name].cities;
     }
     return {
       name,
-      data: mapData,
+      data: dataOnMap,
       chartOnClickCallBack: this.chartOnClickCallBack.bind(this)
     };
   }
