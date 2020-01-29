@@ -4,7 +4,7 @@
 
 ## 传入参数及说明:
 key: 百度地图API的密钥，默认为我自己申请的百度地图API密钥，建议自己申请。
-mapUrl: 地图json文件地址，可参考/mock/information_mock_data.js中的数据进行配置。
+mapUrl: 地图json文件地址，可参考x中的数据进行配置。
 
 mapUrl入参样例：
 ```
