@@ -1,4 +1,4 @@
-# WebCell疫情地图可视化组件
+# WebCell 疫情地图可视化组件
 本地图组件提供了开箱即用的疫情地图可视化组件。
 @author: shadowingszy
 

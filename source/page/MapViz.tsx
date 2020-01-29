@@ -8,6 +8,7 @@ import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch, on } from 'web-cell';
 import { VirusMap } from '../components/VirusMap';
 import mockData from '../../mock/map_viz_mock_data.js';
+import { InformationMap } from '../components/InformationMap';
 
 interface State {
   index: number;
@@ -31,19 +32,21 @@ export class MapViz extends mixin<{}, State>() {
     }
   }
 
-  public render({}, { index }: State) {
+  public render({ }, { index }: State) {
     const config = this.getVirusMapConfig(index);
     return (
       <div>
-        <div style={{ width: '100%', height: '90%' }}>
+        <div style={{ width: '100%', height: '50%' }}>
           <VirusMap
             mapUrl={config.mapUrl}
             data={config.data}
             chartOnClickCallBack={config.chartOnClickCallBack}
           />
         </div>
+        <div style={{ width: '100%', height: '50%' }}>
+          <InformationMap></InformationMap>
+        </div>
       </div>
-
     );
   }
 }
