@@ -1,7 +1,7 @@
 /**
  * WebCell疫情地图展示页面
- * 使用VirusMap组件构建疫情地图的示例，包含了国家级、省级不同粒度疫情地图的查看
- * @author: shadowingszy
+ * 使用VirusMap组件构建疫情地图的示例，包含了国家级、省级不同粒度疫情地图的查看与跳转
+ * @author: shadowingszy, yarray
  */
 
 import { observer } from 'mobx-web-cell';

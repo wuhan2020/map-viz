@@ -1,11 +1,11 @@
 /**
  * WebCell疫情地图组件
  * 基于EchartsMap组件构建的疫情地图组件，传入地图url及各区域的具体信息后自动生成疫情地图。
- * @author: shadowingszy
+ * @author: shadowingszy, yarray
  *
  * 传入props说明:
- * mapUrl: 地图json文件地址。
- * data: echarts中的数据。
+ * name: 地图对应的行政区划（简写）
+ * data: 显示在地图中的疫情数据。
  * chartOnClickCallBack: 点击地图后的回调函数。
  */
 
