@@ -1,8 +1,8 @@
 /**
- * WebCell地图可视化通用组件
- * 本地图组件为地图定制化开发提供了最高的自由度
+ * WebCell Echarts热力图-地图可视化通用组件
+ * 本地图组件为热力图-地图定制化开发提供了最高的自由度
  * @author: shadowingszy
- * 
+ *
  * 传入props说明:
  * mapUrl: 地图json文件地址。
  * chartOptions: echarts中的所有options，注意，地图的map项值为'map'。
@@ -13,12 +13,17 @@
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import echarts from 'echarts';
+import long2short from '../adapters/long2short';
 
 interface MapProps {
   mapUrl?: string;
   chartOptions?: Object;
   chartOnClickCallBack?: Function;
   chartGeoRoamCallBack?: Function;
+}
+// This is a workaround to
+function findMatchPlaces(places: string[], tested: string) {
+  return places.find(p => p.includes(tested));
 }
 
 @observer
@@ -37,11 +42,15 @@ export class EchartsMap extends mixin<MapProps, {}>() {
 
   @attribute
   @watch
-  chartOnClickCallBack = (param, chart) => { console.log(param, chart) };
+  chartOnClickCallBack = (param, chart) => {
+    console.log(param, chart);
+  };
 
   @attribute
   @watch
-  chartGeoRoamCallBack = (param, chart) => { console.log(param, chart) };
+  chartGeoRoamCallBack = (param, chart) => {
+    console.log(param, chart);
+  };
 
   chartId = this.generateChartId();
 
@@ -54,26 +63,36 @@ export class EchartsMap extends mixin<MapProps, {}>() {
     return 'map' + random.toString() + dateStr.toString();
   }
 
-  connectedCallback() {
-    const { mapUrl, chartOptions, chartOnClickCallBack, chartGeoRoamCallBack } = this.props;
+  updatedCallback() {
+    const {
+      mapUrl,
+      chartOptions,
+      chartOnClickCallBack,
+      chartGeoRoamCallBack
+    } = this.props;
     setTimeout(() => {
       fetch(mapUrl)
         .then(response => response.json())
         .then(data => {
+          // convert to short names, better to use a map already with short names
+          data.features.forEach(
+            (f: { properties: { name: string } }) =>
+              (f.properties.name = long2short(f.properties.name))
+          );
           echarts.registerMap('map', data);
           const myChart = echarts.init(document.getElementById(this.chartId));
           myChart.setOption(chartOptions);
-          myChart.on('click', function (params) {
+          myChart.on('click', function(params) {
             chartOnClickCallBack(params, myChart);
           });
-          myChart.on("georoam", function (params) {
+          myChart.on('georoam', function(params) {
             if (params.dy === undefined && params.dx === undefined) {
               chartGeoRoamCallBack(params, myChart);
             }
           });
         })
         .catch(e => console.log('获取地图失败', e));
-    }, 0)
+    }, 0);
   }
 
   public render() {

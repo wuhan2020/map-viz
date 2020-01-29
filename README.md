@@ -71,6 +71,9 @@ npm start
 
 [百度地图](http://lbsyun.baidu.com/jsdemo.htm#canvaslayer)
 
+[坐标拾取](http://api.map.baidu.com/lbsapi/getpoint/index.html)
+
+
 
 #### 例子
 
@@ -81,6 +84,7 @@ npm start
 [丁香园实时疫情数据](https://3g.dxy.cn/newh5/view/pneumonia)
 
 [qq实时疫情数据](https://news.qq.com/zt2020/page/feiyan.htm)
+
 
 
 #### 临时接口
