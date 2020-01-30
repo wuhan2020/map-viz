@@ -37,6 +37,31 @@ TL;DR:
 4. 参与更多讨论请加入[slack讨论组](https://join.slack.com/t/wuhan2020/shared_invite/enQtOTI2NTU1NzU3MTM2LWQ1YjIzMDllYjYzYTE1OTNhMWU4OTZkOGYzOGJhOWM2MzdlMjgwMmZiOWEzYTQwNmJkZDI4OWRmM2Q2ZDM1MTc)，我们在channel #proj-map-visualization
 
 
+## 进度一览
+
+**!!具体进行中及待领任务请看[project面板](https://github.com/wuhan2020/map-viz/projects/1)**
+
+### 疫情地图 
+已经有基础疫情地图，界面排布根据界面大小的缩放而改动，能显示省市两个层级的疫情信息。已经接好了数据接口，可以从官方API拿到每日信息 (但是为了避免对API造成巨大负担现在是每日手动拉下来的。)
+- [x] 省市层级交互:
+
+![img2](./screenshots/virus-map-demo.gif)
+- [x] 支持resize:
+
+![img1](./screenshots/virus-map-resize.gif)
+
+#### TODO
+- [ ] 在疫情数据中加入时间轴
+- [ ] 在疫情数据中加入统计图（线图或者stacked area chart）显示疫情发展数据
+- [ ] 时间轴与统计图与地图互动
+
+### 通用组件
+已经有可视化其他地理信息 (e.g. 求援医院地理位置，酒店位置) 的通用地图控件，用百度地图API，可以精确在地图上标出。
+
+![img3](./screenshots/info-map-demo.gif)
+
+现在用mock数据做，之后应该会按照指示接入前端用来可视化他们的数据。[接入数据后的一个展示见这里](https://github.com/wuhan2020/map-viz/blob/master/screenshots/ifno-map-demo-realdata.png)(图太大……)
+
 ## 技术栈
 
 -   可视化库: [ECharts v4][13]
