@@ -20,13 +20,11 @@ interface MapProps {
   chartOptions?: any;
   isForceRatio?: number;
   isAdjustLabel?: boolean;
-  chartOnClickCallBack?: Function;
+  chartOnDblClickCallBack?: Function;
   chartGeoRoamCallBack?: Function;
 }
-// This is a workaround to
-function findMatchPlaces(places: string[], tested: string) {
-  return places.find(p => p.includes(tested));
-}
+
+const LONG_PRESS_INTERVAL = 500;
 
 @observer
 @component({
@@ -52,8 +50,14 @@ export class EchartsMap extends mixin<MapProps, {}>() {
 
   @attribute
   @watch
-  public chartOnClickCallBack = (param, chart) => {
-    console.log(param, chart);
+  public chartOnDblClickCallBack = (param, chart) => {
+    console.log('double click', param, chart);
+  };
+
+  @attribute
+  @watch
+  public chartOnLongPressCallBack = (param, chart) => {
+    console.log('long press', param, chart);
   };
 
   @attribute
@@ -125,7 +129,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
     const {
       mapUrl,
       chartOptions,
-      chartOnClickCallBack,
+      chartOnDblClickCallBack,
       chartGeoRoamCallBack
     } = this.props;
     if (this.chart !== undefined) {
@@ -142,9 +146,27 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         echarts.registerMap('map', data);
         this.chart = echarts.init(document.getElementById(this.chartId));
         this.chart.setOption(chartOptions);
-        this.chart.on('click', function(params) {
-          chartOnClickCallBack(params, this.chart);
+        this.chart.on('dblclick', function(params) {
+          chartOnDblClickCallBack(params, this.chart);
         });
+
+        // implement hover-then-click on mobile devices
+        let eventState = {
+          hovered: ''
+        };
+        this.chart.on('mouseover', params => {
+          // prevent click event to trigger immediately
+          setTimeout(() => (eventState.hovered = params.name), 0);
+        });
+        this.chart.on('mouseout', () => {
+          eventState.hovered = '';
+        });
+        this.chart.on('click', params => {
+          if (eventState.hovered.length > 0) {
+            chartOnDblClickCallBack(params, this.chart);
+          }
+        });
+
         this.chart.on('georoam', function(params) {
           if (
             this.chart !== undefined &&
