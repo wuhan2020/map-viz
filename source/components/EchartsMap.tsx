@@ -17,7 +17,9 @@ import long2short from '../adapters/long2short';
 
 interface MapProps {
   mapUrl?: string;
-  chartOptions?: Object;
+  chartOptions?: any;
+  isForceRatio?: number;
+  isAdjustLabel?: boolean;
   chartOnClickCallBack?: Function;
   chartGeoRoamCallBack?: Function;
 }
@@ -34,23 +36,36 @@ function findMatchPlaces(places: string[], tested: string) {
 export class EchartsMap extends mixin<MapProps, {}>() {
   @attribute
   @watch
-  mapUrl = '';
+  public mapUrl: string = '';
 
   @attribute
   @watch
-  chartOptions = {};
+  public isForceRatio: number = null;
 
   @attribute
   @watch
-  chartOnClickCallBack = (param, chart) => {
+  public isAdjustLabel: number = null;
+
+  @attribute
+  @watch
+  public chartOptions: Object = {};
+
+  @attribute
+  @watch
+  public chartOnClickCallBack = (param, chart) => {
     console.log(param, chart);
   };
 
   @attribute
   @watch
-  chartGeoRoamCallBack = (param, chart) => {
-    console.log(param, chart);
+  public chartGeoRoamCallBack = (param, chart) => {
+    this.adjustOption(param.zoom);
   };
+
+  constructor() {
+    super();
+    this.adjustOption = this.adjustOption.bind(this);
+  }
 
   chartId = this.generateChartId();
   chart: any;
@@ -62,6 +77,40 @@ export class EchartsMap extends mixin<MapProps, {}>() {
     const random = Math.floor(Math.random() * 100);
     const dateStr = new Date().getTime();
     return 'map' + random.toString() + dateStr.toString();
+  }
+
+
+  public adjustOption(scale: number=1): void {
+    const options =  this.props.chartOptions;
+    if (this.chart && options) {
+      const domWidth = this.chart.getWidth();
+      const domHeight = this.chart.getHeight();
+
+      options.series[0].zoom *= scale;
+      const size = options.series[0].zoom * Math.min(domWidth, domHeight);
+      if (this.props.isForceRatio) {
+        const maxWidth = Math.min(domWidth, domHeight / this.props.isForceRatio);
+        // move the item MUCH closer
+        if (domHeight > domWidth){
+          options.visualMap[0].orient = "horizontal";
+          options.visualMap[0].right = undefined;
+          options.visualMap[0].left = undefined;
+        } else if (domHeight > domWidth * this.props.isForceRatio){
+          options.visualMap[0].orient = "vertical";
+          options.visualMap[0].left = undefined;
+          options.visualMap[0].right = 0;
+        } else {
+          options.visualMap[0].orient = "vertical";
+          options.visualMap[0].right = undefined;
+          options.visualMap[0].left = Math.min(domWidth /2 + maxWidth / 2, domWidth-100)
+        } 
+      }
+      if (this.props.isAdjustLabel && scale) {
+        if (size < 200) { options.series[0].label.show = false; }
+        else { options.series[0].label.show = true; }
+      }
+      this.chart.setOption(options);
+    }
   }
 
   updatedCallback() {
@@ -93,6 +142,11 @@ export class EchartsMap extends mixin<MapProps, {}>() {
             chartGeoRoamCallBack(params, this.chart);
           }
         });
+        window.onresize = () => {
+          this.chart.resize();
+          this.adjustOption();
+        }
+        this.adjustOption();
         this.chart.hideLoading();
       })
       .catch(e => console.log('获取地图失败', e));
