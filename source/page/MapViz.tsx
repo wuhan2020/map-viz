@@ -8,7 +8,7 @@
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell } from 'web-cell';
 import { HierarchicalVirusMap } from '../components/HierarchicalVirusMap';
-
+import { VirusLineCharts } from '../components/VirusLineCharts';
 import rawData from '../../data/isaaclin/current.json';
 import { convertCountry } from '../adapters/isaaclin';
 import { InformationMap } from '../components/InformationMap';
@@ -38,6 +38,9 @@ export class MapViz extends mixin<{}, State>() {
       <div>
         <div style={{ width: '100%', height: '100%' }}>
           <HierarchicalVirusMap />
+        </div>
+        <div style={{ width: '100%', height: '100%' }}>
+          <VirusLineCharts />
         </div>
         <div style={{ width: '100%', height: '100%' }}>
           <InformationMap
