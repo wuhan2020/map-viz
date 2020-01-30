@@ -11,9 +11,11 @@
 ### 创建一个完整独立的疫情地图
 - **目的&设计**：创建一个独立的疫情地图可视化，有两个主要目标
   1. 地理精度：有市级地理粒度，最开始是一个全国地图的heatmap，点击一个省重绘成省map。（[重绘参考](https://gallery.echartsjs.com/editor.html?c=xm3iS_cb0g)）
+    - optional: 可能会做成县级精度，具体见[讨论](https://github.com/wuhan2020/map-viz/issues/52)
   2. 时间信息：有时间轴，点击一个地区可以画出[stacked area chart](https://echarts.apache.org/examples/en/editor.html?c=area-stack)之类的疫情发展图 (确诊/疑似/死亡为不同层)，也可以根据选择的时间点重绘地图。([时间轴参考案例](https://echarts.apache.org/examples/en/editor.html?c=mix-timeline-finance))
-- **使用**：单独webpage，最终作为iframe整合进前端页面
-  - 与下面的通用组件不同，疫情地图与前端其他组件交互较少，且数据可以[通过API直接获取](http://lab.isaaclin.cn/nCoV/api/area?latest=0)，单独成项目更合理。
+- **使用**：取决于数据
+  - 如果自动抓取省市级数据：疫情地图与前端其他组件交互较少，且数据可以[通过API直接获取](http://lab.isaaclin.cn/nCoV/api/area?latest=0)，可以作为单独webpage，最终作为iframe整合进前端页面。
+  - 如果使用手动抓取的县级数据，则作为组件融入前端，接受传入数据。[讨论](https://github.com/wuhan2020/map-viz/issues/52)
 
 ### 创建一个通用地图组件
 - **目的**：用于可视化各种不同地理信息（例如医院位置，酒店位置，etc.）
