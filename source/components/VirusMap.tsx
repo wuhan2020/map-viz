@@ -16,9 +16,14 @@ import { PatientStatData } from '../adapters/patientStatInterface';
 import MapUrls from '../../map_data/map_dict.json';
 
 type MapDataType = { [name: string]: PatientStatData };
+type STMapDataType = {
+  timeline: number[];
+  data: { [timestamp: number]: MapDataType };
+}; // spatio-temporal data
+
 interface VirusMapProps {
   name: string;
-  data?: MapDataType;
+  data?: MapDataType | STMapDataType;
   chartOnClickCallBack?: Function;
 }
 
@@ -46,37 +51,14 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     mapScale: 1
   };
 
-  public getChartOptions(data: MapDataType) {
+  baseOptions() {
     return {
       title: {
         text: '疫情地图'
       },
       tooltip: {
         trigger: 'item',
-        formatter: function(params) {
-          const outputArray = [params.name];
-          if (data[params.name] === undefined) {
-            data[params.name] = {
-              confirmed: 0,
-              suspected: 0,
-              cured: 0,
-              dead: 0
-            };
-          }
-          if (data[params.name].confirmed !== undefined) {
-            outputArray.push('确诊：' + data[params.name].confirmed);
-          }
-          if (data[params.name].suspected !== undefined) {
-            outputArray.push('疑似：' + data[params.name].suspected);
-          }
-          if (data[params.name].cured !== undefined) {
-            outputArray.push('治愈：' + data[params.name].cured);
-          }
-          if (data[params.name].dead !== undefined) {
-            outputArray.push('死亡：' + data[params.name].dead);
-          }
-          return outputArray.join('<br/>');
-        }
+        formatter: params => ''
       },
       visualMap: [
         {
@@ -115,7 +97,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           type: 'map',
           mapType: 'map',
           // roam: true,
-          zoom: 1, 
+          zoom: 1,
           label: {
             show: true, //mapScale > 2.5,
             fontSize: 10, //2 * mapScale
@@ -128,6 +110,42 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
               fontSize: 10 //2 * mapScale
             }
           },
+          data: []
+        }
+      ]
+    };
+  }
+
+  overrides(data: MapDataType) {
+    return {
+      tooltip: {
+        formatter: function(params) {
+          const outputArray = [params.name];
+          if (data[params.name] === undefined) {
+            data[params.name] = {
+              confirmed: 0,
+              suspected: 0,
+              cured: 0,
+              dead: 0
+            };
+          }
+          if (data[params.name].confirmed !== undefined) {
+            outputArray.push('确诊：' + data[params.name].confirmed);
+          }
+          if (data[params.name].suspected !== undefined) {
+            outputArray.push('疑似：' + data[params.name].suspected);
+          }
+          if (data[params.name].cured !== undefined) {
+            outputArray.push('治愈：' + data[params.name].cured);
+          }
+          if (data[params.name].dead !== undefined) {
+            outputArray.push('死亡：' + data[params.name].dead);
+          }
+          return outputArray.join('<br/>');
+        }
+      },
+      series: [
+        {
           data: Object.keys(data).map(name => ({
             name,
             value: data[name].confirmed || 0
@@ -135,6 +153,20 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
         }
       ]
     };
+  }
+
+  public getChartOptions(data: MapDataType) {
+    let options = this.baseOptions();
+    let extra = this.overrides(data);
+    options.series[0].data = extra.series[0].data;
+    options.tooltip.formatter = extra.tooltip.formatter;
+    return options;
+  }
+
+  public getSTChartOptions(data: STMapDataType) {
+    let options = this.getChartOptions(
+      data.data[data.timeline[data.timeline.length - 1]]
+    );
   }
 
   public render({ name, data, chartOnClickCallBack }: VirusMapProps, {}) {
