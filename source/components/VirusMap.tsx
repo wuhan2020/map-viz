@@ -94,11 +94,11 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           },
           pieces: [
             { min: 0, max: 0, color: '#EEEEEE' },
-            { gt: 1, lte: 10, color: '#FFEBCD' },
-            { gt: 10, lte: 50, color: '#FFAF50' },
-            { gt: 50, lte: 100, color: '#FF4500' },
-            { gt: 100, lte: 500, color: '#CD5C5C' },
-            { gt: 500, lte: 1000, color: '#800000' },
+            { gt: 1, lte: 10, color: '#FFFADD' },
+            { gt: 10, lte: 50, color: '#FFDC90' },
+            { gt: 50, lte: 100, color: '#FF9040' },
+            { gt: 100, lte: 500, color: '#DD5C5C' },
+            { gt: 500, lte: 1000, color: '#901010' },
             { gt: 1000, color: '#600000' }
           ]
           /*
