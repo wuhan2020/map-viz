@@ -82,8 +82,8 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
         }
       },
       dataRange: {
-        x: 'left',
-        y: 'bottom',
+        x: '65%',
+        y: '30%',
         splitList: [
           { start: 0, end: 0, color: '#EEEEEE' },
           { start: 1, end: 10, color: '#FFEBCD' },
@@ -102,12 +102,12 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
           roam: true,
           label: {
             show: true, //mapScale > 2.5,
-            fontSize: 10//2 * mapScale
+            fontSize: 10 //2 * mapScale
           },
           emphasis: {
             label: {
               show: true, //mapScale > 2.5,
-              fontSize: 10//2 * mapScale
+              fontSize: 10 //2 * mapScale
             }
           },
           data: Object.keys(data).map(name => ({
