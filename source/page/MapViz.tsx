@@ -6,20 +6,12 @@
 
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch, on } from 'web-cell';
-import { VirusMap } from '../components/VirusMap';
+import { HierarchicalVirusMap } from '../components/HierarchicalVirusMap';
 
 // import mockData from '../../mock/map_viz_mock_data.js';
-import rawData from '../../data/isaaclin/current.json';
-import { convertCountry } from '../adapters/isaaclin';
-import { PatientStatData } from '../adapters/patientStatInterface';
 import { InformationMap } from '../components/InformationMap';
 
-
-interface State {
-  path: string[];
-}
-
-const data = convertCountry(rawData['results']);
+interface State {}
 
 @observer
 @component({
@@ -27,49 +19,13 @@ const data = convertCountry(rawData['results']);
   renderTarget: 'children'
 })
 export class MapViz extends mixin<{}, State>() {
-  state = { path: [] };
-  chartOnClickCallBack(params) {
-    if (params.name) {
-      this.setState({ path: [...this.state.path, params.name] });
-    }
-    // console.log(params);
-  }
-  getVirusMapConfig(path) {
-    let name = '中国';
+  state = {};
 
-    let dataOnMap: { [name: string]: PatientStatData };
-    if (path.length === 0) {
-      dataOnMap = data.provinces;
-    } else if (path.length === 1) {
-      name = path[0];
-      dataOnMap = data.provinces[name].cities;
-    }
-    return {
-      name,
-      data: dataOnMap,
-      chartOnClickCallBack: this.chartOnClickCallBack.bind(this)
-    };
-  }
-  onClick = () => {
-    // back to country view
-    if (this.state.path.length > 0) {
-      this.setState({
-        path: this.state.path.slice(0, this.state.path.length - 1)
-      });
-    }
-  };
-
-
-  public render({ }, { path }: State) {
-    const config = this.getVirusMapConfig(path);
+  public render({}, {}: State) {
     return (
       <div>
-        <div style={{ width: '100%', height: '50%' }} onClick={this.onClick}>
-          <VirusMap
-            name={config.name}
-            data={config.data}
-            chartOnClickCallBack={config.chartOnClickCallBack}
-          />
+        <div style={{ width: '100%', height: '50%' }}>
+          <HierarchicalVirusMap />
         </div>
         <div style={{ width: '100%', height: '50%' }}>
           <InformationMap></InformationMap>
