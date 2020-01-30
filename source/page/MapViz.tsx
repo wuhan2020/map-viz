@@ -15,6 +15,7 @@ import rawData from '../../data/isaaclin/history.json';
 import { convertProvincesSeries } from '../adapters/isaaclin';
 import { InformationMap } from '../components/InformationMap';
 import informationMockData from '../../mock/information_map_general_mock_data';
+import { VirusLineCharts } from '../components/VirusLineCharts';
 
 interface State {
   path: string[];
