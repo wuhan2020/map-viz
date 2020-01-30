@@ -89,7 +89,11 @@ export class EchartsMap extends mixin<MapProps, {}>() {
           chartOnClickCallBack(params, this.chart);
         });
         this.chart.on('georoam', function(params) {
-          if (params.dy === undefined && params.dx === undefined) {
+          if (
+            this.chart !== undefined &&
+            params.dy === undefined &&
+            params.dx === undefined
+          ) {
             chartGeoRoamCallBack(params, this.chart);
           }
         });

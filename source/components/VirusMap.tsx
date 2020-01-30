@@ -90,7 +90,7 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
           { start: 10, end: 50, color: '#FFAF50' },
           { start: 50, end: 100, color: '#FF4500' },
           { start: 100, end: 500, color: '#CD5C5C' },
-          { start: 500, end: 1000, color: '#800000' },
+          { start: 500, end: 1000, color: '#866666' },
           { start: 1000, color: '#600000' }
         ]
       },
@@ -99,10 +99,12 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
           name: '疫情数据',
           type: 'map',
           mapType: 'map',
-          roam: true,
+          // roam: true, // disable zoom
           label: {
             show: true, //mapScale > 2.5,
-            fontSize: 10 //2 * mapScale
+            fontSize: 10, //2 * mapScale
+            textBorderColor: '#EEEEEE',
+            textBorderWidth: 1
           },
           emphasis: {
             label: {
