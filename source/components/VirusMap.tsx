@@ -1,59 +1,52 @@
 /**
  * WebCell疫情地图组件
  * 基于EchartsMap组件构建的疫情地图组件，传入地图url及各区域的具体信息后自动生成疫情地图。
- * @author: shadowingszy
- * 
+ * @author: shadowingszy, yarray
+ *
  * 传入props说明:
- * mapUrl: 地图json文件地址。
- * data: echarts中的数据。
+ * name: 地图对应的行政区划（简写）
+ * data: 显示在地图中的疫情数据。
  * chartOnClickCallBack: 点击地图后的回调函数。
  */
 
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import { EchartsMap } from '../components/EchartsMap';
+import { PatientStatData } from '../adapters/patientStatInterface';
+import MapUrls from '../../map_data/map_dict.json';
 
-interface dataObject {
-  name: string;
-  confirmed: number;
-  suspect: number;
-  cured: number;
-  death: number;
-}
-
+type MapDataType = { [name: string]: PatientStatData };
 interface VirusMapProps {
-  mapUrl?: string;
-  data?: Array<dataObject>;
+  name: string;
+  data?: MapDataType;
   chartOnClickCallBack?: Function;
 }
 
-interface VirusMapState {
-  mapScale: number;
-}
 
 @observer
 @component({
   tagName: 'virus-map',
   renderTarget: 'children'
 })
-export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
+export class VirusMap extends mixin<VirusMapProps, {}>() {
   @attribute
   @watch
-  mapUrl = '';
+  public name: string = '';
 
   @attribute
   @watch
-  data = [];
+  public data: MapDataType = {};
 
   @attribute
   @watch
-  chartOnClickCallBack = (param, chart) => { console.log(param, chart) };
-
-  state = {
+  public chartOnClickCallBack = (param, chart) => {
+    console.log(param, chart);
+  };
+  public state = {
     mapScale: 1
   };
 
-  getChartOptions(data, mapScale) {
+  public getChartOptions(data: MapDataType) {
     return {
       title: {
         text: '疫情地图'
@@ -61,73 +54,96 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
       tooltip: {
         trigger: 'item',
         formatter: function (params) {
-          const outputArray = [params.name]
-          if (data[params.dataIndex].confirmed !== undefined) {
-            outputArray.push('确诊：' + data[params.dataIndex].confirmed)
+          const outputArray = [params.name];
+          if (data[params.name] === undefined) {
+            data[params.name] = {
+              confirmed: 0,
+              suspected: 0,
+              cured: 0,
+              dead: 0
+            };
           }
-          if (data[params.dataIndex].suspect !== undefined) {
-            outputArray.push('疑似：' + data[params.dataIndex].suspect)
+          if (data[params.name].confirmed !== undefined) {
+            outputArray.push('确诊：' + data[params.name].confirmed);
           }
-          if (data[params.dataIndex].cured !== undefined) {
-            outputArray.push('治愈：' + data[params.dataIndex].cured)
+          if (data[params.name].suspected !== undefined) {
+            outputArray.push('疑似：' + data[params.name].suspected);
           }
-          if (data[params.dataIndex].death !== undefined) {
-            outputArray.push('死亡：' + data[params.dataIndex].death)
+          if (data[params.name].cured !== undefined) {
+            outputArray.push('治愈：' + data[params.name].cured);
+          }
+          if (data[params.name].dead !== undefined) {
+            outputArray.push('死亡：' + data[params.name].dead);
           }
           return outputArray.join('<br/>');
         }
       },
-      dataRange: {
-        x: 'left',
-        y: 'bottom',
-        splitList: [
-          { start: 0, end: 0, color: '#EEEEEE' },
-          { start: 1, end: 10, color: '#FFEBCD' },
-          { start: 10, end: 50, color: '#FFAF50' },
-          { start: 50, end: 100, color: '#FF4500' },
-          { start: 100, end: 500, color: '#CD5C5C' },
-          { start: 500, end: 1000, color: '#800000' },
-          { start: 1000, color: '#600000' },
-        ]
-      },
+      visualMap: [{
+        type: 'piecewise',
+        right: '10%',
+        //orient: "horizontal",
+        itemHeight: 10,
+        itemWidth: 14,
+        itemGap: 10,
+        bottom: "10%",
+        itemSymbol: "circle",
+        backgroundColor: "rgba(200,200,200, 0.2)",
+        padding: 10,
+        textStyle: {
+          fontSize: 10
+        },
+        pieces: [
+          { min: 0, max: 0, color: '#EEEEEE' },
+          { gt: 1, lte: 10, color: '#FFEBCD' },
+          { gt: 10, lte: 50, color: '#FFAF50' },
+          { gt: 50, lte: 100, color: '#FF4500' },
+          { gt: 100, lte: 500, color: '#CD5C5C' },
+          { gt: 500, lte: 1000, color: '#800000' },
+          { gt: 1000, color: '#600000' }
+        ],
+        /*
+        formatter: (gt: number, lte: number) =>  {
+          console.log(gt, lte);
+          return lte === Infinity ? `> ${gt}` : lte > gt ? `(${gt}, ${lte}]` : `= ${lte}`}
+        */
+      }],
       series: [
         {
           name: '疫情数据',
           type: 'map',
           mapType: 'map',
           roam: true,
+          zoom: 1, 
           label: {
-              show: mapScale > 2.5,
-              fontSize: 2 * mapScale
+            show: true, //mapScale > 2.5,
+            fontSize: 10 //2 * mapScale
           },
           emphasis: {
             label: {
-              show: mapScale > 2.5,
-              fontSize: 2 * mapScale
+              show: true, //mapScale > 2.5,
+              fontSize: 10 //2 * mapScale
             }
           },
-          data: data.map((item) => { return { name: item.name, value: item.confirmed } })
+          data: Object.keys(data).map(name => ({
+            name,
+            value: data[name].confirmed || 0
+          }))
         }
       ]
     };
   }
 
-  public render({ mapUrl, data, chartOnClickCallBack }: VirusMapProps, { mapScale }: VirusMapState) {
+  public render(
+    { name, data, chartOnClickCallBack }: VirusMapProps,
+    { }
+  ) {
     // 缩放时间重新set一下option
-    const chartGeoRoamCallBack = (params, chart) => {
-      this.setState({
-        mapScale: mapScale *= params.zoom
-      });
-      // 这里使用防抖函数
-      chart.setOption(this.getChartOptions(data, mapScale));
-    }
-    return (
-      <EchartsMap
-        mapUrl={mapUrl}
-        chartOptions={this.getChartOptions(data, mapScale)}
+    return <EchartsMap
+        mapUrl={MapUrls[name]}
+        isForceRatio={0.75}
+        isAdjustLabel={true}
+        chartOptions={this.getChartOptions(data)}
         chartOnClickCallBack={chartOnClickCallBack}
-        chartGeoRoamCallBack={chartGeoRoamCallBack}
       />
-    );
   }
 }
