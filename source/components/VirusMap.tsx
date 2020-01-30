@@ -103,7 +103,7 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
           label: {
             show: true, //mapScale > 2.5,
             fontSize: 10, //2 * mapScale
-            textBorderColor: '#EEEEEE',
+            textBorderColor: '#FAFAFA',
             textBorderWidth: 1
           },
           emphasis: {
