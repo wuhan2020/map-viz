@@ -30,7 +30,9 @@ interface State {
 export class HierarchicalVirusMap extends mixin<Props, State>() {
   state = { path: [] };
   navigateDown(params) {
-    if (params.name) {
+    // if has name and path length < max length
+    // TODO: check the data to see whether we can navigate down
+    if (params.name && this.state.path.length < 1) {
       this.setState({ path: [...this.state.path, params.name] });
     }
     // console.log(params);
@@ -51,24 +53,42 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
       navigateDown: this.navigateDown.bind(this)
     };
   }
-  onDblClick = () => {
+  navigateUp() {
+    console.log('called');
     // back to country view
     if (this.state.path.length > 0) {
       this.setState({
         path: this.state.path.slice(0, this.state.path.length - 1)
       });
     }
-  };
+  }
 
   public render({}, { path }: State) {
     const config = this.getVirusMapConfig(path);
     return (
-      <VirusMap
-        name={config.name}
-        data={config.data}
-        chartOnDblClickCallBack={config.navigateDown}
-        onClick={this.onDblClick}
-      />
+      <div style={{ position: 'relative' }}>
+        <VirusMap
+          name={config.name}
+          data={config.data}
+          chartOnClickCallBack={config.navigateDown}
+          onDblClick={this.navigateUp.bind(this)}
+        />
+        <button
+          class="btn btn-light"
+          style={{
+            display: this.state.path.length > 0 ? 'block' : 'none',
+            width: '30px',
+            height: '30px',
+            position: 'absolute',
+            bottom: '10px',
+            left: '10px',
+            padding: '5px'
+          }}
+          onClick={this.navigateUp.bind(this)}
+        >
+          <span class="fa fa-search-minus"></span>
+        </button>
+      </div>
     );
   }
 }
