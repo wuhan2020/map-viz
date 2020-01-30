@@ -40,9 +40,9 @@ export class WebCellEcharts extends mixin<ChartProps, {}>() {
     setTimeout(() => {
       const myChart = echarts.init(document.getElementById(this.chartId));
       myChart.setOption(this.chartOptions);
-    }, 0)
+    }, 0);
   }
-  
+
   public render() {
     return (
       <div id={this.chartId} style={{ width: '100%', height: '100%' }}></div>

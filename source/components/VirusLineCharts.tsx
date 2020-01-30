@@ -17,7 +17,6 @@ import { WebCellEcharts } from './WebCellEcharts';
   renderTarget: 'children'
 })
 export class VirusLineCharts extends mixin<{}, {}>() {
-
   public getChartOptions() {
     return {
       title: {
@@ -39,17 +38,15 @@ export class VirusLineCharts extends mixin<{}, {}>() {
             ['2020-01-24', 531],
             ['2020-01-25', 795],
             ['2020-01-26', 936],
-            ['2020-01-27', 1396],
+            ['2020-01-27', 1396]
           ],
           type: 'line'
         }
       ]
-    }
+    };
   }
 
   public render() {
-    return (
-      <WebCellEcharts chartOptions={this.getChartOptions()} />
-    );
+    return <WebCellEcharts chartOptions={this.getChartOptions()} />;
   }
 }

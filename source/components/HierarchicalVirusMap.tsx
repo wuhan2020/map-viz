@@ -9,14 +9,18 @@
 
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
-import { VirusMap } from './VirusMap';
-import { PatientStatData } from '../adapters/patientStatInterface';
-import rawData from '../../data/isaaclin/current.json';
-import { convertCountry } from '../adapters/isaaclin';
+import { VirusMap, MapDataType, STMapDataType } from './VirusMap';
+import {
+  Series,
+  ProvinceData,
+  CountryData
+} from '../adapters/patientStatInterface';
+import { extractCitiesSeries } from '../adapters/isaaclin';
 
-const data = convertCountry(rawData['results']);
-
-interface Props {}
+interface Props {
+  data: Series<ProvinceData> | CountryData;
+  resolution: number;
+}
 
 interface State {
   path: string[];
@@ -28,6 +32,14 @@ interface State {
   renderTarget: 'children'
 })
 export class HierarchicalVirusMap extends mixin<Props, State>() {
+  @attribute
+  @watch
+  public data: CountryData | Series<ProvinceData> = {};
+
+  @attribute
+  @watch
+  public resolution: number = 3600000;
+
   state = { path: [] };
   navigateDown(params) {
     // if has name and path length < max length
@@ -37,15 +49,33 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
     }
     // console.log(params);
   }
-  getVirusMapConfig(path) {
+  getVirusMapConfig(path, data, resolution) {
     let name = '中国';
 
-    let dataOnMap: { [name: string]: PatientStatData };
+    let dataOnMap: MapDataType | STMapDataType;
     if (path.length === 0) {
-      dataOnMap = data.provinces;
+      if ((data as CountryData).provinces) {
+        dataOnMap = data.provinces;
+      } else {
+        dataOnMap = {
+          timeline: Object.keys(data as Series<ProvinceData>).map(t =>
+            parseInt(t, 10)
+          ),
+          data
+        };
+      }
     } else if (path.length === 1) {
       name = path[0];
-      dataOnMap = data.provinces[name].cities;
+      if ((data as CountryData).provinces) {
+        dataOnMap = data.provinces[name].cities;
+      } else {
+        // FIXME: no resolution provided
+        const citiesSeries = extractCitiesSeries(data, name, resolution);
+        dataOnMap = {
+          timeline: Object.keys(citiesSeries).map(t => parseInt(t, 10)),
+          data: citiesSeries
+        };
+      }
     }
     return {
       name,
@@ -54,7 +84,6 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
     };
   }
   navigateUp() {
-    console.log('called');
     // back to country view
     if (this.state.path.length > 0) {
       this.setState({
@@ -63,8 +92,8 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
     }
   }
 
-  public render({}, { path }: State) {
-    const config = this.getVirusMapConfig(path);
+  public render({ data, resolution }: Props, { path }: State) {
+    const config = this.getVirusMapConfig(path, data, resolution);
     return (
       <div style={{ position: 'relative' }}>
         <VirusMap

@@ -14,7 +14,7 @@ interface CountryData extends PatientStatData {
 interface ProvinceData extends PatientStatData {
   name: string; // '湖北'
   timestamp?: number;
-  cities?: { [name: string]: CityData };
+  cities: { [name: string]: CityData };
 }
 
 interface CityData extends PatientStatData {
@@ -22,8 +22,8 @@ interface CityData extends PatientStatData {
   timestamp?: number;
 }
 
-interface History<T extends CountryData | ProvinceData | CityData> {
-  series?: [{ timestamp: number; data: T }];
-}
+type Series<T extends CountryData | ProvinceData | CityData> = {
+  [timestamp: number]: { [name: string]: T };
+};
 
-export { PatientStatData, CountryData, ProvinceData, CityData, History };
+export { PatientStatData, CountryData, ProvinceData, CityData, Series };

@@ -1,12 +1,14 @@
-# WebCell Echarts可视化组件
-本地图组件为使用echarts进行开发提供了基础组件
+# WebCell Echarts 可视化组件
+
+本地图组件为使用 echarts 进行开发提供了基础组件
 @author: shadowingszy
 
 ## 传入参数及说明:
-chartOptions: echarts中的所有options。
 
+chartOptions: echarts 中的所有 options。
 
 数据样例：
+
 ```
 {
   title: {
