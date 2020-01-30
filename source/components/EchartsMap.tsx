@@ -164,6 +164,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         this.chart.on('click', params => {
           if (eventState.hovered.length > 0) {
             chartOnDblClickCallBack(params, this.chart);
+            eventState.hovered = '';
           }
         });
 
