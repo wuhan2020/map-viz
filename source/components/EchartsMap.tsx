@@ -20,11 +20,9 @@ interface MapProps {
   chartOptions?: any;
   isForceRatio?: number;
   isAdjustLabel?: boolean;
-  chartOnDblClickCallBack?: Function;
+  chartOnClickCallBack?: Function;
   chartGeoRoamCallBack?: Function;
 }
-
-const LONG_PRESS_INTERVAL = 500;
 
 @observer
 @component({
@@ -50,14 +48,8 @@ export class EchartsMap extends mixin<MapProps, {}>() {
 
   @attribute
   @watch
-  public chartOnDblClickCallBack = (param, chart) => {
-    console.log('double click', param, chart);
-  };
-
-  @attribute
-  @watch
-  public chartOnLongPressCallBack = (param, chart) => {
-    console.log('long press', param, chart);
+  public chartOnClickCallBack = (param, chart) => {
+    console.log('click', param, chart);
   };
 
   @attribute
@@ -129,7 +121,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
     const {
       mapUrl,
       chartOptions,
-      chartOnDblClickCallBack,
+      chartOnClickCallBack,
       chartGeoRoamCallBack
     } = this.props;
     if (this.chart !== undefined) {
@@ -146,9 +138,6 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         echarts.registerMap('map', data);
         this.chart = echarts.init(document.getElementById(this.chartId));
         this.chart.setOption(chartOptions);
-        this.chart.on('dblclick', function(params) {
-          chartOnDblClickCallBack(params, this.chart);
-        });
 
         // implement hover-then-click on mobile devices
         let eventState = {
@@ -163,20 +152,21 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         });
         this.chart.on('click', params => {
           if (eventState.hovered.length > 0) {
-            chartOnDblClickCallBack(params, this.chart);
+            chartOnClickCallBack(params, this.chart);
             eventState.hovered = '';
           }
+          params.event.stop();
         });
 
-        this.chart.on('georoam', function(params) {
-          if (
-            this.chart !== undefined &&
-            params.dy === undefined &&
-            params.dx === undefined
-          ) {
-            chartGeoRoamCallBack(params, this.chart);
-          }
-        });
+        // this.chart.on('georoam', function(params) {
+        //   if (
+        //     this.chart !== undefined &&
+        //     params.dy === undefined &&
+        //     params.dx === undefined
+        //   ) {
+        //     chartGeoRoamCallBack(params, this.chart);
+        //   }
+        // });
         window.onresize = () => {
           this.chart.resize();
           this.adjustOption();
