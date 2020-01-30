@@ -112,7 +112,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           name: '疫情数据',
           type: 'map',
           mapType: 'map',
-          roam: true,
+          // roam: true,
           zoom: 1, 
           label: {
             show: true, //mapScale > 2.5,

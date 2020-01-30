@@ -5,15 +5,14 @@
  */
 
 import { observer } from 'mobx-web-cell';
-import { component, mixin, createCell, attribute, watch, on } from 'web-cell';
+import { component, mixin, createCell } from 'web-cell';
 import { VirusMap } from '../components/VirusMap';
 
-// import mockData from '../../mock/map_viz_mock_data.js';
 import rawData from '../../data/isaaclin/current.json';
 import { convertCountry } from '../adapters/isaaclin';
 import { PatientStatData } from '../adapters/patientStatInterface';
 import { InformationMap } from '../components/InformationMap';
-
+import informationMockData from '../../mock/information_map_general_mock_data';
 
 interface State {
   path: string[];
@@ -32,7 +31,6 @@ export class MapViz extends mixin<{}, State>() {
     if (params.name) {
       this.setState({ path: [...this.state.path, params.name] });
     }
-    // console.log(params);
   }
   getVirusMapConfig(path) {
     let name = '中国';
@@ -72,7 +70,9 @@ export class MapViz extends mixin<{}, State>() {
           />
         </div>
         <div style={{ width: '100%', height: '50%' }}>
-          <InformationMap></InformationMap>
+          <InformationMap
+            options={informationMockData}
+          />
         </div>
       </div>
     );
