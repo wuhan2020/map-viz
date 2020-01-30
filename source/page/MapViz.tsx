@@ -32,14 +32,14 @@ export class MapViz extends mixin<{}, State>() {
       this.setState({ path: [...this.state.path, params.name] });
     }
   }
-  
+
   public render({ }, { }: State) {
     return (
       <div>
-        <div style={{ width: '100%', height: '50%' }}>
+        <div style={{ width: '100%', height: '100%' }}>
           <HierarchicalVirusMap />
         </div>
-        <div style={{ width: '100%', height: '50%' }}>
+        <div style={{ width: '100%', height: '100%' }}>
           <InformationMap
             options={informationMockData}
           />
