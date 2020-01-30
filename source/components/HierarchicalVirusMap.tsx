@@ -30,7 +30,9 @@ interface State {
 export class HierarchicalVirusMap extends mixin<Props, State>() {
   state = { path: [] };
   navigateDown(params) {
-    if (params.name) {
+    // if has name and path length < max length
+    // TODO: check the data to see whether we can navigate down
+    if (params.name && this.state.path.length < 1) {
       this.setState({ path: [...this.state.path, params.name] });
     }
     // console.log(params);
@@ -51,7 +53,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
       navigateDown: this.navigateDown.bind(this)
     };
   }
-  navigateUp = () => {
+  navigateUp() {
     console.log('called');
     // back to country view
     if (this.state.path.length > 0) {
@@ -59,7 +61,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
         path: this.state.path.slice(0, this.state.path.length - 1)
       });
     }
-  };
+  }
 
   public render({}, { path }: State) {
     const config = this.getVirusMapConfig(path);
