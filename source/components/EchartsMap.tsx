@@ -53,6 +53,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
   };
 
   chartId = this.generateChartId();
+  chart: any;
 
   /**
    * 使用随机数+date生成当前组件的唯一ID
@@ -70,29 +71,31 @@ export class EchartsMap extends mixin<MapProps, {}>() {
       chartOnClickCallBack,
       chartGeoRoamCallBack
     } = this.props;
-    setTimeout(() => {
-      fetch(mapUrl)
-        .then(response => response.json())
-        .then(data => {
-          // convert to short names, better to use a map already with short names
-          data.features.forEach(
-            (f: { properties: { name: string } }) =>
-              (f.properties.name = long2short(f.properties.name))
-          );
-          echarts.registerMap('map', data);
-          const myChart = echarts.init(document.getElementById(this.chartId));
-          myChart.setOption(chartOptions);
-          myChart.on('click', function(params) {
-            chartOnClickCallBack(params, myChart);
-          });
-          myChart.on('georoam', function(params) {
-            if (params.dy === undefined && params.dx === undefined) {
-              chartGeoRoamCallBack(params, myChart);
-            }
-          });
-        })
-        .catch(e => console.log('获取地图失败', e));
-    }, 0);
+    if (this.chart !== undefined) {
+      this.chart.showLoading();
+    }
+    fetch(mapUrl)
+      .then(response => response.json())
+      .then(data => {
+        // convert to short names, better to use a map already with short names
+        data.features.forEach(
+          (f: { properties: { name: string } }) =>
+            (f.properties.name = long2short(f.properties.name))
+        );
+        echarts.registerMap('map', data);
+        this.chart = echarts.init(document.getElementById(this.chartId));
+        this.chart.setOption(chartOptions);
+        this.chart.on('click', function(params) {
+          chartOnClickCallBack(params, this.chart);
+        });
+        this.chart.on('georoam', function(params) {
+          if (params.dy === undefined && params.dx === undefined) {
+            chartGeoRoamCallBack(params, this.chart);
+          }
+        });
+        this.chart.hideLoading();
+      })
+      .catch(e => console.log('获取地图失败', e));
   }
 
   public render() {
