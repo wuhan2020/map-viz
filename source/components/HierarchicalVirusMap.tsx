@@ -71,7 +71,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
           name={config.name}
           data={config.data}
           chartOnClickCallBack={config.navigateDown}
-          onDblClick={this.navigateUp}
+          onDblClick={this.navigateUp.bind(this)}
         />
         <button
           class="btn btn-light"
@@ -84,7 +84,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
             left: '10px',
             padding: '5px'
           }}
-          onClick={this.navigateUp}
+          onClick={this.navigateUp.bind(this)}
         >
           <span class="fa fa-search-minus"></span>
         </button>
