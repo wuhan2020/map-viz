@@ -15,48 +15,45 @@ import { EchartsMap } from '../components/EchartsMap';
 import { PatientStatData } from '../adapters/patientStatInterface';
 import MapUrls from '../../map_data/map_dict.json';
 
+type MapDataType = { [name: string]: PatientStatData };
 interface VirusMapProps {
   name: string;
-  data?: { [name: string]: PatientStatData };
+  data?: MapDataType;
   chartOnClickCallBack?: Function;
 }
 
-interface VirusMapState {
-  mapScale: number;
-}
 
 @observer
 @component({
   tagName: 'virus-map',
   renderTarget: 'children'
 })
-export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
+export class VirusMap extends mixin<VirusMapProps, {}>() {
   @attribute
   @watch
-  name = '';
+  public name: string = '';
 
   @attribute
   @watch
-  data = [];
+  public data: MapDataType = {};
 
   @attribute
   @watch
-  chartOnClickCallBack = (param, chart) => {
+  public chartOnClickCallBack = (param, chart) => {
     console.log(param, chart);
   };
-
-  state = {
+  public state = {
     mapScale: 1
   };
 
-  getChartOptions(data: { [name: string]: PatientStatData }, mapScale) {
+  public getChartOptions(data: MapDataType) {
     return {
       title: {
         text: '疫情地图'
       },
       tooltip: {
         trigger: 'item',
-        formatter: function(params) {
+        formatter: function (params) {
           const outputArray = [params.name];
           if (data[params.name] === undefined) {
             data[params.name] = {
@@ -81,25 +78,42 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
           return outputArray.join('<br/>');
         }
       },
-      dataRange: {
-        x: '65%',
-        y: '30%',
-        splitList: [
-          { start: 0, end: 0, color: '#EEEEEE' },
-          { start: 1, end: 10, color: '#FFEBCD' },
-          { start: 10, end: 50, color: '#FFAF50' },
-          { start: 50, end: 100, color: '#FF4500' },
-          { start: 100, end: 500, color: '#CD5C5C' },
-          { start: 500, end: 1000, color: '#800000' },
-          { start: 1000, color: '#600000' }
-        ]
-      },
+      visualMap: [{
+        type: 'piecewise',
+        right: '10%',
+        //orient: "horizontal",
+        itemHeight: 10,
+        itemWidth: 14,
+        itemGap: 10,
+        bottom: "10%",
+        itemSymbol: "circle",
+        backgroundColor: "rgba(200,200,200, 0.2)",
+        padding: 10,
+        textStyle: {
+          fontSize: 10
+        },
+        pieces: [
+          { min: 0, max: 0, color: '#EEEEEE' },
+          { gt: 1, lte: 10, color: '#FFEBCD' },
+          { gt: 10, lte: 50, color: '#FFAF50' },
+          { gt: 50, lte: 100, color: '#FF4500' },
+          { gt: 100, lte: 500, color: '#CD5C5C' },
+          { gt: 500, lte: 1000, color: '#800000' },
+          { gt: 1000, color: '#600000' }
+        ],
+        /*
+        formatter: (gt: number, lte: number) =>  {
+          console.log(gt, lte);
+          return lte === Infinity ? `> ${gt}` : lte > gt ? `(${gt}, ${lte}]` : `= ${lte}`}
+        */
+      }],
       series: [
         {
           name: '疫情数据',
           type: 'map',
           mapType: 'map',
           roam: true,
+          zoom: 1, 
           label: {
             show: true, //mapScale > 2.5,
             fontSize: 10 //2 * mapScale
@@ -121,23 +135,15 @@ export class VirusMap extends mixin<VirusMapProps, VirusMapState>() {
 
   public render(
     { name, data, chartOnClickCallBack }: VirusMapProps,
-    { mapScale }: VirusMapState
+    { }
   ) {
     // 缩放时间重新set一下option
-    const chartGeoRoamCallBack = (params, chart) => {
-      this.setState({
-        mapScale: mapScale *= params.zoom
-      });
-      // 这里使用防抖函数
-      chart.setOption(this.getChartOptions(data, mapScale));
-    };
-    return (
-      <EchartsMap
+    return <EchartsMap
         mapUrl={MapUrls[name]}
-        chartOptions={this.getChartOptions(data, mapScale)}
+        isForceRatio={0.75}
+        isAdjustLabel={true}
+        chartOptions={this.getChartOptions(data)}
         chartOnClickCallBack={chartOnClickCallBack}
-        chartGeoRoamCallBack={chartGeoRoamCallBack}
       />
-    );
   }
 }
