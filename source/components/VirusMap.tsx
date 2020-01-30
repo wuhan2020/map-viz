@@ -19,7 +19,7 @@ type MapDataType = { [name: string]: PatientStatData };
 interface VirusMapProps {
   name: string;
   data?: MapDataType;
-  chartOnClickCallBack?: Function;
+  chartOnDblClickCallBack?: Function;
 }
 
 @observer
@@ -38,9 +38,10 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
 
   @attribute
   @watch
-  public chartOnClickCallBack = (param, chart) => {
+  public chartOnDblClickCallBack = (param, chart) => {
     console.log(param, chart);
   };
+
   public state = {
     mapScale: 1
   };
@@ -136,7 +137,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     };
   }
 
-  public render({ name, data, chartOnClickCallBack }: VirusMapProps, {}) {
+  public render({ name, data, chartOnDblClickCallBack }: VirusMapProps, {}) {
     // 缩放时间重新set一下option
     return (
       <EchartsMap
@@ -144,7 +145,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
         isForceRatio={0.75}
         isAdjustLabel={true}
         chartOptions={this.getChartOptions(data)}
-        chartOnClickCallBack={chartOnClickCallBack}
+        chartOnDblClickCallBack={chartOnDblClickCallBack}
       />
     );
   }

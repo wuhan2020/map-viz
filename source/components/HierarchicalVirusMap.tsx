@@ -29,7 +29,7 @@ interface State {
 })
 export class HierarchicalVirusMap extends mixin<Props, State>() {
   state = { path: [] };
-  chartOnClickCallBack(params) {
+  navigateDown(params) {
     if (params.name) {
       this.setState({ path: [...this.state.path, params.name] });
     }
@@ -48,10 +48,10 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
     return {
       name,
       data: dataOnMap,
-      chartOnClickCallBack: this.chartOnClickCallBack.bind(this)
+      navigateDown: this.navigateDown.bind(this)
     };
   }
-  onClick = () => {
+  onDblClick = () => {
     // back to country view
     if (this.state.path.length > 0) {
       this.setState({
@@ -66,8 +66,8 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
       <VirusMap
         name={config.name}
         data={config.data}
-        chartOnClickCallBack={config.chartOnClickCallBack}
-        onClick={this.onClick}
+        chartOnDblClickCallBack={config.navigateDown}
+        onClick={this.onDblClick}
       />
     );
   }
