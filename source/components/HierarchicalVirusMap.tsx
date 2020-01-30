@@ -69,6 +69,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
           name={config.name}
           data={config.data}
           chartOnClickCallBack={config.navigateDown}
+          onDblClick={this.navigateUp}
         />
         <button
           class="btn btn-light"
