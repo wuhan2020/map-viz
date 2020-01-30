@@ -114,7 +114,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           type: 'map',
           mapType: 'map',
           // roam: true,
-          zoom: 1,
+          zoom: 1, 
           label: {
             show: true, //mapScale > 2.5,
             fontSize: 10, //2 * mapScale

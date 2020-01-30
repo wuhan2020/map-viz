@@ -9,6 +9,12 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "jsxFactory": "createCell",
-    "lib": ["ES2019", "DOM"]
-  }
+    "lib": [
+      "ES2019",
+      "DOM"
+    ]
+  },
+  "includes": [
+    "./externals.d.ts"
+  ]
 }
