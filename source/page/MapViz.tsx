@@ -7,10 +7,13 @@
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch, on } from 'web-cell';
 import { VirusMap } from '../components/VirusMap';
+
 // import mockData from '../../mock/map_viz_mock_data.js';
 import rawData from '../../data/isaaclin/current.json';
 import { convertCountry } from '../adapters/isaaclin';
 import { PatientStatData } from '../adapters/patientStatInterface';
+import { InformationMap } from '../components/InformationMap';
+
 
 interface State {
   path: string[];
@@ -56,16 +59,20 @@ export class MapViz extends mixin<{}, State>() {
     }
   };
 
-  public render({}, { path }: State) {
+
+  public render({ }, { path }: State) {
     const config = this.getVirusMapConfig(path);
     return (
       <div>
-        <div style={{ width: '100%', height: '100%' }} onClick={this.onClick}>
+        <div style={{ width: '100%', height: '50%' }} onClick={this.onClick}>
           <VirusMap
             name={config.name}
             data={config.data}
             chartOnClickCallBack={config.chartOnClickCallBack}
           />
+        </div>
+        <div style={{ width: '100%', height: '50%' }}>
+          <InformationMap></InformationMap>
         </div>
       </div>
     );
