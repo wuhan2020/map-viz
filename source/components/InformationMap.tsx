@@ -8,7 +8,8 @@
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import { BaiduMap } from './BaiduMap';
-import informationMockData from '../../mock/information_mock_data';
+// import informationMockData from '../../mock/information_mock_data';
+import informationMockData from '../../mock/coordinates_mock_data';
 
 @observer
 @component({
@@ -18,7 +19,26 @@ import informationMockData from '../../mock/information_mock_data';
 export class InformationMap extends mixin<{}, {}>() {
   // TODO: 这里需要针对infoWindowTitle和infoWindowContent提供样式（要等设计）
   getMapOptions() {
-    return informationMockData
+    const options = {
+      initPoint: [116.350658, 39.938285],
+      zoom: 6,
+      markerArray: []
+    }
+    for (let item of informationMockData) {
+      let marker = {
+        point: [item.coord.location.lng, item.coord.location.lat],
+        labelText: decodeURI(item.type),
+        labelStyle: {
+          color : "white",
+          backgroundColor: "red",
+          border: "0px" 
+        },
+        infoWindowTitle: decodeURI(item.name),
+        infoWindowContent: decodeURI(item.address),
+      }
+      options.markerArray.push(marker);
+    }
+    return options;
   }
   public render() {
     return (
