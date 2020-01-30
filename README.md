@@ -57,6 +57,7 @@ TL;DR:
 
 ### 通用组件
 已经有可视化其他地理信息 (e.g. 求援医院地理位置，酒店位置) 的通用地图控件，用百度地图API，可以精确在地图上标出。
+
 ![img3](./screenshots/info-map-demo.gif)
 
 现在用mock数据做，之后应该会按照指示接入前端用来可视化他们的数据。[接入数据后的一个展示见这里](https://github.com/wuhan2020/map-viz/blob/master/screenshots/ifno-map-demo-realdata.png)(图太大……)
