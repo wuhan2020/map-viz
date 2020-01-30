@@ -9,8 +9,10 @@ import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell } from 'web-cell';
 import { HierarchicalVirusMap } from '../components/HierarchicalVirusMap';
 
-import rawData from '../../data/isaaclin/current.json';
-import { convertCountry } from '../adapters/isaaclin';
+// import rawData from '../../data/isaaclin/current.json';
+// import { convertCountry } from '../adapters/isaaclin';
+import rawData from '../../data/isaaclin/history.json';
+import { convertProvincesSeries } from '../adapters/isaaclin';
 import { InformationMap } from '../components/InformationMap';
 import informationMockData from '../../mock/information_map_general_mock_data';
 
@@ -18,7 +20,9 @@ interface State {
   path: string[];
 }
 
-const data = convertCountry(rawData['results']);
+// const data = convertCountry(rawData['results']);
+const resolution = 3600000 * 24;
+const data = convertProvincesSeries(rawData['results'], resolution);
 
 @observer
 @component({
@@ -33,16 +37,14 @@ export class MapViz extends mixin<{}, State>() {
     }
   }
 
-  public render({ }, { }: State) {
+  public render({}, {}: State) {
     return (
       <div>
         <div style={{ width: '100%', height: '100%' }}>
-          <HierarchicalVirusMap />
+          <HierarchicalVirusMap data={data} resolution={resolution} />
         </div>
         <div style={{ width: '100%', height: '100%' }}>
-          <InformationMap
-            options={informationMockData}
-          />
+          <InformationMap options={informationMockData} />
         </div>
       </div>
     );

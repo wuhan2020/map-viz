@@ -2,7 +2,8 @@ import {
   CountryData,
   ProvinceData,
   CityData,
-  PatientStatData
+  PatientStatData,
+  Series
 } from './patientStatInterface';
 import long2short from './long2short'; // some city names are NOT short names so we also convert them here
 
@@ -54,4 +55,44 @@ function convertCity(source): CityData {
   return { name: long2short(source.cityName), ...convertStat(source) };
 }
 
-export { convertCountry, convertProvince, convertCity };
+function roundTime(t: number, resolution: number) {
+  return Math.floor(t / resolution) * resolution;
+}
+
+function convertProvincesSeries(
+  source,
+  resolution: number // in ms
+): Series<ProvinceData> {
+  let res: Series<ProvinceData> = {};
+  source.forEach(item => {
+    const t = roundTime(item.updateTime, resolution);
+    if (res[t] === undefined) {
+      res[t] = {};
+    }
+    const prov = convertProvince(item);
+    res[t][prov.name] = prov;
+  });
+  return res;
+}
+
+function extractCitiesSeries(
+  series: Series<ProvinceData>,
+  name: string,
+  resolution: number
+): Series<CityData> {
+  let res: Series<CityData> = {};
+  Object.values(series).forEach(provs => {
+    if (provs[name] !== undefined) {
+      res[roundTime(provs[name].timestamp, resolution)] = provs[name].cities;
+    }
+  });
+  return res;
+}
+
+export {
+  convertCountry,
+  convertProvince,
+  convertCity,
+  convertProvincesSeries,
+  extractCitiesSeries
+};

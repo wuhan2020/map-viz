@@ -58,7 +58,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
       },
       tooltip: {
         trigger: 'item',
-        formatter: params => ''
+        formatter: (_params: any) => ''
       },
       visualMap: [
         {
@@ -164,9 +164,17 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
   }
 
   public getSTChartOptions(data: STMapDataType) {
-    let options = this.getChartOptions(
-      data.data[data.timeline[data.timeline.length - 1]]
-    );
+    let options = this.baseOptions();
+    options['timeline'] = {
+      show: true,
+      autoPlay: true,
+      playInterval: 1500,
+      data: data.timeline
+    };
+    return {
+      baseOption: options,
+      options: data.timeline.map(t => this.overrides(data.data[t]))
+    };
   }
 
   public render({ name, data, chartOnClickCallBack }: VirusMapProps, {}) {
@@ -176,9 +184,15 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
         mapUrl={MapUrls[name]}
         isForceRatio={0.75}
         isAdjustLabel={true}
-        chartOptions={this.getChartOptions(data)}
+        chartOptions={
+          (data as STMapDataType).timeline !== undefined
+            ? this.getSTChartOptions(data as STMapDataType)
+            : this.getChartOptions(data as MapDataType)
+        }
         chartOnClickCallBack={chartOnClickCallBack}
       />
     );
   }
 }
+
+export { MapDataType, STMapDataType };
