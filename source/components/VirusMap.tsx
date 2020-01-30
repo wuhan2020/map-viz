@@ -22,7 +22,6 @@ interface VirusMapProps {
   chartOnClickCallBack?: Function;
 }
 
-
 @observer
 @component({
   tagName: 'virus-map',
@@ -53,7 +52,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
       },
       tooltip: {
         trigger: 'item',
-        formatter: function (params) {
+        formatter: function(params) {
           const outputArray = [params.name];
           if (data[params.name] === undefined) {
             data[params.name] = {
@@ -78,45 +77,49 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           return outputArray.join('<br/>');
         }
       },
-      visualMap: [{
-        type: 'piecewise',
-        right: '10%',
-        //orient: "horizontal",
-        itemHeight: 10,
-        itemWidth: 14,
-        itemGap: 10,
-        bottom: "10%",
-        itemSymbol: "circle",
-        backgroundColor: "rgba(200,200,200, 0.2)",
-        padding: 10,
-        textStyle: {
-          fontSize: 10
-        },
-        pieces: [
-          { min: 0, max: 0, color: '#EEEEEE' },
-          { gt: 1, lte: 10, color: '#FFEBCD' },
-          { gt: 10, lte: 50, color: '#FFAF50' },
-          { gt: 50, lte: 100, color: '#FF4500' },
-          { gt: 100, lte: 500, color: '#CD5C5C' },
-          { gt: 500, lte: 1000, color: '#800000' },
-          { gt: 1000, color: '#600000' }
-        ],
-        /*
+      visualMap: [
+        {
+          type: 'piecewise',
+          right: '10%',
+          //orient: "horizontal",
+          itemHeight: 10,
+          itemWidth: 14,
+          itemGap: 10,
+          bottom: '10%',
+          itemSymbol: 'circle',
+          backgroundColor: 'rgba(200,200,200, 0.2)',
+          padding: 10,
+          textStyle: {
+            fontSize: 10
+          },
+          pieces: [
+            { min: 0, max: 0, color: '#EEEEEE' },
+            { gt: 1, lte: 10, color: '#FFFADD' },
+            { gt: 10, lte: 50, color: '#FFDC90' },
+            { gt: 50, lte: 100, color: '#FF9040' },
+            { gt: 100, lte: 500, color: '#DD5C5C' },
+            { gt: 500, lte: 1000, color: '#901010' },
+            { gt: 1000, color: '#600000' }
+          ]
+          /*
         formatter: (gt: number, lte: number) =>  {
           console.log(gt, lte);
           return lte === Infinity ? `> ${gt}` : lte > gt ? `(${gt}, ${lte}]` : `= ${lte}`}
         */
-      }],
+        }
+      ],
       series: [
         {
           name: '疫情数据',
           type: 'map',
           mapType: 'map',
-          roam: true,
-          zoom: 1, 
+          // roam: true,
+          zoom: 1,
           label: {
             show: true, //mapScale > 2.5,
-            fontSize: 10 //2 * mapScale
+            fontSize: 10, //2 * mapScale
+            textBorderColor: '#FAFAFA',
+            textBorderWidth: 1
           },
           emphasis: {
             label: {
@@ -133,17 +136,16 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     };
   }
 
-  public render(
-    { name, data, chartOnClickCallBack }: VirusMapProps,
-    { }
-  ) {
+  public render({ name, data, chartOnClickCallBack }: VirusMapProps, {}) {
     // 缩放时间重新set一下option
-    return <EchartsMap
+    return (
+      <EchartsMap
         mapUrl={MapUrls[name]}
         isForceRatio={0.75}
         isAdjustLabel={true}
         chartOptions={this.getChartOptions(data)}
         chartOnClickCallBack={chartOnClickCallBack}
       />
+    );
   }
 }

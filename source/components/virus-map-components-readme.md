@@ -1,121 +1,129 @@
 # WebCell 疫情地图可视化组件
+
 本地图组件提供了开箱即用的疫情地图可视化组件。
-@author: shadowingszy
+@author: shadowingszy, yarray
 
 ## 传入参数及说明:
-mapUrl: 地图json文件地址。
-data: echarts中每个区域的疫情数据。
+
+name: 地区名称
+data: echarts 中每个区域的疫情数据。
 chartOnClickCallBack: 点击地图后的回调函数。
 
-入参样例1：
+data 数据格式，为
+
+```typescript
+{ [name: string]: PatientStatData };
 ```
-{
-  "name": "中国",
-  "mapUrl": "https://map-1252957949.cos.ap-guangzhou.myqcloud.com/china.json",
-  "data": [
-    {
-      "name": "北京",
-      "confirmed": 1,
-      "suspect": 10,
-      "cured": 20,
-      "death": 1
-    },
-    {
-      "name": "上海",
-      "confirmed": 3,
-      "suspect": 10,
-      "cured": 20,
-      "death": 1
-    },
-    {
-      "name": "重庆",
-      "confirmed": 4,
-      "suspect": 10,
-      "cured": 20,
-      "death": 1
-    },
-    {
-      "name": "河北",
-      "confirmed": 5,
-      "suspect": 10,
-      "cured": 20,
-      "death": 1
-    }
-  ]
+
+参考:
+
+```typescript
+interface PatientStatData {
+  confirmed: number;
+  suspected: number;
+  cured: number;
+  dead: number;
 }
 ```
 
-入参样例2：
-```
+数据样例： 1.
+
+```json
 {
-  "name": "湖北",
-  "mapUrl": "https://map-1252957949.cos.ap-guangzhou.myqcloud.com/china/hubei.json",
-  "data":[
-    {
-      "provice": "湖北省",
-      "name": "武汉市",
-      "confirmed": 698,
-      "death": 42,
-      "cured": 63
-    },
-    {
-      "provice": "湖北省",
-      "name": "黄石市",
-      "confirmed": 36,
-      "death": 0,
-      "cured": 1
-    },
-    {
-      "provice": "湖北省",
-      "name": "十堰市",
-      "confirmed": 40,
-      "death": 0,
-      "cured": 0
-    },
-    {
-      "provice": "湖北省",
-      "name": "襄阳市",
-      "confirmed": 36,
-      "death": 0,
-      "cured": 0
-    },
-    {
-      "provice": "湖北省",
-      "name": "宜昌市",
-      "confirmed": 31,
-      "death": 0,
-      "cured": 1
-    },
-    {
-      "provice": "湖北省",
-      "name": "荆州市",
-      "confirmed": 47,
-      "death": 0,
-      "cured": 2
-    },
-    {
-      "provice": "湖北省",
-      "name": "荆门市",
-      "confirmed": 90,
-      "death": 0,
-      "cured": 3
-    },
-    {
-      "provice": "湖北省",
-      "name": "鄂州市",
-      "confirmed": 20,
-      "death": 0,
-      "cured": 0
-    },
-    {
-      "provice": "湖北省",
-      "name": "孝感市",
-      "confirmed": 100,
-      "death": 0,
-      "cured": 1
-    }
-  ]
+  "吉林": {
+    "name": "吉林",
+    "timestamp": 1580260529915,
+    "confirmed": 9,
+    "suspected": 0,
+    "cured": 0,
+    "dead": 0
+  },
+  "西藏": {
+    "name": "西藏",
+    "timestamp": 1580264158978,
+    "confirmed": 0,
+    "suspected": 1,
+    "cured": 0,
+    "dead": 0
+  },
+  "北京": {
+    "confirmed": 102,
+    "suspected": 0,
+    "cured": 4,
+    "dead": 1
+  },
+```
+
+数据样例： 2.
+
+```json
+{
+  "晋中": {
+    "name": "晋中",
+    "confirmed": 9,
+    "suspected": 0,
+    "cured": 0,
+    "dead": 0
+  },
+  "运城": {
+    "name": "运城",
+    "confirmed": 4,
+    "suspected": 0,
+    "cured": 0,
+    "dead": 0
+  },
+  "太原": {
+    "name": "太原",
+    "confirmed": 3,
+    "suspected": 0,
+    "cured": 0,
+    "dead": 0
+  },
+  "大同": {
+    "name": "大同",
+    "confirmed": 3,
+    "suspected": 0,
+    "cured": 0,
+    "dead": 0
+  },
+  "吕梁": {
+    "name": "吕梁",
+    "confirmed": 3,
+    "suspected": 0,
+    "cured": 0,
+    "dead": 0
+  },
+  "朔州": {
+    "name": "朔州",
+    "confirmed": 2,
+    "suspected": 0,
+    "cured": 0,
+    "dead": 0
+  },
+  "阳泉": {
+    "name": "阳泉",
+    "confirmed": 1,
+    "suspected": 0,
+    "cured": 0,
+    "dead": 0
+  },
+  "长治": {
+    "name": "长治",
+    "confirmed": 1,
+    "suspected": 0,
+    "cured": 0,
+    "dead": 0
+  },
+  "临汾": {
+    "name": "临汾",
+    "confirmed": 1,
+    "suspected": 0,
+    "cured": 0,
+    "dead": 0
+  }
+}
 ```
 
 ## 使用样例
-使用样例见MapViz.tsx组件
+
+使用样例见 HierarchicalVirusMap.tsx 组件

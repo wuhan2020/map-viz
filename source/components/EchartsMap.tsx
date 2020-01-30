@@ -79,9 +79,8 @@ export class EchartsMap extends mixin<MapProps, {}>() {
     return 'map' + random.toString() + dateStr.toString();
   }
 
-
-  public adjustOption(scale: number=1): void {
-    const options =  this.props.chartOptions;
+  public adjustOption(scale: number = 1): void {
+    const options = this.props.chartOptions;
     if (this.chart && options) {
       const domWidth = this.chart.getWidth();
       const domHeight = this.chart.getHeight();
@@ -89,25 +88,34 @@ export class EchartsMap extends mixin<MapProps, {}>() {
       options.series[0].zoom *= scale;
       const size = options.series[0].zoom * Math.min(domWidth, domHeight);
       if (this.props.isForceRatio) {
-        const maxWidth = Math.min(domWidth, domHeight / this.props.isForceRatio);
+        const maxWidth = Math.min(
+          domWidth,
+          domHeight / this.props.isForceRatio
+        );
         // move the item MUCH closer
-        if (domHeight > domWidth){
-          options.visualMap[0].orient = "horizontal";
+        if (domHeight > domWidth) {
+          options.visualMap[0].orient = 'horizontal';
           options.visualMap[0].right = undefined;
           options.visualMap[0].left = undefined;
-        } else if (domHeight > domWidth * this.props.isForceRatio){
-          options.visualMap[0].orient = "vertical";
+        } else if (domHeight > domWidth * this.props.isForceRatio) {
+          options.visualMap[0].orient = 'vertical';
           options.visualMap[0].left = undefined;
           options.visualMap[0].right = 0;
         } else {
-          options.visualMap[0].orient = "vertical";
+          options.visualMap[0].orient = 'vertical';
           options.visualMap[0].right = undefined;
-          options.visualMap[0].left = Math.min(domWidth /2 + maxWidth / 2, domWidth-100)
-        } 
+          options.visualMap[0].left = Math.min(
+            domWidth / 2 + maxWidth / 2,
+            domWidth - 100
+          );
+        }
       }
       if (this.props.isAdjustLabel && scale) {
-        if (size < 200) { options.series[0].label.show = false; }
-        else { options.series[0].label.show = true; }
+        if (size < 200) {
+          options.series[0].label.show = false;
+        } else {
+          options.series[0].label.show = true;
+        }
       }
       this.chart.setOption(options);
     }
@@ -138,14 +146,18 @@ export class EchartsMap extends mixin<MapProps, {}>() {
           chartOnClickCallBack(params, this.chart);
         });
         this.chart.on('georoam', function(params) {
-          if (params.dy === undefined && params.dx === undefined) {
+          if (
+            this.chart !== undefined &&
+            params.dy === undefined &&
+            params.dx === undefined
+          ) {
             chartGeoRoamCallBack(params, this.chart);
           }
         });
         window.onresize = () => {
           this.chart.resize();
           this.adjustOption();
-        }
+        };
         this.adjustOption();
         this.chart.hideLoading();
       })
