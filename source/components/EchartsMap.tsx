@@ -159,6 +159,16 @@ export class EchartsMap extends mixin<MapProps, {}>() {
           }
         });
 
+        this.chart.on('click', 'timeline', params => {
+          this.chart.dispatchAction({
+            type: 'timelineChange',
+            // index of time point
+            currentIndex: chartOptions.baseOption.timeline.data.findIndex(
+              d => d === params.dataIndex
+            )
+          });
+        });
+
         // this.chart.on('georoam', function(params) {
         //   if (
         //     this.chart !== undefined &&
