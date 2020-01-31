@@ -166,14 +166,20 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
   public getSTChartOptions(data: STMapDataType) {
     let options = this.baseOptions();
     options['timeline'] = {
+      axisType: 'category',
       show: true,
       autoPlay: true,
       playInterval: 1500,
-      data: data.timeline
+      data: data.timeline,
+      label: {
+        formatter: function(s) {
+          return new Date(parseInt(s)).toLocaleDateString();
+        }
+      }
     };
     return {
       baseOption: options,
-      options: data.timeline.map(t => this.overrides(data.data[t]))
+      options: data.timeline.sort().map(t => this.overrides(data.data[t]))
     };
   }
 
