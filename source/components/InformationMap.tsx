@@ -2,7 +2,7 @@
  * WebCell地图可视化通用组件，接入百度地图API
  * 本地图组件为地图定制化开发提供了最高的自由度
  * @author: shadowingszy
- * 
+ *
  */
 
 import { observer } from 'mobx-web-cell';
@@ -36,16 +36,22 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
   @watch
   options = {};
 
-  generateHospitalInfoWindowContent(requests: Array<any>, url: string, address: string, contact: string, note: string) {
+  generateHospitalInfoWindowContent(
+    requests: Array<any>,
+    url: string,
+    address: string,
+    contact: string,
+    note: string
+  ) {
     let requestsHTML = ``;
     for (let item of requests) {
       if (item[1] !== null && item[1] !== undefined && item[1] !== true) {
-        requestsHTML += `<div>${item[0] + ' ' + item[1]}</div>`
+        requestsHTML += `<div>${item[0] + ' ' + item[1]}</div>`;
       }
     }
     let contactHTML = ``;
     for (let item of contact.split('|')) {
-      contactHTML += `<div>${item}</div>`
+      contactHTML += `<div>${item}</div>`;
     }
     return `
       <div>物资需求：</div>
@@ -57,13 +63,18 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
       <div>邮寄地址：${address}</div>
       <div>备注信息：${note === null || note === undefined ? '无' : note}</div>
       <div>详情链接：<a href='${url}'>点此查看</a></div>
-    `
+    `;
   }
 
-  generateHotelInfoWindowContent(capacity: number, address: string, contact: string, note: string) {
+  generateHotelInfoWindowContent(
+    capacity: number,
+    address: string,
+    contact: string,
+    note: string
+  ) {
     let contactHTML = ``;
     for (let item of contact.split('|')) {
-      contactHTML += `<div>${item}</div>`
+      contactHTML += `<div>${item}</div>`;
     }
     return `
       <div>容量：${capacity}</div>
@@ -72,13 +83,13 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
       <br/>
       <div>联系方式：</div>
       <div>${contactHTML}</div>
-    `
+    `;
   }
 
   generateDefaultInfoWindowContent(content: string) {
     return `
       <div>${content}</div>
-    `
+    `;
   }
 
   generateHospitalMarker(item: any, label: any) {
@@ -87,11 +98,16 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
       labelText: label.labelText,
       labelStyle: label.labelStyle,
       infoWindowTitle: item.name,
-      infoWindowContent: this.generateHospitalInfoWindowContent(item.metaData.requests, item.metaData.url, item.metaData.address, item.metaData.contact, item.metaData.note),
-    }
+      infoWindowContent: this.generateHospitalInfoWindowContent(
+        item.metaData.requests,
+        item.metaData.url,
+        item.metaData.address,
+        item.metaData.contact,
+        item.metaData.note
+      )
+    };
     return marker;
   }
-
 
   generateHotelMarker(item: any, label: any) {
     let marker = {
@@ -99,8 +115,13 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
       labelText: label.labelText,
       labelStyle: label.labelStyle,
       infoWindowTitle: item.name,
-      infoWindowContent: this.generateHotelInfoWindowContent(item.metaData.capacity, item.metaData.address, item.metaData.contact, item.metaData.note),
-    }
+      infoWindowContent: this.generateHotelInfoWindowContent(
+        item.metaData.capacity,
+        item.metaData.address,
+        item.metaData.contact,
+        item.metaData.note
+      )
+    };
     return marker;
   }
 
@@ -110,13 +131,15 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
       labelText: label.labelText,
       labelStyle: label.labelStyle,
       infoWindowTitle: item.name,
-      infoWindowContent: this.generateDefaultInfoWindowContent(item.metaData.content),
-    }
+      infoWindowContent: this.generateDefaultInfoWindowContent(
+        item.metaData.content
+      )
+    };
     return marker;
   }
 
   generateMarker(markerArray: Array<any>) {
-    const output = []
+    const output = [];
     for (const item of markerArray) {
       if (item.type === 'hospital') {
         const label = {
@@ -158,7 +181,7 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
       initPoint: options.initPoint,
       zoom: options.zoom,
       markerArray: []
-    }
+    };
     let markerArray = this.generateMarker(options.makerArray);
     output.markerArray = output.markerArray.concat(markerArray);
     return output;

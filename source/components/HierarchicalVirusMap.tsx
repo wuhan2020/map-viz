@@ -23,7 +23,7 @@ interface Props {
   data: {
     provincesSeries: Series<ProvinceData> | CountryData;
     countrySeries: Series<CountryOverviewData>;
-  }
+  };
   resolution: number;
 }
 
@@ -51,7 +51,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
     currentArea: '中国'
   };
   navigateDown(params) {
-    console.log(params)
+    console.log(params);
     // if has name and path length < max length
     // TODO: check the data to see whether we can navigate down
     if (params.name && this.state.path.length < 1) {
@@ -59,7 +59,6 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
         path: [...this.state.path, params.name],
         currentArea: params.name
       });
-      
     }
     // console.log(params);
   }
@@ -83,8 +82,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
       if ((data as CountryData).provinces) {
         dataOnMap = data.provinces[name].cities;
       } else {
-        // FIXME: no resolution provided
-        const citiesSeries = extractCitiesSeries(data, name, resolution);
+        const citiesSeries = extractCitiesSeries(data, name, resolution, true);
         dataOnMap = {
           timeline: Object.keys(citiesSeries)
             .map(t => parseInt(t, 10))
@@ -110,7 +108,11 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
   }
 
   public render({ data, resolution }: Props, { path, currentArea }: State) {
-    const config = this.getVirusMapConfig(path, data.provincesSeries, resolution);
+    const config = this.getVirusMapConfig(
+      path,
+      data.provincesSeries,
+      resolution
+    );
     return (
       <div>
         <div style={{ position: 'relative' }}>

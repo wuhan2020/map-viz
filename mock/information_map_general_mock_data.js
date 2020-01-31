@@ -57,9 +57,10 @@ export default {
           ['医用紫外线消毒车', true]
         ],
         url: 'https://mp.weixin.qq.com/s/geO3CCd0_8B3L-r_xlBbZQ',
-        address: '湖北省武汉市江汉区解放大道1277号华中科技大学同济医学院附属协和医院总务处',
+        address:
+          '湖北省武汉市江汉区解放大道1277号华中科技大学同济医学院附属协和医院总务处',
         contact: '13807138996 吕老师 | 13971115010 程老师 | 13477037766支老师',
-        note: null,
+        note: null
       }
     },
     {
@@ -95,7 +96,7 @@ export default {
         url: 'https://mp.weixin.qq.com/s/geO3CCd0_8B3L-r_xlBbZQ',
         address: '红安县人民医院红安县城关镇陵园大道附50号',
         contact: '0713-5242320',
-        note: '设备科周主任13636105950',
+        note: '设备科周主任13636105950'
       }
     },
     {
@@ -106,7 +107,7 @@ export default {
         capacity: 100,
         address: 'XXXXXXXXXXX',
         contact: 'XXX：123456789',
-        note: '发布日期, 2020年1月25日',
+        note: '发布日期, 2020年1月25日'
       }
     },
     {
@@ -117,7 +118,7 @@ export default {
         capacity: 50,
         address: 'XXXXXXXXXXX',
         contact: 'XXX：123456789',
-        note: '发布日期, 2020年1月26日',
+        note: '发布日期, 2020年1月26日'
       }
     },
     {
@@ -125,8 +126,8 @@ export default {
       name: '其他数据',
       coord: [114.681337, 30.295063],
       metaData: {
-        content: '我是内容',
+        content: '我是内容'
       }
     }
-  ],
-}
+  ]
+};

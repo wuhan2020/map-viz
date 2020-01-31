@@ -12,8 +12,13 @@ import { HierarchicalVirusMap } from '../components/HierarchicalVirusMap';
 // import rawData from '../../data/isaaclin/current.json';
 // import { convertCountry } from '../adapters/isaaclin';
 import rawData from '../../data/isaaclin/history.json';
+import patchData from '../../data/isaaclin/patch.json';
 import overviewData from '../../data/isaaclin/overall.json';
-import { convertProvincesSeries, convertCountrySeries, convertCountry } from '../adapters/isaaclin';
+import {
+  convertProvincesSeries,
+  convertCountrySeries,
+  convertCountry
+} from '../adapters/isaaclin';
 import { InformationMap } from '../components/InformationMap';
 import informationMockData from '../../mock/information_map_general_mock_data';
 import { VirusChart } from '../components/VirusChart';
@@ -25,9 +30,13 @@ interface State {
 // const data = convertCountry(rawData['results']);
 const resolution = 3600000 * 24;
 const data = {
-  provincesSeries: convertProvincesSeries(rawData['results'], resolution),
+  provincesSeries: convertProvincesSeries(
+    [...rawData['results'], ...patchData],
+    resolution,
+    true
+  ),
   countrySeries: convertCountrySeries(overviewData['results'], resolution)
-}
+};
 
 @observer
 @component({
@@ -42,7 +51,7 @@ export class MapViz extends mixin<{}, State>() {
     }
   }
 
-  public render({ }, { }: State) {
+  public render({}, {}: State) {
     return (
       <div>
         <div style={{ width: '100%', height: '100%', margin: '0 10px' }}>

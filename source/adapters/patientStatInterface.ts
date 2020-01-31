@@ -31,4 +31,11 @@ type Series<T extends CountryData | ProvinceData | CityData> = {
   [timestamp: number]: { [name: string]: T };
 };
 
-export { PatientStatData, CountryData, ProvinceData, CityData, Series, CountryOverviewData };
+export {
+  PatientStatData,
+  CountryData,
+  ProvinceData,
+  CityData,
+  Series,
+  CountryOverviewData
+};

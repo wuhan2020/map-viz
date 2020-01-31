@@ -1,12 +1,15 @@
 # WebCell 地图信息可视化组件
-本地图组件是对BaiduMap可视化组件进行的封装。
-本组件固定了地图上Marker的格式以及样式。
+
+本地图组件是对 BaiduMap 可视化组件进行的封装。
+本组件固定了地图上 Marker 的格式以及样式。
 @author: shadowingszy
 
 ## 传入参数及说明:
-mapOptions: 地图配置项，可参考百度地图API进行配置。（可参考/mock/information_map_general_mock_data.js）
 
-mapOptions入参样例：
+mapOptions: 地图配置项，可参考百度地图 API 进行配置。（可参考/mock/information_map_general_mock_data.js）
+
+mapOptions 入参样例：
+
 ```
 {
   initPoint: [116.350658, 39.938285], // 地图初始化时中心点坐标
@@ -22,8 +25,9 @@ mapOptions入参样例：
 }
 ```
 
-目前支持的type有：hospital,hotel,others三种
-hospital样例：
+目前支持的 type 有：hospital,hotel,others 三种
+hospital 样例：
+
 ```
 metaData: {
   requests: [
@@ -41,7 +45,8 @@ metaData: {
 }
 ```
 
-hotel样例：
+hotel 样例：
+
 ```
 metaData: {
   capacity: 50,
@@ -51,7 +56,8 @@ metaData: {
 }
 ```
 
-others样例：
+others 样例：
+
 ```
 metaData: {
   content: '我是内容',
@@ -59,4 +65,5 @@ metaData: {
 ```
 
 ## 使用样例
-使用样例见MapViz.tsx组件
+
+使用样例见 MapViz.tsx 组件
