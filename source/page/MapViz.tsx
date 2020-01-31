@@ -13,10 +13,15 @@ import { HierarchicalVirusMap } from '../components/HierarchicalVirusMap';
 // import { convertCountry } from '../adapters/isaaclin';
 import rawData from '../../data/isaaclin/history.json';
 import patchData from '../../data/isaaclin/patch.json';
-import { convertProvincesSeries } from '../adapters/isaaclin';
+import overviewData from '../../data/isaaclin/overall.json';
+import {
+  convertProvincesSeries,
+  convertCountrySeries,
+  convertCountry
+} from '../adapters/isaaclin';
 import { InformationMap } from '../components/InformationMap';
 import informationMockData from '../../mock/information_map_general_mock_data';
-import { VirusLineCharts } from '../components/VirusLineCharts';
+import { VirusChart } from '../components/VirusChart';
 
 interface State {
   path: string[];
@@ -24,11 +29,14 @@ interface State {
 
 // const data = convertCountry(rawData['results']);
 const resolution = 3600000 * 24;
-const data = convertProvincesSeries(
-  [...rawData['results'], ...patchData],
-  resolution,
-  true
-);
+const data = {
+  provincesSeries: convertProvincesSeries(
+    [...rawData['results'], ...patchData],
+    resolution,
+    true
+  ),
+  countrySeries: convertCountrySeries(overviewData['results'], resolution)
+};
 
 @observer
 @component({
@@ -46,15 +54,15 @@ export class MapViz extends mixin<{}, State>() {
   public render({}, {}: State) {
     return (
       <div>
-        <div style={{ width: '100%', height: '100%' }}>
+        <div style={{ width: '100%', height: '100%', margin: '0 10px' }}>
           <HierarchicalVirusMap data={data} resolution={resolution} />
         </div>
-        <div style={{ width: '100%', height: '100%' }}>
-          <VirusLineCharts />
-        </div>
-        <div style={{ width: '100%', height: '100%' }}>
+        {/* <div style={{ width: '100%', height: '100%', margin: '0 10px' }}>
+          <VirusChart data={data} />
+        </div> */}
+        {/* <div style={{ width: '100%', height: '100%' }}>
           <InformationMap options={informationMockData} />
-        </div>
+        </div> */}
       </div>
     );
   }

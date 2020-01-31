@@ -1,4 +1,5 @@
 import {
+  CountryOverviewData,
   CountryData,
   ProvinceData,
   CityData,
@@ -121,10 +122,26 @@ function extractCitiesSeries(
   return res;
 }
 
+function convertCountrySeries(
+  source,
+  resolution: number // in ms
+): Series<CountryOverviewData> {
+  let res: Series<CountryOverviewData> = {};
+  source.forEach(item => {
+    const t = roundTime(item.updateTime, resolution);
+    if (res[t] === undefined) {
+      res[t] = {};
+    }
+    res[t] = item;
+  });
+  return res;
+}
+
 export {
   convertCountry,
   convertProvince,
   convertCity,
   convertProvincesSeries,
+  convertCountrySeries,
   extractCitiesSeries
 };
