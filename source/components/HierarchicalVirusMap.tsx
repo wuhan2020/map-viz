@@ -58,9 +58,9 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
         dataOnMap = data.provinces;
       } else {
         dataOnMap = {
-          timeline: Object.keys(data as Series<ProvinceData>).map(t =>
-            parseInt(t, 10)
-          ),
+          timeline: Object.keys(data as Series<ProvinceData>)
+            .map(t => parseInt(t, 10))
+            .sort(),
           data
         };
       }
