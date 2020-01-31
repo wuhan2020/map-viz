@@ -61,7 +61,8 @@ function convertCity(source, updateTime): CityData {
 }
 
 function roundTime(t: number, resolution: number) {
-  return Math.floor(t / resolution) * resolution;
+  const offset = resolution >= 24 * 3600000 ? 8 * 3600000 : 0; // consider locale if resolution > 1 day
+  return Math.floor((t + offset) / resolution) * resolution - offset;
 }
 
 function convertProvincesSeries(

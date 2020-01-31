@@ -56,10 +56,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
       title: {
         text: '疫情地图'
       },
-      tooltip: {
-        trigger: 'item',
-        formatter: (_params: any) => ''
-      },
+      tooltip: {},
       visualMap: [
         {
           type: 'piecewise',
@@ -76,8 +73,8 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
             fontSize: 10
           },
           pieces: [
-            { min: 0, max: 0, color: '#EEEEEE' },
-            { gt: 1, lte: 10, color: '#FFFADD' },
+            { min: 0, max: 0, color: '#EEFFEE' },
+            { min: 1, lte: 10, color: '#FFFADD' },
             { gt: 10, lte: 50, color: '#FFDC90' },
             { gt: 50, lte: 100, color: '#FF9040' },
             { gt: 100, lte: 500, color: '#DD5C5C' },
@@ -119,15 +116,20 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
   overrides(data: MapDataType) {
     return {
       tooltip: {
+        trigger: 'item',
         formatter: function(params) {
+          if (params.componentType === 'timeline') {
+            if ((params.dataIndex % 24) * 3600000 === 0) {
+              return new Date(params.dataIndex).toLocaleDateString('zh-CN');
+            } else {
+              return new Date(params.dataIndex).toLocaleDateString(
+                'zh-CN-u-hc-h24'
+              );
+            }
+          }
           const outputArray = [params.name];
           if (data[params.name] === undefined) {
-            data[params.name] = {
-              confirmed: 0,
-              suspected: 0,
-              cured: 0,
-              dead: 0
-            };
+            return params.name + '<br/>暂无数据';
           }
           if (data[params.name].confirmed !== undefined) {
             outputArray.push('确诊：' + data[params.name].confirmed);
@@ -159,17 +161,24 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     let options = this.baseOptions();
     let extra = this.overrides(data);
     options.series[0].data = extra.series[0].data;
-    options.tooltip.formatter = extra.tooltip.formatter;
+    options.tooltip = extra.tooltip;
     return options;
   }
 
   public getSTChartOptions(data: STMapDataType) {
     let options = this.baseOptions();
     options['timeline'] = {
+      axisType: 'time',
       show: true,
+      tooltip: {},
       autoPlay: true,
       playInterval: 1500,
-      data: data.timeline
+      data: data.timeline,
+      label: {
+        formatter: function(s) {
+          return new Date(parseInt(s, 10)).toDateString();
+        }
+      }
     };
     return {
       baseOption: options,
