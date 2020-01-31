@@ -38,15 +38,17 @@ export class MapViz extends mixin<{}, State>() {
     }
   }
 
-  public render({}, {}: State) {
+  public render({ }, { }: State) {
     return (
       <div>
-        <div style={{ width: '100%', height: '100%' }}>
-          <HierarchicalVirusMap data={data} resolution={resolution} />
-        </div>
-        <div style={{ width: '100%', height: '100%' }}>
-          <VirusLineCharts />
-        </div>
+        {/* <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }}>
+          <div style={{ width: '100%', height: '100%', margin: '0 10px' }}>
+            <HierarchicalVirusMap data={data} resolution={resolution} />
+          </div>
+          <div style={{ width: '50%', height: '100%', margin: '0 10px' }}>
+            <VirusLineCharts />
+          </div>
+        </div> */}
         <div style={{ width: '100%', height: '100%' }}>
           <InformationMap options={informationMockData} />
         </div>
