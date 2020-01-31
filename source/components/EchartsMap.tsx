@@ -145,19 +145,18 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         let eventState = {
           hovered: ''
         };
-        this.chart.on('mouseover', params => {
+        this.chart.on('mouseover', 'series', params => {
           // prevent click event to trigger immediately
           setTimeout(() => (eventState.hovered = params.name), 0);
         });
-        this.chart.on('mouseout', () => {
+        this.chart.on('mouseout', 'series', () => {
           eventState.hovered = '';
         });
-        this.chart.on('click', params => {
+        this.chart.on('click', 'series', params => {
           if (eventState.hovered.length > 0) {
             chartOnClickCallBack(params, this.chart);
             eventState.hovered = '';
           }
-          params.event.stop();
         });
 
         // this.chart.on('georoam', function(params) {
@@ -170,7 +169,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         //   }
         // });
         window.onresize = () => {
-          this.chart.resize();
+          // this.chart.resize();
           // this.adjustOption();
         };
         // this.adjustOption();
