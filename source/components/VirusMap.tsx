@@ -252,8 +252,15 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
       currentIndex: data.timeline.length - 1,
       data: data.timeline,
       label: {
+        fontSize: 10,
+        position: 10,
+        rotate: 45,
+        textStyle: {
+          align: 'right',
+          baseline: 'middle'
+        },
         formatter: function(s) {
-          return new Date(parseInt(s, 10)).toDateString();
+          return new Date(parseInt(s, 10)).toLocaleDateString().slice(5); // year is not necessary
         }
       }
     };
