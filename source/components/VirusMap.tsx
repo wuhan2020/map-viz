@@ -171,8 +171,9 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
       axisType: 'time',
       show: true,
       tooltip: {},
-      autoPlay: true,
+      // autoPlay: true,
       playInterval: 1500,
+      currentIndex: data.timeline.length - 1,
       data: data.timeline,
       label: {
         formatter: function(s) {
