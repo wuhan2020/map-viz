@@ -26,7 +26,8 @@ interface State {
 const resolution = 3600000 * 24;
 const data = convertProvincesSeries(
   [...rawData['results'], ...patchData],
-  resolution
+  resolution,
+  true
 );
 
 @observer

@@ -65,15 +65,27 @@ function roundTime(t: number, resolution: number) {
   return Math.floor((t + offset) / resolution) * resolution - offset;
 }
 
+function fillForward<T extends ProvinceData | CityData | CountryData>(
+  series: Series<T>
+) {
+  const all_ts = Object.keys(series).sort();
+  all_ts.forEach((t, i) => {
+    if (i < all_ts.length - 1) {
+      Object.keys(series[t]).forEach(name => {
+        const next_t = parseInt(all_ts[i + 1], 10);
+        if (series[next_t][name] === undefined) {
+          series[next_t][name] = series[t][name];
+        }
+      });
+    }
+  });
+}
+
 function convertProvincesSeries(
   source,
-  resolution: number // in ms
+  resolution: number, // in ms
+  shouldFillForward = false
 ): Series<ProvinceData> {
-  console.log(
-    source
-      .filter(item => item.provinceShortName === '重庆')
-      .map(item => [new Date(item.updateTime).toLocaleString(), item])
-  );
   let res: Series<ProvinceData> = {};
   source
     .sort(item => item.updateTime)
@@ -85,13 +97,17 @@ function convertProvincesSeries(
       const prov = convertProvince(item);
       res[t][prov.name] = prov;
     });
+  if (shouldFillForward) {
+    fillForward(res);
+  }
   return res;
 }
 
 function extractCitiesSeries(
   series: Series<ProvinceData>,
   name: string,
-  resolution: number
+  resolution: number,
+  shouldFillForward = false
 ): Series<CityData> {
   let res: Series<CityData> = {};
   Object.values(series).forEach(provs => {
@@ -99,6 +115,9 @@ function extractCitiesSeries(
       res[roundTime(provs[name].timestamp, resolution)] = provs[name].cities;
     }
   });
+  if (shouldFillForward) {
+    fillForward(res);
+  }
   return res;
 }
 

@@ -69,8 +69,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
       if ((data as CountryData).provinces) {
         dataOnMap = data.provinces[name].cities;
       } else {
-        // FIXME: no resolution provided
-        const citiesSeries = extractCitiesSeries(data, name, resolution);
+        const citiesSeries = extractCitiesSeries(data, name, resolution, true);
         dataOnMap = {
           timeline: Object.keys(citiesSeries)
             .map(t => parseInt(t, 10))
