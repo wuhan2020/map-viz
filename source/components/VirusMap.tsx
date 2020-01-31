@@ -72,7 +72,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           right: '10%',
           left: undefined,
           top: undefined,
-          orient: "vertical",
+          orient: 'vertical',
           itemHeight: 10,
           itemWidth: 14,
           itemGap: 10,
@@ -168,8 +168,6 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     };
   }
 
-
-  
   public chartAdjustLabel(param: any, chart: any): void {
     const isForceRatio = 0.75;
     const isAdjustLabel = true;
@@ -186,21 +184,21 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           options.visualMap[0].right = undefined;
           options.visualMap[0].top = Math.max(
             domHeight / 2 - maxHeight / 2 - 50,
-            0);
+            0
+          );
           options.visualMap[0].bottom = undefined;
-          options.visualMap[0].left = "center";
-          
+          options.visualMap[0].left = 'center';
         } else if (domHeight > domWidth * isForceRatio) {
           options.visualMap[0].orient = 'vertical';
           options.visualMap[0].left = undefined;
           options.visualMap[0].right = 0 as any;
-          options.visualMap[0].bottom = "10%";
+          options.visualMap[0].bottom = '10%';
           options.visualMap[0].top = undefined;
         } else {
           options.visualMap[0].orient = 'vertical';
           options.visualMap[0].right = undefined;
           options.visualMap[0].top = undefined;
-          options.visualMap[0].bottom = "10%";
+          options.visualMap[0].bottom = '10%';
           options.visualMap[0].left = Math.min(
             domWidth / 2 + maxWidth / 2,
             domWidth - 100
@@ -218,15 +216,21 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
         }
       }
       if (this.isTimelineData(this.props.data)) {
-        options = this.getSTChartOptions(this.props.data as STMapDataType, options) as any;
+        options = this.getSTChartOptions(
+          this.props.data as STMapDataType,
+          options
+        ) as any;
       } else {
-        options = this.getChartOptions(this.props.data as MapDataType, options) as any;
+        options = this.getChartOptions(
+          this.props.data as MapDataType,
+          options
+        ) as any;
       }
       chart.setOption(options);
     }
   }
 
-  public getChartOptions(data: MapDataType, options: any=null) {
+  public getChartOptions(data: MapDataType, options: any = null) {
     if (!options) {
       options = this.baseOptions();
     }
@@ -235,7 +239,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     options.tooltip = extra.tooltip;
     return options;
   }
-  public getSTChartOptions(data: STMapDataType, options: any=null) {
+  public getSTChartOptions(data: STMapDataType, options: any = null) {
     if (!options) {
       options = this.baseOptions();
     }
@@ -243,12 +247,20 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
       axisType: 'time',
       show: true,
       tooltip: {},
-      autoPlay: true,
+      // autoPlay: true,
       playInterval: 1500,
+      currentIndex: data.timeline.length - 1,
       data: data.timeline,
       label: {
+        fontSize: 10,
+        position: 10,
+        rotate: 45,
+        textStyle: {
+          align: 'right',
+          baseline: 'middle'
+        },
         formatter: function(s) {
-          return new Date(parseInt(s, 10)).toDateString();
+          return new Date(parseInt(s, 10)).toLocaleDateString().slice(5); // year is not necessary
         }
       }
     };
