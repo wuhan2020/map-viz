@@ -154,7 +154,9 @@ export class EchartsMap extends mixin<MapProps, {}>() {
 
   public render() {
     return (
-      <div id={this.chartId} style={{ width: '100%', height: '100%' }}></div>
+      <div>
+        <div id={this.chartId} style={{ width: '100%', height: '100%' }}></div>
+      </div >
     );
   }
 }

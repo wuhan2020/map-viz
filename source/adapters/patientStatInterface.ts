@@ -5,6 +5,11 @@ interface PatientStatData {
   dead: number;
 }
 
+interface CountryOverviewData extends PatientStatData {
+  name: string; // '中国'
+  timestamp?: number; // integer, unit is 'ms', unix epoch time
+}
+
 interface CountryData extends PatientStatData {
   name: string; // '中国'
   timestamp?: number; // integer, unit is 'ms', unix epoch time
@@ -26,4 +31,4 @@ type Series<T extends CountryData | ProvinceData | CityData> = {
   [timestamp: number]: { [name: string]: T };
 };
 
-export { PatientStatData, CountryData, ProvinceData, CityData, Series };
+export { PatientStatData, CountryData, ProvinceData, CityData, Series, CountryOverviewData };

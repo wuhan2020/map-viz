@@ -20,8 +20,8 @@ mapUrl入参样例：
         backgroundColor: "red",
         border: "0px" 
       },
-      infoWindowTitle: '<p>XX医院</p>', // 点击地图标记点弹出窗口（InfoWindow）的标题（支持HTMLElement）
-      infoWindowContent: '<p>1、医用防护口罩（N95）10个</p>'// 点击地图标记点弹出窗口（InfoWindow）内容（支持HTMLElement）
+      infoWindowTitle: '<p>我是标题</p>', // 点击地图标记点弹出窗口（InfoWindow）的标题（支持HTMLElement）
+      infoWindowContent: '<p>我是内容</p>'// 点击地图标记点弹出窗口（InfoWindow）内容（支持HTMLElement）
     },
   ]
 }
