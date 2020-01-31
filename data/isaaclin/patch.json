@@ -1,0 +1,22 @@
+[
+  {
+    "provinceName": "青海省",
+    "provinceShortName": "青海",
+    "confirmedCount": 1,
+    "suspectedCount": 0,
+    "curedCount": 0,
+    "deadCount": 0,
+    "comment": "",
+    "cities": [
+      {
+        "cityName": "西宁",
+        "confirmedCount": 1,
+        "suspectedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0
+      }
+    ],
+    "country": "中国",
+    "updateTime": 1580001790159
+  }
+]

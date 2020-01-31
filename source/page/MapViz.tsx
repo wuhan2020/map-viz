@@ -12,6 +12,7 @@ import { HierarchicalVirusMap } from '../components/HierarchicalVirusMap';
 // import rawData from '../../data/isaaclin/current.json';
 // import { convertCountry } from '../adapters/isaaclin';
 import rawData from '../../data/isaaclin/history.json';
+import patchData from '../../data/isaaclin/patch.json';
 import { convertProvincesSeries } from '../adapters/isaaclin';
 import { InformationMap } from '../components/InformationMap';
 import informationMockData from '../../mock/information_map_general_mock_data';
@@ -23,7 +24,10 @@ interface State {
 
 // const data = convertCountry(rawData['results']);
 const resolution = 3600000 * 24;
-const data = convertProvincesSeries(rawData['results'], resolution);
+const data = convertProvincesSeries(
+  [...rawData['results'], ...patchData],
+  resolution
+);
 
 @observer
 @component({

@@ -69,15 +69,22 @@ function convertProvincesSeries(
   source,
   resolution: number // in ms
 ): Series<ProvinceData> {
+  console.log(
+    source
+      .filter(item => item.provinceShortName === '重庆')
+      .map(item => [new Date(item.updateTime).toLocaleString(), item])
+  );
   let res: Series<ProvinceData> = {};
-  source.forEach(item => {
-    const t = roundTime(item.updateTime, resolution);
-    if (res[t] === undefined) {
-      res[t] = {};
-    }
-    const prov = convertProvince(item);
-    res[t][prov.name] = prov;
-  });
+  source
+    .sort(item => item.updateTime)
+    .forEach(item => {
+      const t = roundTime(item.updateTime, resolution);
+      if (res[t] === undefined) {
+        res[t] = {};
+      }
+      const prov = convertProvince(item);
+      res[t][prov.name] = prov;
+    });
   return res;
 }
 
