@@ -51,6 +51,15 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     mapScale: 1
   };
 
+  constructor() {
+    super();
+    this.chartAdjustLabel = this.chartAdjustLabel.bind(this);
+    this.baseOptions = this.baseOptions.bind(this);
+    this.getSTChartOptions = this.getSTChartOptions.bind(this);
+    this.getChartOptions = this.getChartOptions.bind(this);
+    this.overrides = this.overrides.bind(this);
+  }
+
   baseOptions() {
     return {
       title: {
@@ -64,7 +73,9 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
         {
           type: 'piecewise',
           right: '10%',
-          //orient: "horizontal",
+          left: undefined,
+          top: undefined,
+          orient: "vertical",
           itemHeight: 10,
           itemWidth: 14,
           itemGap: 10,
@@ -155,16 +166,77 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     };
   }
 
-  public getChartOptions(data: MapDataType) {
+
+  
+  public chartAdjustLabel(param: any, chart: any): void {
+    const isForceRatio = 0.75;
+    const isAdjustLabel = true;
     let options = this.baseOptions();
+    if (chart && options) {
+      const domWidth = chart.getWidth();
+      const domHeight = chart.getHeight();
+      if (isForceRatio) {
+        const maxWidth = Math.min(domWidth, domHeight / isForceRatio);
+        const maxHeight = Math.min(domHeight, maxWidth * isForceRatio);
+        // move the item MUCH closer
+        if (domHeight > domWidth) {
+          options.visualMap[0].orient = 'horizontal';
+          options.visualMap[0].right = undefined;
+          options.visualMap[0].top = Math.max(
+            domHeight / 2 - maxHeight / 2 - 50,
+            0);
+          options.visualMap[0].bottom = undefined;
+          options.visualMap[0].left = "center";
+          
+        } else if (domHeight > domWidth * isForceRatio) {
+          options.visualMap[0].orient = 'vertical';
+          options.visualMap[0].left = undefined;
+          options.visualMap[0].right = 0 as any;
+          options.visualMap[0].bottom = "10%";
+          options.visualMap[0].top = undefined;
+        } else {
+          options.visualMap[0].orient = 'vertical';
+          options.visualMap[0].right = undefined;
+          options.visualMap[0].top = undefined;
+          options.visualMap[0].bottom = "10%";
+          options.visualMap[0].left = Math.min(
+            domWidth / 2 + maxWidth / 2,
+            domWidth - 100
+          );
+        }
+      }
+      const scale = param ? param.scale : 1;
+      if (isAdjustLabel && scale) {
+        options.series.forEach(s => (s.zoom *= scale));
+        const size = options.series[0].zoom * Math.min(domWidth, domHeight);
+        if (size < 200) {
+          options.series.forEach(s => (s.label.show = false));
+        } else {
+          options.series.forEach(s => (s.label.show = true));
+        }
+      }
+      if (this.isTimelineData(this.props.data)) {
+        options = this.getSTChartOptions(this.props.data as STMapDataType, options) as any;
+      } else {
+        options = this.getChartOptions(this.props.data as MapDataType, options) as any;
+      }
+      chart.setOption(options);
+    }
+  }
+
+  public getChartOptions(data: MapDataType, options: any=null) {
+    if (!options) {
+      options = this.baseOptions();
+    }
     let extra = this.overrides(data);
     options.series[0].data = extra.series[0].data;
     options.tooltip.formatter = extra.tooltip.formatter;
     return options;
   }
-
-  public getSTChartOptions(data: STMapDataType) {
-    let options = this.baseOptions();
+  public getSTChartOptions(data: STMapDataType, options: any=null) {
+    if (!options) {
+      options = this.baseOptions();
+    }
     options['timeline'] = {
       show: true,
       autoPlay: true,
@@ -177,6 +249,9 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     };
   }
 
+  private isTimelineData(data: MapDataType | STMapDataType): boolean {
+    return (data as STMapDataType).timeline !== undefined;
+  }
   public render({ name, data, chartOnClickCallBack }: VirusMapProps, {}) {
     // 缩放时间重新set一下option
     return (
@@ -185,11 +260,12 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
         isForceRatio={0.75}
         isAdjustLabel={true}
         chartOptions={
-          (data as STMapDataType).timeline !== undefined
+          this.isTimelineData(data)
             ? this.getSTChartOptions(data as STMapDataType)
             : this.getChartOptions(data as MapDataType)
         }
         chartOnClickCallBack={chartOnClickCallBack}
+        chartAdjustLabel={this.chartAdjustLabel}
       />
     );
   }
