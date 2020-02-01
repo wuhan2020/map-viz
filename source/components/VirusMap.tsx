@@ -280,6 +280,10 @@ export class VirusMap extends mixin<Props, {}>() {
       options: data.timeline.sort().map(t => this.overrides(data.data[t]))
     };
   }
+  private isTimelineData(data: MapDataType | STMapDataType): boolean {
+    return (data as STMapDataType).timeline !== undefined;
+  }
+
 
   public render({ name, data, chartOnClickCallBack, chartData }: Props, { }) {
     // 缩放时间重新set一下option
@@ -300,13 +304,12 @@ export class VirusMap extends mixin<Props, {}>() {
               { width: '100%', height: '100%', margin: '0 10px' }
           }
           mapUrl={MapUrls[name]}
-          isForceRatio={0.75}
-          isAdjustLabel={true}
           chartOptions={
-            (data as STMapDataType).timeline !== undefined
+            this.isTimelineData(data)
               ? this.getSTChartOptions(data as STMapDataType)
               : this.getChartOptions(data as MapDataType)
           }
+          chartAdjustLabel={this.chartAdjustLabel}
           chartOnClickCallBack={chartOnClickCallBack}
         />
         <VirusChart

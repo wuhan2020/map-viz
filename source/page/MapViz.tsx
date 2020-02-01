@@ -11,9 +11,7 @@ import { HierarchicalVirusMap } from '../components/HierarchicalVirusMap';
 
 // import rawData from '../../data/isaaclin/current.json';
 // import { convertCountry } from '../adapters/isaaclin';
-import rawData from '../../data/isaaclin/history.json';
 import patchData from '../../data/isaaclin/patch.json';
-import overviewData from '../../data/isaaclin/overall.json';
 import {
   convertProvincesSeries,
   convertCountrySeries,

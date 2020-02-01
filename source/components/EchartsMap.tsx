@@ -18,8 +18,6 @@ import long2short from '../adapters/long2short';
 interface MapProps {
   mapUrl?: string;
   chartOptions?: any;
-  isForceRatio?: number;
-  isAdjustLabel?: boolean;
   chartOnClickCallBack?: (param: any, chart: any) => void;
   chartGeoRoamCallBack?: (param: any, chart: any) => void;
   chartAdjustLabel?: (param: any, chart: any) => void;
@@ -34,14 +32,6 @@ export class EchartsMap extends mixin<MapProps, {}>() {
   @attribute
   @watch
   public mapUrl: string = '';
-
-  @attribute
-  @watch
-  public isForceRatio: number = null;
-
-  @attribute
-  @watch
-  public isAdjustLabel: number = null;
 
   @attribute
   @watch
