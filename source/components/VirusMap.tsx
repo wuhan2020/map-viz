@@ -92,13 +92,13 @@ export class VirusMap extends mixin<Props, {}>() {
             fontSize: 10
           },
           pieces: [
-            { min: 0, max: 0, color: '#EEFFEE' },
-            { min: 1, lte: 10, color: '#FFFADD' },
-            { gt: 10, lte: 50, color: '#FFDC90' },
-            { gt: 50, lte: 100, color: '#FF9040' },
-            { gt: 100, lte: 500, color: '#DD5C5C' },
-            { gt: 500, lte: 1000, color: '#901010' },
-            { gt: 1000, color: '#600000' }
+            { min: 0, max: 0, color: '#f9f3f5' },
+            { min: 1, lte: 10, color: '#ffc9c0' },
+            { gt: 10, lte: 50, color: '#ffa18c' },
+            { gt: 50, lte: 100, color: '#ff6440' },
+            { gt: 100, lte: 500, color: '#cc4f33' },
+            { gt: 500, lte: 1000, color: '#682419' },
+            { gt: 1000, color: '#3e130e' }
           ]
           /*
         formatter: (gt: number, lte: number) =>  {
