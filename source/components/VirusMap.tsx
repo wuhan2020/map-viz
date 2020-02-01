@@ -13,6 +13,8 @@ import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import { EchartsMap } from '../components/EchartsMap';
 import { PatientStatData } from '../adapters/patientStatInterface';
+import { VirusChart } from '../components/VirusChart';
+import { OverallCountryData } from '../adapters/patientStatInterface';
 import MapUrls from '../../map_data/map_dict.json';
 
 type MapDataType = { [name: string]: PatientStatData };
@@ -21,9 +23,11 @@ type STMapDataType = {
   data: { [timestamp: number]: MapDataType };
 }; // spatio-temporal data
 
-interface VirusMapProps {
+interface Props {
   name: string;
   data?: MapDataType | STMapDataType;
+  chartData?: OverallCountryData;
+  area: string;
   chartOnClickCallBack?: Function;
 }
 
@@ -32,7 +36,7 @@ interface VirusMapProps {
   tagName: 'virus-map',
   renderTarget: 'children'
 })
-export class VirusMap extends mixin<VirusMapProps, {}>() {
+export class VirusMap extends mixin<Props, {}>() {
   @attribute
   @watch
   public name: string = '';
@@ -40,6 +44,10 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
   @attribute
   @watch
   public data: MapDataType = {};
+
+  @attribute
+  @watch
+  public chartData = {};
 
   @attribute
   @watch
@@ -119,7 +127,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
   overrides(data: MapDataType) {
     return {
       tooltip: {
-        formatter: function(params) {
+        formatter: function (params) {
           const outputArray = [params.name];
           if (data[params.name] === undefined) {
             data[params.name] = {
@@ -177,20 +185,45 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     };
   }
 
-  public render({ name, data, chartOnClickCallBack }: VirusMapProps, {}) {
+  public render({ name, data, chartOnClickCallBack, chartData }: Props, { }) {
     // 缩放时间重新set一下option
     return (
-      <EchartsMap
-        mapUrl={MapUrls[name]}
-        isForceRatio={0.75}
-        isAdjustLabel={true}
-        chartOptions={
-          (data as STMapDataType).timeline !== undefined
-            ? this.getSTChartOptions(data as STMapDataType)
-            : this.getChartOptions(data as MapDataType)
+      <div
+        style={
+          (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
+            (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) ?
+            { display: 'flex', flexDirection: 'row', width: '100%', height: '100%', margin: '0 10px' } :
+            { display: 'flex', flexDirection: 'column', width: '100%', height: '200%', margin: '0 10px' }
         }
-        chartOnClickCallBack={chartOnClickCallBack}
-      />
+      >
+        <EchartsMap
+          style={
+            (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
+              (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) ?
+              { width: '65%', height: '100%', margin: '0 10px' } :
+              { width: '100%', height: '100%', margin: '0 10px' }
+          }
+          mapUrl={MapUrls[name]}
+          isForceRatio={0.75}
+          isAdjustLabel={true}
+          chartOptions={
+            (data as STMapDataType).timeline !== undefined
+              ? this.getSTChartOptions(data as STMapDataType)
+              : this.getChartOptions(data as MapDataType)
+          }
+          chartOnClickCallBack={chartOnClickCallBack}
+        />
+        <VirusChart
+          style={
+            (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
+              (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) ?
+              { width: '35%', height: '100%', margin: '0 10px' } :
+              { width: '100%', height: '100%', margin: '0 10px' }
+          }
+          data={chartData}
+          area={name}
+        />
+      </div>
     );
   }
 }

@@ -4,25 +4,17 @@
  * @author: shadowingszy
  *
  * 传入props说明:
- * data: 各省市数据。
+ * data: 各省市或国家数据。
+ * area: 当前选中的国家或省市。
  */
 
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, watch, attribute } from 'web-cell';
 import { WebCellEcharts } from './WebCellEcharts';
-import {
-  Series,
-  ProvinceData,
-  CountryData,
-  CountryOverviewData
-} from '../adapters/patientStatInterface';
-import echarts from 'echarts';
+import { Series, ProvinceData, CountryData, CountryOverviewData, OverallCountryData } from '../adapters/patientStatInterface';
 
 interface Props {
-  data: {
-    provincesSeries: Series<ProvinceData> | CountryData;
-    countrySeries: Series<CountryOverviewData>;
-  };
+  data: OverallCountryData;
   area: string;
 }
 
@@ -38,39 +30,14 @@ interface State {
 export class VirusChart extends mixin<Props, State>() {
   @attribute
   @watch
-  public data: CountryData | Series<ProvinceData> = {};
+  public data: OverallCountryData = {
+    provincesSeries: {},
+    countrySeries: {}
+  };
 
   @attribute
   @watch
   public area: string = '';
-
-  // chartId = this.generateChartId();
-  // myChart = null;
-
-
-  /**
-   * 使用随机数+date生成当前组件的唯一ID
-   */
-  // generateChartId() {
-  //   const random = Math.floor(Math.random() * 100);
-  //   const dateStr = new Date().getTime();
-  //   return 'map' + random.toString() + dateStr.toString();
-  // }
-
-  // state = {
-  //   echartOptions: this.getConfirmedSuspectChartOptions(
-  //     this.getOrderedTimeData(this.props.data.provincesSeries),
-  //     this.getOrderedTimeData(this.props.data.countrySeries),
-  //     this.props.area)
-  // };
-
-  // connectedCallback() {
-  //   setTimeout(() => {
-  //     this.myChart = echarts.init(document.getElementById(this.chartId));
-  //     console.log('123', this.state.echartOptions)
-  //     this.myChart.setOption(this.state.echartOptions);
-  //   }, 0);
-  // }
 
   public getOrderedTimeData(data: CountryData | Series<ProvinceData> | Series<CountryOverviewData>) {
     let output = [];
@@ -117,7 +84,6 @@ export class VirusChart extends mixin<Props, State>() {
   public getConfirmedSuspectChartOptions(orderedProvinceData: Array<any>, orderedOverviewData: Array<any>, area: string) {
     const { confirmedData, suspectedData } = this.getData(orderedProvinceData, orderedOverviewData, area);
 
-    console.log(area, area === '中国')
     return {
       title: {
         text: area + '疫情确诊/疑似数'
@@ -185,9 +151,9 @@ export class VirusChart extends mixin<Props, State>() {
     const orderedCountryData = this.getOrderedTimeData(data.countrySeries);
 
     return (
-      <div>
-        <WebCellEcharts chartOptions={this.getConfirmedSuspectChartOptions(orderedProvincesData, orderedCountryData, area)} />
-        <WebCellEcharts chartOptions={this.getCuredDeadChartOptions(orderedProvincesData, orderedCountryData, area)} />
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+        <WebCellEcharts style={{ width: '100%', height: '100%' }} chartOptions={this.getConfirmedSuspectChartOptions(orderedProvincesData, orderedCountryData, area)} />
+        <WebCellEcharts style={{ width: '100%', height: '100%' }} chartOptions={this.getCuredDeadChartOptions(orderedProvincesData, orderedCountryData, area)} />
       </div>
     );
   }

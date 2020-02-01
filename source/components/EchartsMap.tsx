@@ -169,7 +169,9 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         //     chartGeoRoamCallBack(params, this.chart);
         //   }
         // });
+        let originFunction = (window as any).onresize;
         window.onresize = () => {
+          originFunction();
           this.chart.resize();
           // this.adjustOption();
         };
