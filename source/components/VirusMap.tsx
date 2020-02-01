@@ -81,14 +81,16 @@ export class VirusMap extends mixin<Props, {}>() {
   baseOptions() {
     return {
       title: {
-        text: '疫情地图'
+        text: '疫情地图',
+        left: '20px',
+        top: '20px'
       },
       tooltip: {},
       visualMap: [
         {
           type: 'piecewise',
-          right: '10%',
-          left: undefined,
+          left: '20px',
+          right: undefined,
           show: true,
           top: undefined,
           orient: 'vertical',
@@ -147,7 +149,7 @@ export class VirusMap extends mixin<Props, {}>() {
     return {
       tooltip: {
         trigger: 'item',
-        formatter: function (params) {
+        formatter: function(params) {
           if (params.componentType === 'timeline') {
             if ((params.dataIndex % 24) * 3600000 === 0) {
               return new Date(params.dataIndex).toLocaleDateString('zh-CN');
@@ -217,7 +219,7 @@ export class VirusMap extends mixin<Props, {}>() {
         if (domHeight > domWidth * isForceRatio) {
           options.visualMap[0].show = true;
           options.visualMap[0].orient = 'vertical';
-          options.visualMap[0].left = undefined;
+          options.visualMap[0].left = '20px';
           options.visualMap[0].right = 0 as any;
           options.visualMap[0].bottom = '10%';
           options.visualMap[0].top = undefined;
@@ -227,10 +229,7 @@ export class VirusMap extends mixin<Props, {}>() {
           options.visualMap[0].right = undefined;
           options.visualMap[0].top = undefined;
           options.visualMap[0].bottom = '10%';
-          options.visualMap[0].left = Math.min(
-            domWidth / 2 + maxWidth / 2,
-            domWidth - 100
-          );
+          options.visualMap[0].left = '20px';
         }
       }
       const scale = param ? param.scale : 1;
@@ -292,7 +291,7 @@ export class VirusMap extends mixin<Props, {}>() {
           align: 'right',
           baseline: 'middle'
         },
-        formatter: function (s) {
+        formatter: function(s) {
           return new Date(parseInt(s, 10))
             .toLocaleDateString('zh-CN')
             .substring(5); // year is not necessary, standardize to ISO
@@ -308,22 +307,50 @@ export class VirusMap extends mixin<Props, {}>() {
     return (data as STMapDataType).timeline !== undefined;
   }
 
-  public render({ name, data, chartOnClickCallBack, currentChartArea, chartData, chartPath }: Props, { }) {
-    const isPC = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
-      (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) * 0.8
+  public render(
+    {
+      name,
+      data,
+      chartOnClickCallBack,
+      currentChartArea,
+      chartData,
+      chartPath
+    }: Props,
+    {}
+  ) {
+    const isPC =
+      (window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth) >
+      (window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight) *
+        0.8;
 
     // 缩放时间重新set一下option
     return (
       <div
-        style={isPC ?
-          { display: 'flex', flexDirection: 'row', width: '100%', height: '100%' } :
-          { display: 'flex', flexDirection: 'column', width: '100%', height: '200%' }
+        style={
+          isPC
+            ? {
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                height: '100%'
+              }
+            : {
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '200%'
+              }
         }
       >
         <EchartsMap
-          style={isPC ?
-            { width: '65%', height: '100%' } :
-            { width: '100%', height: '100%' }
+          style={
+            isPC
+              ? { width: '65%', height: '100%' }
+              : { width: '100%', height: '100%' }
           }
           mapUrl={MapUrls[name]}
           chartOptions={
@@ -335,9 +362,10 @@ export class VirusMap extends mixin<Props, {}>() {
           chartOnClickCallBack={chartOnClickCallBack}
         />
         <VirusChart
-          style={isPC ?
-            { width: '35%', height: '100%' } :
-            { width: '100%', height: '100%' }
+          style={
+            isPC
+              ? { width: '35%', height: '100%' }
+              : { width: '100%', height: '100%' }
           }
           data={chartData}
           area={currentChartArea}
