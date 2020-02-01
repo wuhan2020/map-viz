@@ -136,8 +136,10 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         //     chartGeoRoamCallBack(params, this.chart);
         //   }
         // });
+        let originFunction = (window as any).onresize;
         window.onresize = () => {
-          // this.chart.resize();
+          originFunction();
+
           this.chart.resize();
           if (this.props.chartAdjustLabel) {
             this.props.chartAdjustLabel(null, this.chart);

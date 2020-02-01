@@ -17,17 +17,17 @@ import overviewData from '../../data/isaaclin/overall.json';
 import {
   convertProvincesSeries,
   convertCountrySeries,
-  convertCountry
 } from '../adapters/isaaclin';
+
 import { InformationMap } from '../components/InformationMap';
 import informationMockData from '../../mock/information_map_general_mock_data';
-import { VirusChart } from '../components/VirusChart';
+import rawData from '../../data/isaaclin/history.json';
+import overviewData from '../../data/isaaclin/overall.json';
 
 interface State {
   path: string[];
 }
 
-// const data = convertCountry(rawData['results']);
 const resolution = 3600000 * 24;
 const data = {
   provincesSeries: convertProvincesSeries(
@@ -51,16 +51,13 @@ export class MapViz extends mixin<{}, State>() {
     }
   }
 
-  public render({}, {}: State) {
+  public render() {
     return (
       <div>
-        <div style={{ width: '100%', height: '100%', margin: '0 10px' }}>
+        <div style={{ width: '100%', height: '100%'}}>
           <HierarchicalVirusMap data={data} resolution={resolution} />
         </div>
-        {/* <div style={{ width: '100%', height: '100%', margin: '0 10px' }}>
-          <VirusChart data={data} />
-        </div> */}
-        {/* <div style={{ width: '100%', height: '100%' }}>
+        {/* <div style={{ width: '100%', height: '80%'}}>
           <InformationMap options={informationMockData} />
         </div> */}
       </div>

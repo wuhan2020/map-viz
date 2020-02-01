@@ -3,33 +3,24 @@
  * 在 VirusMap 基础上，增加聚焦到省显示市级数据与回到省级的功能
  * @author: yarray, shadowingszy
  *
- * 自包含控件，不含任何 props
- *
+ * 传入参数说明:
+ * data: 地图数据
+ * resolution: 时间精度
  */
 
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import { VirusMap, MapDataType, STMapDataType } from './VirusMap';
-import { VirusChart } from '../components/VirusChart';
-import {
-  Series,
-  ProvinceData,
-  CountryData,
-  CountryOverviewData
-} from '../adapters/patientStatInterface';
+import { Series, ProvinceData, CountryData, OverallCountryData } from '../adapters/patientStatInterface';
 import { extractCitiesSeries } from '../adapters/isaaclin';
 
 interface Props {
-  data: {
-    provincesSeries: Series<ProvinceData> | CountryData;
-    countrySeries: Series<CountryOverviewData>;
-  };
+  data: OverallCountryData;
   resolution: number;
 }
 
 interface State {
   path: string[];
-  currentArea: string;
 }
 
 @observer
@@ -40,27 +31,26 @@ interface State {
 export class HierarchicalVirusMap extends mixin<Props, State>() {
   @attribute
   @watch
-  public data: CountryData | Series<ProvinceData> = {};
+  public data: OverallCountryData = {
+    provincesSeries: {},
+    countrySeries: {}
+  };
 
   @attribute
   @watch
   public resolution: number = 3600000;
 
   state = {
-    path: [],
-    currentArea: '中国'
+    path: []
   };
   navigateDown(params) {
-    console.log(params);
     // if has name and path length < max length
     // TODO: check the data to see whether we can navigate down
     if (params.name && this.state.path.length < 1) {
       this.setState({
-        path: [...this.state.path, params.name],
-        currentArea: params.name
+        path: [...this.state.path, params.name]
       });
     }
-    // console.log(params);
   }
   getVirusMapConfig(path, data, resolution) {
     let name = '中国';
@@ -101,26 +91,21 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
     // back to country view
     if (this.state.path.length > 0) {
       this.setState({
-        path: this.state.path.slice(0, this.state.path.length - 1),
-        currentArea: '中国'
+        path: this.state.path.slice(0, this.state.path.length - 1)
       });
     }
   }
 
-  public render({ data, resolution }: Props, { path, currentArea }: State) {
-    const config = this.getVirusMapConfig(
-      path,
-      data.provincesSeries,
-      resolution
-    );
+  public render({ data, resolution }: Props, { path }: State) {
+    const config = this.getVirusMapConfig(path, data.provincesSeries, resolution);
     return (
       <div>
         <div style={{ position: 'relative' }}>
           <VirusMap
             name={config.name}
             data={config.data}
+            chartData={data}
             chartOnClickCallBack={config.navigateDown}
-            onDblClick={this.navigateUp.bind(this)}
           />
           <button
             class="btn btn-light"
@@ -137,9 +122,6 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
           >
             <span class="fa fa-search-minus"></span>
           </button>
-        </div>
-        <div style={{ width: '100%', height: '100%', margin: '0 10px' }}>
-          <VirusChart data={data} area={currentArea} />
         </div>
       </div>
     );
