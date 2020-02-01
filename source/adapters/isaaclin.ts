@@ -1,4 +1,5 @@
 import {
+  CountryOverviewData,
   CountryData,
   ProvinceData,
   CityData,
@@ -65,32 +66,73 @@ function roundTime(t: number, resolution: number) {
   return Math.floor((t + offset) / resolution) * resolution - offset;
 }
 
+function fillForward<T extends ProvinceData | CityData | CountryData>(
+  series: Series<T>
+) {
+  const all_ts = Object.keys(series).sort();
+  all_ts.forEach((t, i) => {
+    if (i < all_ts.length - 1) {
+      Object.keys(series[t]).forEach(name => {
+        const next_t = parseInt(all_ts[i + 1], 10);
+        if (series[next_t][name] === undefined) {
+          series[next_t][name] = series[t][name];
+        }
+      });
+    }
+  });
+}
+
 function convertProvincesSeries(
   source,
-  resolution: number // in ms
+  resolution: number, // in ms
+  shouldFillForward = false
 ): Series<ProvinceData> {
   let res: Series<ProvinceData> = {};
-  source.forEach(item => {
-    const t = roundTime(item.updateTime, resolution);
-    if (res[t] === undefined) {
-      res[t] = {};
-    }
-    const prov = convertProvince(item);
-    res[t][prov.name] = prov;
-  });
+  source
+    .sort(item => item.updateTime)
+    .forEach(item => {
+      const t = roundTime(item.updateTime, resolution);
+      if (res[t] === undefined) {
+        res[t] = {};
+      }
+      const prov = convertProvince(item);
+      res[t][prov.name] = prov;
+    });
+  if (shouldFillForward) {
+    fillForward(res);
+  }
   return res;
 }
 
 function extractCitiesSeries(
   series: Series<ProvinceData>,
   name: string,
-  resolution: number
+  resolution: number,
+  shouldFillForward = false
 ): Series<CityData> {
   let res: Series<CityData> = {};
   Object.values(series).forEach(provs => {
     if (provs[name] !== undefined) {
       res[roundTime(provs[name].timestamp, resolution)] = provs[name].cities;
     }
+  });
+  if (shouldFillForward) {
+    fillForward(res);
+  }
+  return res;
+}
+
+function convertCountrySeries(
+  source,
+  resolution: number // in ms
+): Series<CountryOverviewData> {
+  let res: Series<CountryOverviewData> = {};
+  source.forEach(item => {
+    const t = roundTime(item.updateTime, resolution);
+    if (res[t] === undefined) {
+      res[t] = {};
+    }
+    res[t] = item;
   });
   return res;
 }
@@ -100,5 +142,6 @@ export {
   convertProvince,
   convertCity,
   convertProvincesSeries,
+  convertCountrySeries,
   extractCitiesSeries
 };

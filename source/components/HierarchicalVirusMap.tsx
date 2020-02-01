@@ -1,10 +1,11 @@
 /**
  * WebCell分层疫情地图组件
  * 在 VirusMap 基础上，增加聚焦到省显示市级数据与回到省级的功能
- * @author: yarray
+ * @author: yarray, shadowingszy
  *
- * 自包含控件，不含任何 props
- *
+ * 传入参数说明:
+ * data: 地图数据
+ * resolution: 时间精度
  */
 
 import { observer } from 'mobx-web-cell';
@@ -13,17 +14,19 @@ import { VirusMap, MapDataType, STMapDataType } from './VirusMap';
 import {
   Series,
   ProvinceData,
-  CountryData
+  CountryData,
+  OverallCountryData
 } from '../adapters/patientStatInterface';
 import { extractCitiesSeries } from '../adapters/isaaclin';
 
 interface Props {
-  data: Series<ProvinceData> | CountryData;
+  data: OverallCountryData;
   resolution: number;
 }
 
 interface State {
   path: string[];
+  currentChartArea: string;
 }
 
 @observer
@@ -34,20 +37,29 @@ interface State {
 export class HierarchicalVirusMap extends mixin<Props, State>() {
   @attribute
   @watch
-  public data: CountryData | Series<ProvinceData> = {};
+  public data: OverallCountryData = {
+    provincesSeries: {},
+    countrySeries: {}
+  };
 
   @attribute
   @watch
   public resolution: number = 3600000;
 
-  state = { path: [] };
+  state = {
+    path: [],
+    currentChartArea: '中国'
+  };
   navigateDown(params) {
     // if has name and path length < max length
     // TODO: check the data to see whether we can navigate down
-    if (params.name && this.state.path.length < 1) {
-      this.setState({ path: [...this.state.path, params.name] });
-    }
-    // console.log(params);
+    this.setState({
+      path:
+        params.name && this.state.path.length < 1
+          ? [...this.state.path, params.name]
+          : this.state.path,
+      currentChartArea: params.name
+    });
   }
   getVirusMapConfig(path, data, resolution) {
     let name = '中国';
@@ -69,8 +81,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
       if ((data as CountryData).provinces) {
         dataOnMap = data.provinces[name].cities;
       } else {
-        // FIXME: no resolution provided
-        const citiesSeries = extractCitiesSeries(data, name, resolution);
+        const citiesSeries = extractCitiesSeries(data, name, resolution, true);
         dataOnMap = {
           timeline: Object.keys(citiesSeries)
             .map(t => parseInt(t, 10))
@@ -89,36 +100,50 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
     // back to country view
     if (this.state.path.length > 0) {
       this.setState({
-        path: this.state.path.slice(0, this.state.path.length - 1)
+        path: this.state.path.slice(0, this.state.path.length - 1),
+        currentChartArea: '中国'
       });
     }
   }
 
-  public render({ data, resolution }: Props, { path }: State) {
-    const config = this.getVirusMapConfig(path, data, resolution);
+  public render(
+    { data, resolution }: Props,
+    { path, currentChartArea }: State
+  ) {
+    const config = this.getVirusMapConfig(
+      path,
+      data.provincesSeries,
+      resolution
+    );
+
     return (
-      <div style={{ position: 'relative' }}>
-        <VirusMap
-          name={config.name}
-          data={config.data}
-          chartOnClickCallBack={config.navigateDown}
-          onDblClick={this.navigateUp.bind(this)}
-        />
-        <button
-          class="btn btn-light"
-          style={{
-            display: this.state.path.length > 0 ? 'block' : 'none',
-            width: '30px',
-            height: '30px',
-            position: 'absolute',
-            bottom: '10px',
-            left: '10px',
-            padding: '5px'
-          }}
-          onClick={this.navigateUp.bind(this)}
-        >
-          <span class="fa fa-search-minus"></span>
-        </button>
+      <div>
+        <div style={{ position: 'relative' }}>
+          <VirusMap
+            name={config.name}
+            data={config.data}
+            chartData={data}
+            chartPath={path}
+            currentChartArea={currentChartArea}
+            chartOnClickCallBack={config.navigateDown}
+            onDblClick={this.navigateUp.bind(this)}
+          />
+          <button
+            class="btn btn-dark"
+            style={{
+              display: this.state.path.length > 0 ? 'block' : 'none',
+              width: '30px',
+              height: '30px',
+              position: 'absolute',
+              top: '50px',
+              left: '120px',
+              padding: '5px'
+            }}
+            onClick={this.navigateUp.bind(this)}
+          >
+            <span class="fa fa-search-minus"></span>
+          </button>
+        </div>
       </div>
     );
   }

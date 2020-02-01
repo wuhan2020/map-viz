@@ -26,6 +26,7 @@ export class WebCellEcharts extends mixin<ChartProps, {}>() {
   public chartOptions: Object = {};
 
   chartId = this.generateChartId();
+  chart = null;
 
   /**
    * 使用随机数+date生成当前组件的唯一ID
@@ -38,12 +39,22 @@ export class WebCellEcharts extends mixin<ChartProps, {}>() {
 
   connectedCallback() {
     setTimeout(() => {
-      const myChart = echarts.init(document.getElementById(this.chartId));
-      myChart.setOption(this.chartOptions);
+      this.chart = echarts.init(document.getElementById(this.chartId));
+      this.chart.setOption(this.chartOptions);
+      let onResizeFunction = (window as any).onresize;
+      window.onresize = () => {
+        if (onResizeFunction) {
+          onResizeFunction();
+        }
+        this.chart.resize();
+      };
     }, 0);
   }
 
   public render() {
+    if (this.chart) {
+      this.chart.setOption(this.props.chartOptions, false, false);
+    }
     return (
       <div id={this.chartId} style={{ width: '100%', height: '100%' }}></div>
     );
