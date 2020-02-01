@@ -292,8 +292,8 @@ export class VirusChart extends mixin<Props, State>() {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-        <WebCellEcharts style={{ width: '100%', height: '100%' }} chartOptions={this.getConfirmedSuspectChartOptions(orderedProvincesData, orderedCountryData, area, path)} />
-        <WebCellEcharts style={{ width: '100%', height: '100%' }} chartOptions={this.getCuredDeadChartOptions(orderedProvincesData, orderedCountryData, area, path)} />
+        <WebCellEcharts style={{ width: '100%', height: '50%' }} chartOptions={this.getConfirmedSuspectChartOptions(orderedProvincesData, orderedCountryData, area, path)} />
+        <WebCellEcharts style={{ width: '100%', height: '50%' }} chartOptions={this.getCuredDeadChartOptions(orderedProvincesData, orderedCountryData, area, path)} />
       </div>
     );
   }
