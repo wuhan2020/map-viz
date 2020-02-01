@@ -11,7 +11,12 @@
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import { VirusMap, MapDataType, STMapDataType } from './VirusMap';
-import { Series, ProvinceData, CountryData, OverallCountryData } from '../adapters/patientStatInterface';
+import {
+  Series,
+  ProvinceData,
+  CountryData,
+  OverallCountryData
+} from '../adapters/patientStatInterface';
 import { extractCitiesSeries } from '../adapters/isaaclin';
 
 interface Props {
@@ -97,7 +102,11 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
   }
 
   public render({ data, resolution }: Props, { path }: State) {
-    const config = this.getVirusMapConfig(path, data.provincesSeries, resolution);
+    const config = this.getVirusMapConfig(
+      path,
+      data.provincesSeries,
+      resolution
+    );
     return (
       <div>
         <div style={{ position: 'relative' }}>
@@ -106,6 +115,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
             data={config.data}
             chartData={data}
             chartOnClickCallBack={config.navigateDown}
+            onDblClick={this.navigateUp.bind(this)}
           />
           <button
             class="btn btn-light"
