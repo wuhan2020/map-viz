@@ -10,60 +10,61 @@ mapOptions: 地图配置项，可参考百度地图 API 进行配置。（可参
 
 mapOptions 入参样例：
 
-```
+```js
 {
   initPoint: [116.350658, 39.938285], // 地图初始化时中心点坐标
   zoom: 6, // 地图初始化时缩放比例
-  markerArray: [ // 地图上标记点数组
+  markers: [ // 地图上标记点数组
     {
-      type: "hospital",
-      name: "XXXXX",
-      coord: [111,30],
-      metaData: {} // 根据type不同，属性也不同
+      name: '华中科技大学同济医学院附属协和医院',
+      //目前支持的 type 有：hospital,hotel,others 三种
+      type: "hospital", 
+      // 坐标
+      coord: [114.281196, 30.590103],
+      // 有则填，无则不填
+      url?: 'https://mp.weixin.qq.com/s/geO3CCd0_8B3L-r_xlBbZQ',
+      // 一些属性，可能会不同
+      metadata: [] 
     }
   ]
 }
 ```
 
-目前支持的 type 有：hospital,hotel,others 三种
-hospital 样例：
-
-```
-metaData: {
-  requests: [
-    ['普通医用口罩', 1000],
-    ['医用外科口罩', 1000],
-    ['医用防护口罩 | N95口罩', 10000],
-    ['防冲击眼罩/护目镜/防护眼镜', 1000],
-    ['防护面罩', true],
-    ['防护帽/医用帽/圆帽', 1000],
-  ],
-  url: 'https://mp.weixin.qq.com/s/geO3CCd0_8B3L-r_xlBbZQ',
-  address: '红安县人民医院红安县城关镇陵园大道附50号',
-  contact: '0713-5242320',
-  note: '设备科周主任13636105950',
+其中metadata的type: 
+```js
+{
+  key: string; // 一个关键词
+  label?: string; // 如果有label，这个作为显示词，覆盖key
+  value: string|number|InquiryMeta[], // 具体值
 }
+// 例子
+metadata: [
+  { // 酒店
+    key: "request",
+    label: "物资需求",
+    value: [
+      ['普通医用口罩', 10000],
+      ['医用外科口罩', true]
+    ]
+  }, { // 地理位置
+    key: "address",
+    value: '湖北省武汉市江汉区解放大道1277号华中科技大学同济医学院附属协和医院总务处',
+    label: "邮寄地址",
+  }, { // 酒店容量
+    key: "capability",
+    value: 100,
+    label: "容量",
+  }
+]
 ```
 
-hotel 样例：
-
-```
-metaData: {
-  capacity: 50,
-  address: 'XXXXXXXXXXX',
-  contact: 'XXX：123456789',
-  note: '发布日期, 2020年1月26日',
-}
-```
-
-others 样例：
-
-```
-metaData: {
-  content: '我是内容',
-}
-```
 
 ## 使用样例
+```js
+<InformationMap 
+  initPoint={initPoint} 
+  zoom={zoom} 
+  markers={makerArray} />
+```
 
 使用样例见 MapViz.tsx 组件

@@ -8,23 +8,39 @@
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import { BaiduMap } from './BaiduMap';
+import '../style.css';
 
-interface GeoData {
-  type: string;
+type InquiryMeta = [string, number|string|boolean]
+
+export interface Metadata {
+  key: string;
+  label?: string;
+  value: string|number|InquiryMeta[],
+}
+
+export interface GeoData {
+  type: "hospital"|"hotel"|"other";
   name: string;
-  coord: Array<number>;
-  metadata: Object;
+  url?: string;
+  coord: [number, number];
+  metadata: Metadata[];
 }
 
-interface MapOptions {
-  initPoint: Array<number>;
-  zoom: number;
-  marker: Array<GeoData>;
-}
 
 interface InformationMapProps {
-  options: MapOptions;
+  initPoint: [number, number];
+  zoom: number;
+  markers: GeoData[];
 }
+
+interface LabelMeta {
+  labelText: string,
+  labelStyle: {
+    color: string,
+    backgroundColor: string,
+    border: string
+  }
+};
 
 @observer
 @component({
@@ -34,57 +50,16 @@ interface InformationMapProps {
 export class InformationMap extends mixin<InformationMapProps, {}>() {
   @attribute
   @watch
-  options = {};
+  initPoint: [number, number] = [0, 0];
 
-  generateHospitalInfoWindowContent(
-    requests: Array<any>,
-    url: string,
-    address: string,
-    contact: string,
-    note: string
-  ) {
-    let requestsHTML = ``;
-    for (let item of requests) {
-      if (item[1] !== null && item[1] !== undefined && item[1] !== true) {
-        requestsHTML += `<div>${item[0] + ' ' + item[1]}</div>`;
-      }
-    }
-    let contactHTML = ``;
-    for (let item of contact.split('|')) {
-      contactHTML += `<div>${item}</div>`;
-    }
-    return `
-      <div>物资需求：</div>
-      <div>${requestsHTML}</div>
-      <br/>
-      <div>联系方式：</div>
-      <div>${contactHTML}</div>
-      <br/>
-      <div>邮寄地址：${address}</div>
-      <div>备注信息：${note === null || note === undefined ? '无' : note}</div>
-      <div>详情链接：<a href='${url}'>点此查看</a></div>
-    `;
-  }
+  @attribute
+  @watch
+  zoom: number = 1;
 
-  generateHotelInfoWindowContent(
-    capacity: number,
-    address: string,
-    contact: string,
-    note: string
-  ) {
-    let contactHTML = ``;
-    for (let item of contact.split('|')) {
-      contactHTML += `<div>${item}</div>`;
-    }
-    return `
-      <div>容量：${capacity}</div>
-      <div>地址：${address}</div>
-      <div>备注：${note === null || note === undefined ? '无' : note}</div>
-      <br/>
-      <div>联系方式：</div>
-      <div>${contactHTML}</div>
-    `;
-  }
+  @attribute
+  @watch
+  markers: GeoData[] = [];
+
 
   generateDefaultInfoWindowContent(content: string) {
     return `
@@ -92,57 +67,57 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
     `;
   }
 
-  generateHospitalMarker(item: any, label: any) {
+  generateTooltipContent(metas: Metadata[], url: string) {
+    let tooltip = ""
+    metas.forEach((meta: Metadata) => {
+      let content = meta.value;
+      
+      if (meta.value && typeof(meta.value) !== "string" && typeof(meta.value) !== "number") {
+        content = "";
+        (meta.value as InquiryMeta[]).forEach(item => {
+          const filterItem = item
+            .filter(i => typeof(i) === "string" || typeof(i) === "number")
+            .map(i => `${i}`);
+          if (filterItem.length > 0) {
+            content += `<div>${filterItem.join(" ")}</div>`;
+          }
+        })
+      }
+      if (content) {
+        tooltip += `<div><span class='info-label'>${meta.label || meta.key}</span>${content}</div>`;
+      }
+      
+    });
+    if (url) {
+      tooltip += `<div><span class='info-label'>详情链接</span><a href='${url}'>点此查看</a></div>`
+    }
+    return tooltip;
+  }
+
+  generateOptions(item: GeoData, label: LabelMeta) {
     let marker = {
       point: item.coord,
       labelText: label.labelText,
       labelStyle: label.labelStyle,
       infoWindowTitle: item.name,
-      infoWindowContent: this.generateHospitalInfoWindowContent(
-        item.metaData.requests,
-        item.metaData.url,
-        item.metaData.address,
-        item.metaData.contact,
-        item.metaData.note
-      )
+      infoWindowContent: this.generateTooltipContent (item.metadata, item.url)
     };
     return marker;
   }
 
-  generateHotelMarker(item: any, label: any) {
-    let marker = {
-      point: item.coord,
-      labelText: label.labelText,
-      labelStyle: label.labelStyle,
-      infoWindowTitle: item.name,
-      infoWindowContent: this.generateHotelInfoWindowContent(
-        item.metaData.capacity,
-        item.metaData.address,
-        item.metaData.contact,
-        item.metaData.note
-      )
-    };
-    return marker;
-  }
-
-  generateDefaultMarker(item: any, label: any) {
-    let marker = {
-      point: item.coord,
-      labelText: label.labelText,
-      labelStyle: label.labelStyle,
-      infoWindowTitle: item.name,
-      infoWindowContent: this.generateDefaultInfoWindowContent(
-        item.metaData.content
-      )
-    };
-    return marker;
-  }
-
-  generateMarker(markerArray: Array<any>) {
+  generateMarker(markerArray: GeoData[]): LabelMeta[] {
     const output = [];
+    let label: LabelMeta = {
+        labelText: '医院',
+        labelStyle: {
+          color: 'white',
+          backgroundColor: 'red',
+          border: '0px'
+        }
+      };
     for (const item of markerArray) {
       if (item.type === 'hospital') {
-        const label = {
+        label = {
           labelText: '医院',
           labelStyle: {
             color: 'white',
@@ -150,9 +125,9 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
             border: '0px'
           }
         };
-        output.push(this.generateHospitalMarker(item, label));
+        //output.push(this.generateHospitalMarker(item, label));
       } else if (item.type === 'hotel') {
-        const label = {
+        label = {
           labelText: '住宿',
           labelStyle: {
             color: 'white',
@@ -160,9 +135,9 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
             border: '0px'
           }
         };
-        output.push(this.generateHotelMarker(item, label));
+        //output.push(this.generateHotelMarker(item, label));
       } else {
-        const label = {
+        label = {
           labelText: '其他',
           labelStyle: {
             color: 'white',
@@ -170,19 +145,20 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
             border: '0px'
           }
         };
-        output.push(this.generateDefaultMarker(item, label));
+        //output.push(this.generateDefaultMarker(item, label));
       }
+      output.push(this.generateOptions(item, label))
     }
     return output;
   }
 
-  getMapOptions(options: any) {
+  getMapOptions(initPoint: [number, number], zoom: number, markers: GeoData[]) {
     const output = {
-      initPoint: options.initPoint,
-      zoom: options.zoom,
+      initPoint: initPoint,
+      zoom: zoom,
       markerArray: []
     };
-    let markerArray = this.generateMarker(options.makerArray);
+    let markerArray = this.generateMarker(markers);
     output.markerArray = output.markerArray.concat(markerArray);
     return output;
   }
@@ -191,7 +167,7 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
     return (
       <BaiduMap
         baiduMapKey={'4CsWt6kSluEoQFXxh8GlqoFDrctcoAIo'}
-        mapOptions={this.getMapOptions(this.props.options)}
+        mapOptions={this.getMapOptions(this.props.initPoint, this.props.zoom, this.props.markers)}
       />
     );
   }
