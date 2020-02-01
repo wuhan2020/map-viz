@@ -260,13 +260,13 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           baseline: 'middle'
         },
         formatter: function(s) {
-          return new Date(parseInt(s, 10)).toLocaleDateString().slice(5); // year is not necessary
+          return new Date(parseInt(s, 10)).toISOString().substring(5, 10); // year is not necessary, standardize to ISO
         }
       }
     };
     return {
       baseOption: options,
-      options: data.timeline.map(t => this.overrides(data.data[t]))
+      options: data.timeline.sort().map(t => this.overrides(data.data[t]))
     };
   }
 
