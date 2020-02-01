@@ -20,8 +20,9 @@ interface MapProps {
   chartOptions?: any;
   isForceRatio?: number;
   isAdjustLabel?: boolean;
-  chartOnClickCallBack?: Function;
-  chartGeoRoamCallBack?: Function;
+  chartOnClickCallBack?: (param: any, chart: any) => void;
+  chartGeoRoamCallBack?: (param: any, chart: any) => void;
+  chartAdjustLabel?: (param: any, chart: any) => void;
 }
 
 @observer
@@ -48,20 +49,21 @@ export class EchartsMap extends mixin<MapProps, {}>() {
 
   @attribute
   @watch
-  public chartOnClickCallBack = (param, chart) => {
+  public chartOnClickCallBack = (param, chart: any) => {
     console.log('click', param, chart);
   };
 
   @attribute
   @watch
   public chartGeoRoamCallBack = (param, chart) => {
-    this.adjustOption(param.zoom);
+    console.log('roam', param, chart);
   };
 
-  constructor() {
-    super();
-    this.adjustOption = this.adjustOption.bind(this);
-  }
+  @attribute
+  @watch
+  public chartAdjustLabel = (param, chart) => {
+    console.log('adjust-label', param, chart);
+  };
 
   chartId = this.generateChartId();
   chart: any;
@@ -73,49 +75,6 @@ export class EchartsMap extends mixin<MapProps, {}>() {
     const random = Math.floor(Math.random() * 100);
     const dateStr = new Date().getTime();
     return 'map' + random.toString() + dateStr.toString();
-  }
-
-  public adjustOption(scale: number = 1): void {
-    const options = this.props.chartOptions;
-    console.log(options);
-    if (this.chart && options) {
-      const domWidth = this.chart.getWidth();
-      const domHeight = this.chart.getHeight();
-
-      options.series.forEach(s => (s.zoom *= scale));
-      const size = options.series[0].zoom * Math.min(domWidth, domHeight);
-      if (this.props.isForceRatio) {
-        const maxWidth = Math.min(
-          domWidth,
-          domHeight / this.props.isForceRatio
-        );
-        // move the item MUCH closer
-        if (domHeight > domWidth) {
-          options.visualMap[0].orient = 'horizontal';
-          options.visualMap[0].right = undefined;
-          options.visualMap[0].left = undefined;
-        } else if (domHeight > domWidth * this.props.isForceRatio) {
-          options.visualMap[0].orient = 'vertical';
-          options.visualMap[0].left = undefined;
-          options.visualMap[0].right = 0;
-        } else {
-          options.visualMap[0].orient = 'vertical';
-          options.visualMap[0].right = undefined;
-          options.visualMap[0].left = Math.min(
-            domWidth / 2 + maxWidth / 2,
-            domWidth - 100
-          );
-        }
-      }
-      if (this.props.isAdjustLabel && scale) {
-        if (size < 200) {
-          options.series.forEach(s => (s.label.show = false));
-        } else {
-          options.series.forEach(s => (s.label.show = true));
-        }
-      }
-      this.chart.setOption(options);
-    }
   }
 
   updatedCallback() {
@@ -131,7 +90,6 @@ export class EchartsMap extends mixin<MapProps, {}>() {
     fetch(mapUrl)
       .then(response => response.json())
       .then(data => {
-        console.log(chartOptions);
         // convert to short names, better to use a map already with short names
         data.features.forEach(
           (f: { properties: { name: string } }) =>
@@ -145,19 +103,28 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         let eventState = {
           hovered: ''
         };
-        this.chart.on('mouseover', params => {
+        this.chart.on('mouseover', 'series', params => {
           // prevent click event to trigger immediately
           setTimeout(() => (eventState.hovered = params.name), 0);
         });
-        this.chart.on('mouseout', () => {
+        this.chart.on('mouseout', 'series', () => {
           eventState.hovered = '';
         });
-        this.chart.on('click', params => {
+        this.chart.on('click', 'series', params => {
           if (eventState.hovered.length > 0) {
             chartOnClickCallBack(params, this.chart);
             eventState.hovered = '';
           }
-          params.event.stop();
+        });
+
+        this.chart.on('click', 'timeline', params => {
+          this.chart.dispatchAction({
+            type: 'timelineChange',
+            // index of time point
+            currentIndex: chartOptions.baseOption.timeline.data.findIndex(
+              d => d === params.dataIndex
+            )
+          });
         });
 
         // this.chart.on('georoam', function(params) {
@@ -172,10 +139,16 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         let originFunction = (window as any).onresize;
         window.onresize = () => {
           originFunction();
+
           this.chart.resize();
+          if (this.props.chartAdjustLabel) {
+            this.props.chartAdjustLabel(null, this.chart);
+          }
           // this.adjustOption();
         };
-        // this.adjustOption();
+        if (this.props.chartAdjustLabel) {
+          this.props.chartAdjustLabel(null, this.chart);
+        }
         this.chart.hideLoading();
       })
       .catch(e => console.log('获取地图失败', e));
@@ -185,7 +158,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
     return (
       <div>
         <div id={this.chartId} style={{ width: '100%', height: '100%' }}></div>
-      </div >
+      </div>
     );
   }
 }

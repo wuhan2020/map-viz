@@ -59,20 +59,28 @@ export class VirusMap extends mixin<Props, {}>() {
     mapScale: 1
   };
 
+  constructor() {
+    super();
+    this.chartAdjustLabel = this.chartAdjustLabel.bind(this);
+    this.baseOptions = this.baseOptions.bind(this);
+    this.getSTChartOptions = this.getSTChartOptions.bind(this);
+    this.getChartOptions = this.getChartOptions.bind(this);
+    this.overrides = this.overrides.bind(this);
+  }
+
   baseOptions() {
     return {
       title: {
         text: '疫情地图'
       },
-      tooltip: {
-        trigger: 'item',
-        formatter: (_params: any) => ''
-      },
+      tooltip: {},
       visualMap: [
         {
           type: 'piecewise',
           right: '10%',
-          //orient: "horizontal",
+          left: undefined,
+          top: undefined,
+          orient: 'vertical',
           itemHeight: 10,
           itemWidth: 14,
           itemGap: 10,
@@ -84,8 +92,8 @@ export class VirusMap extends mixin<Props, {}>() {
             fontSize: 10
           },
           pieces: [
-            { min: 0, max: 0, color: '#EEEEEE' },
-            { gt: 1, lte: 10, color: '#FFFADD' },
+            { min: 0, max: 0, color: '#EEFFEE' },
+            { min: 1, lte: 10, color: '#FFFADD' },
             { gt: 10, lte: 50, color: '#FFDC90' },
             { gt: 50, lte: 100, color: '#FF9040' },
             { gt: 100, lte: 500, color: '#DD5C5C' },
@@ -127,15 +135,21 @@ export class VirusMap extends mixin<Props, {}>() {
   overrides(data: MapDataType) {
     return {
       tooltip: {
-        formatter: function (params) {
+        trigger: 'item',
+        formatter: function(params) {
+          if (params.componentType === 'timeline') {
+            if ((params.dataIndex % 24) * 3600000 === 0) {
+              return new Date(params.dataIndex).toLocaleDateString('zh-CN');
+            } else {
+              return new Date(params.dataIndex).toLocaleDateString(
+                'zh-CN-u-hc-h24'
+              );
+            }
+          }
+
           const outputArray = [params.name];
           if (data[params.name] === undefined) {
-            data[params.name] = {
-              confirmed: 0,
-              suspected: 0,
-              cured: 0,
-              dead: 0
-            };
+            return params.name + '<br/>暂无数据';
           }
           if (data[params.name].confirmed !== undefined) {
             outputArray.push('确诊：' + data[params.name].confirmed);
@@ -163,25 +177,107 @@ export class VirusMap extends mixin<Props, {}>() {
     };
   }
 
-  public getChartOptions(data: MapDataType) {
+  public chartAdjustLabel(param: any, chart: any): void {
+    const isForceRatio = 0.75;
+    const isAdjustLabel = true;
     let options = this.baseOptions();
-    let extra = this.overrides(data);
-    options.series[0].data = extra.series[0].data;
-    options.tooltip.formatter = extra.tooltip.formatter;
-    return options;
+    if (chart && options) {
+      const domWidth = chart.getWidth();
+      const domHeight = chart.getHeight();
+      if (isForceRatio) {
+        const maxWidth = Math.min(domWidth, domHeight / isForceRatio);
+        const maxHeight = Math.min(domHeight, maxWidth * isForceRatio);
+        // move the item MUCH closer
+        if (domHeight > domWidth) {
+          options.visualMap[0].orient = 'horizontal';
+          options.visualMap[0].right = undefined;
+          options.visualMap[0].top = Math.max(
+            domHeight / 2 - maxHeight / 2 - 50,
+            0
+          );
+          options.visualMap[0].bottom = undefined;
+          options.visualMap[0].left = 'center';
+        } else if (domHeight > domWidth * isForceRatio) {
+          options.visualMap[0].orient = 'vertical';
+          options.visualMap[0].left = undefined;
+          options.visualMap[0].right = 0 as any;
+          options.visualMap[0].bottom = '10%';
+          options.visualMap[0].top = undefined;
+        } else {
+          options.visualMap[0].orient = 'vertical';
+          options.visualMap[0].right = undefined;
+          options.visualMap[0].top = undefined;
+          options.visualMap[0].bottom = '10%';
+          options.visualMap[0].left = Math.min(
+            domWidth / 2 + maxWidth / 2,
+            domWidth - 100
+          );
+        }
+      }
+      const scale = param ? param.scale : 1;
+      if (isAdjustLabel && scale) {
+        options.series.forEach(s => (s.zoom *= scale));
+        const size = options.series[0].zoom * Math.min(domWidth, domHeight);
+        if (size < 200) {
+          options.series.forEach(s => (s.label.show = false));
+        } else {
+          options.series.forEach(s => (s.label.show = true));
+        }
+      }
+      if (this.isTimelineData(this.props.data)) {
+        options = this.getSTChartOptions(
+          this.props.data as STMapDataType,
+          options
+        ) as any;
+      } else {
+        options = this.getChartOptions(
+          this.props.data as MapDataType,
+          options
+        ) as any;
+      }
+      chart.setOption(options);
+    }
   }
 
-  public getSTChartOptions(data: STMapDataType) {
-    let options = this.baseOptions();
+  public getChartOptions(data: MapDataType, options: any = null) {
+    if (!options) {
+      options = this.baseOptions();
+    }
+    let extra = this.overrides(data);
+    options.series[0].data = extra.series[0].data;
+    options.tooltip = extra.tooltip;
+    return options;
+  }
+  public getSTChartOptions(data: STMapDataType, options: any = null) {
+    if (!options) {
+      options = this.baseOptions();
+    }
     options['timeline'] = {
+      axisType: 'time',
       show: true,
-      autoPlay: true,
+      tooltip: {},
+      // autoPlay: true,
       playInterval: 1500,
-      data: data.timeline
+      currentIndex: data.timeline.length - 1,
+      data: data.timeline,
+      label: {
+        fontSize: 10,
+        position: 10,
+        rotate: 45,
+        textStyle: {
+          align: 'right',
+          baseline: 'middle'
+        },
+        formatter: function(s) {
+          return new Date(parseInt(s, 10))
+            .toLocaleDateString('zh-CN')
+            .substring(5); // year is not necessary, standardize to ISO
+        }
+      }
     };
     return {
       baseOption: options,
-      options: data.timeline.map(t => this.overrides(data.data[t]))
+      options: data.timeline.sort().map(t => this.overrides(data.data[t]))
     };
   }
 

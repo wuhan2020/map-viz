@@ -38,8 +38,9 @@ export class VirusChart extends mixin<Props, State>() {
   @attribute
   @watch
   public area: string = '';
-
-  public getOrderedTimeData(data: CountryData | Series<ProvinceData> | Series<CountryOverviewData>) {
+  public getOrderedTimeData(
+    data: CountryData | Series<ProvinceData> | Series<CountryOverviewData>
+  ) {
     let output = [];
     for (const property in data) {
       data[property].date = parseInt(property);
@@ -51,7 +52,11 @@ export class VirusChart extends mixin<Props, State>() {
     return output;
   }
 
-  public getData(orderedProvinceData: Array<any>, orderedOverviewData: Array<any>, area: string) {
+  public getData(
+    orderedProvinceData: Array<any>,
+    orderedOverviewData: Array<any>,
+    area: string
+  ) {
     let confirmedData = [];
     let suspectedData = [];
     let curedData = [];
@@ -81,15 +86,23 @@ export class VirusChart extends mixin<Props, State>() {
     };
   }
 
-  public getConfirmedSuspectChartOptions(orderedProvinceData: Array<any>, orderedOverviewData: Array<any>, area: string) {
-    const { confirmedData, suspectedData } = this.getData(orderedProvinceData, orderedOverviewData, area);
+  public getConfirmedSuspectChartOptions(
+    orderedProvinceData: Array<any>,
+    orderedOverviewData: Array<any>,
+    area: string
+  ) {
+    const { confirmedData, suspectedData } = this.getData(
+      orderedProvinceData,
+      orderedOverviewData,
+      area
+    );
 
     return {
       title: {
         text: area + '疫情确诊/疑似数'
       },
       tooltip: {
-        trigger: 'axis',
+        trigger: 'axis'
       },
       xAxis: {
         type: 'time'
@@ -114,9 +127,16 @@ export class VirusChart extends mixin<Props, State>() {
     };
   }
 
-
-  public getCuredDeadChartOptions(orderedProvinceData: Array<any>, orderedOverviewData: Array<any>, area: string) {
-    const { curedData, deadData } = this.getData(orderedProvinceData, orderedOverviewData, area);
+  public getCuredDeadChartOptions(
+    orderedProvinceData: Array<any>,
+    orderedOverviewData: Array<any>,
+    area: string
+  ) {
+    const { curedData, deadData } = this.getData(
+      orderedProvinceData,
+      orderedOverviewData,
+      area
+    );
 
     return {
       title: {
@@ -143,7 +163,6 @@ export class VirusChart extends mixin<Props, State>() {
       ]
     };
   }
-
 
   public render() {
     const { data, area } = this.props;

@@ -61,9 +61,9 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
         dataOnMap = data.provinces;
       } else {
         dataOnMap = {
-          timeline: Object.keys(data as Series<ProvinceData>).map(t =>
-            parseInt(t, 10)
-          ),
+          timeline: Object.keys(data as Series<ProvinceData>)
+            .map(t => parseInt(t, 10))
+            .sort(),
           data
         };
       }
@@ -72,10 +72,11 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
       if ((data as CountryData).provinces) {
         dataOnMap = data.provinces[name].cities;
       } else {
-        // FIXME: no resolution provided
-        const citiesSeries = extractCitiesSeries(data, name, resolution);
+        const citiesSeries = extractCitiesSeries(data, name, resolution, true);
         dataOnMap = {
-          timeline: Object.keys(citiesSeries).map(t => parseInt(t, 10)),
+          timeline: Object.keys(citiesSeries)
+            .map(t => parseInt(t, 10))
+            .sort(),
           data: citiesSeries
         };
       }
