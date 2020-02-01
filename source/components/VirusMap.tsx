@@ -27,7 +27,8 @@ interface Props {
   name: string;
   data?: MapDataType | STMapDataType;
   chartData?: OverallCountryData;
-  area: string;
+  chartPath?: Array<string>;
+  currentChartArea: string;
   chartOnClickCallBack?: Function;
 }
 
@@ -51,12 +52,21 @@ export class VirusMap extends mixin<Props, {}>() {
 
   @attribute
   @watch
+  public currentChartArea: string = '';
+
+  @attribute
+  @watch
+  public chartPath: Array<string> = [];
+
+  @attribute
+  @watch
   public chartOnClickCallBack = (param, chart) => {
     console.log(param, chart);
   };
 
   public state = {
-    mapScale: 1
+    mapScale: 1,
+    chartArea: this.props.name
   };
 
   constructor() {
@@ -137,7 +147,7 @@ export class VirusMap extends mixin<Props, {}>() {
     return {
       tooltip: {
         trigger: 'item',
-        formatter: function(params) {
+        formatter: function (params) {
           if (params.componentType === 'timeline') {
             if ((params.dataIndex % 24) * 3600000 === 0) {
               return new Date(params.dataIndex).toLocaleDateString('zh-CN');
@@ -282,7 +292,7 @@ export class VirusMap extends mixin<Props, {}>() {
           align: 'right',
           baseline: 'middle'
         },
-        formatter: function(s) {
+        formatter: function (s) {
           return new Date(parseInt(s, 10))
             .toLocaleDateString('zh-CN')
             .substring(5); // year is not necessary, standardize to ISO
@@ -298,43 +308,22 @@ export class VirusMap extends mixin<Props, {}>() {
     return (data as STMapDataType).timeline !== undefined;
   }
 
-  public render({ name, data, chartOnClickCallBack, chartData }: Props, {}) {
+  public render({ name, data, chartOnClickCallBack, currentChartArea, chartData, chartPath }: Props, { }) {
+    const isPC = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
+      (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) * 0.8
+
     // 缩放时间重新set一下option
     return (
       <div
-        style={
-          (window.innerWidth ||
-            document.documentElement.clientWidth ||
-            document.body.clientWidth) >
-          (window.innerHeight ||
-            document.documentElement.clientHeight ||
-            document.body.clientHeight)
-            ? {
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                height: '100%',
-                margin: '0 10px'
-              }
-            : {
-                display: 'flex',
-                flexDirection: 'column',
-                width: '100%',
-                height: '200%',
-                margin: '0 10px'
-              }
+        style={isPC ?
+          { display: 'flex', flexDirection: 'row', width: '100%', height: '100%' } :
+          { display: 'flex', flexDirection: 'column', width: '100%', height: '200%' }
         }
       >
         <EchartsMap
-          style={
-            (window.innerWidth ||
-              document.documentElement.clientWidth ||
-              document.body.clientWidth) >
-            (window.innerHeight ||
-              document.documentElement.clientHeight ||
-              document.body.clientHeight)
-              ? { width: '65%', height: '100%', margin: '0 10px' }
-              : { width: '100%', height: '100%', margin: '0 10px' }
+          style={isPC ?
+            { width: '65%', height: '100%' } :
+            { width: '100%', height: '100%' }
           }
           mapUrl={MapUrls[name]}
           chartOptions={
@@ -346,18 +335,13 @@ export class VirusMap extends mixin<Props, {}>() {
           chartOnClickCallBack={chartOnClickCallBack}
         />
         <VirusChart
-          style={
-            (window.innerWidth ||
-              document.documentElement.clientWidth ||
-              document.body.clientWidth) >
-            (window.innerHeight ||
-              document.documentElement.clientHeight ||
-              document.body.clientHeight)
-              ? { width: '35%', height: '100%', margin: '0 10px' }
-              : { width: '100%', height: '100%', margin: '0 10px' }
+          style={isPC ?
+            { width: '35%', height: '100%' } :
+            { width: '100%', height: '100%' }
           }
           data={chartData}
-          area={name}
+          area={currentChartArea}
+          path={chartPath}
         />
       </div>
     );

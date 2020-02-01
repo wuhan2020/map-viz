@@ -26,6 +26,7 @@ interface Props {
 
 interface State {
   path: string[];
+  currentChartArea: string;
 }
 
 @observer
@@ -46,16 +47,17 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
   public resolution: number = 3600000;
 
   state = {
-    path: []
+    path: [],
+    currentChartArea: "中国"
   };
   navigateDown(params) {
     // if has name and path length < max length
     // TODO: check the data to see whether we can navigate down
-    if (params.name && this.state.path.length < 1) {
-      this.setState({
-        path: [...this.state.path, params.name]
-      });
-    }
+    this.setState({
+      path: params.name && this.state.path.length < 1 ? [...this.state.path, params.name] : this.state.path,
+      currentChartArea: params.name
+    });
+
   }
   getVirusMapConfig(path, data, resolution) {
     let name = '中国';
@@ -96,17 +98,19 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
     // back to country view
     if (this.state.path.length > 0) {
       this.setState({
-        path: this.state.path.slice(0, this.state.path.length - 1)
+        path: this.state.path.slice(0, this.state.path.length - 1),
+        currentChartArea: '中国'
       });
     }
   }
 
-  public render({ data, resolution }: Props, { path }: State) {
+  public render({ data, resolution }: Props, { path, currentChartArea }: State) {
     const config = this.getVirusMapConfig(
       path,
       data.provincesSeries,
       resolution
     );
+
     return (
       <div>
         <div style={{ position: 'relative' }}>
@@ -114,6 +118,8 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
             name={config.name}
             data={config.data}
             chartData={data}
+            chartPath={path}
+            currentChartArea={currentChartArea}
             chartOnClickCallBack={config.navigateDown}
             onDblClick={this.navigateUp.bind(this)}
           />
