@@ -8,6 +8,7 @@
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import { BaiduMap } from './BaiduMap';
+import icon from '../icon/icon.json';
 import '../style.css';
 
 type InquiryMeta = [string, number|string|boolean]
@@ -94,11 +95,10 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
     return tooltip;
   }
 
-  generateOptions(item: GeoData, label: LabelMeta) {
+  generateOptions(item: GeoData, iconUrl: string) {
     let marker = {
       point: item.coord,
-      labelText: label.labelText,
-      labelStyle: label.labelStyle,
+      icon: iconUrl,
       infoWindowTitle: item.name,
       infoWindowContent: this.generateTooltipContent (item.metadata, item.url)
     };
@@ -107,47 +107,51 @@ export class InformationMap extends mixin<InformationMapProps, {}>() {
 
   generateMarker(markerArray: GeoData[]): LabelMeta[] {
     const output = [];
-    let label: LabelMeta = {
-        labelText: '医院',
-        labelStyle: {
-          color: 'white',
-          backgroundColor: 'red',
-          border: '0px'
-        }
-      };
+    // let label: LabelMeta = {
+    //     labelText: '医院',
+    //     labelStyle: {
+    //       color: 'white',
+    //       backgroundColor: 'red',
+    //       border: '0px'
+    //     }
+    //   };
+    let iconUrl = icon.others;
     for (const item of markerArray) {
       if (item.type === 'hospital') {
-        label = {
-          labelText: '医院',
-          labelStyle: {
-            color: 'white',
-            backgroundColor: 'red',
-            border: '0px'
-          }
-        };
+        iconUrl = icon.hospital;
+        // label = {
+        //   labelText: '医院',
+        //   labelStyle: {
+        //     color: 'white',
+        //     backgroundColor: 'red',
+        //     border: '0px'
+        //   }
+        // };
         //output.push(this.generateHospitalMarker(item, label));
       } else if (item.type === 'hotel') {
-        label = {
-          labelText: '住宿',
-          labelStyle: {
-            color: 'white',
-            backgroundColor: 'blue',
-            border: '0px'
-          }
-        };
+        iconUrl = icon.hotel;
+        // label = {
+        //   labelText: '住宿',
+        //   labelStyle: {
+        //     color: 'white',
+        //     backgroundColor: 'blue',
+        //     border: '0px'
+        //   }
+        // };
         //output.push(this.generateHotelMarker(item, label));
       } else {
-        label = {
-          labelText: '其他',
-          labelStyle: {
-            color: 'white',
-            backgroundColor: 'black',
-            border: '0px'
-          }
-        };
+        iconUrl = icon.others;
+        // label = {
+        //   labelText: '其他',
+        //   labelStyle: {
+        //     color: 'white',
+        //     backgroundColor: 'black',
+        //     border: '0px'
+        //   }
+        // };
         //output.push(this.generateDefaultMarker(item, label));
       }
-      output.push(this.generateOptions(item, label))
+      output.push(this.generateOptions(item, iconUrl))
     }
     return output;
   }

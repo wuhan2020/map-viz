@@ -55,18 +55,17 @@ export class MapViz extends mixin<{}, State>() {
   }
 
   public render() {
-    console.log(informationMockData);
     return (
       <div>
-        <div style={{ width: '100%', height: '100%'}}>
+        <div style={{ width: '100%', height: '100%' }}>
           <HierarchicalVirusMap data={data} resolution={resolution} />
         </div>
-        { <div style={{ width: '100%', height: '80%'}}>
-          <InformationMap 
-            initPoint={informationMockData.initPoint} 
-            zoom={informationMockData.zoom} 
+        <div style={{ width: '100%', height: '80%' }}>
+          <InformationMap
+            initPoint={informationMockData.initPoint}
+            zoom={informationMockData.zoom}
             markers={informationMockData.makerArray} />
-        </div> }
+        </div>
       </div>
     );
   }
