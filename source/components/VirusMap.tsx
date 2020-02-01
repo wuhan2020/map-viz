@@ -18,17 +18,16 @@ import { OverallCountryData } from '../adapters/patientStatInterface';
 import MapUrls from '../../map_data/map_dict.json';
 //import create_pieces from "../adapters/piece"
 
-
 type MapDataType = { [name: string]: PatientStatData };
 type STMapDataType = {
   timeline: number[];
   data: { [timestamp: number]: MapDataType };
-  
 }; // spatio-temporal data
 
 interface Props {
   name: string;
   data?: MapDataType | STMapDataType;
+  breaks?: number[];
   chartData?: OverallCountryData;
   chartPath?: Array<string>;
   currentChartArea: string;
@@ -37,6 +36,31 @@ interface Props {
 
 function mapName(name: string) {
   return name === '中国' ? 'china' : 'map';
+}
+
+const PALETTE = [
+  '#FFFFFF',
+  '#FFFADD',
+  '#FFDC90',
+  '#FFA060',
+  '#DD6C5C',
+  '#AC2F13',
+  '#3E130E'
+];
+
+const pair = (s: any[]) =>
+  s.slice(0, s.length - 1).map((item, i) => [item, s[i + 1]]);
+
+function createPieces(breaks: number[], palette) {
+  return [
+    { min: 0, max: 0, color: palette[0] },
+    ...pair(breaks).map(([b1, b2], i) => ({
+      gte: b1,
+      lt: b2,
+      color: palette[i + 1]
+    })),
+    { gte: breaks[breaks.length - 1], color: palette[breaks.length] }
+  ];
 }
 
 @observer
@@ -52,6 +76,10 @@ export class VirusMap extends mixin<Props, {}>() {
   @attribute
   @watch
   public data: MapDataType = {};
+
+  @attribute
+  @watch
+  public breaks: number[] = [1, 10, 50, 100, 500, 1000];
 
   @attribute
   @watch
@@ -85,7 +113,7 @@ export class VirusMap extends mixin<Props, {}>() {
     this.overrides = this.overrides.bind(this);
   }
 
-  baseOptions(name: string) {
+  baseOptions(name: string, breaks: number[]) {
     return {
       title: {
         text: name + '疫情地图', // workaround for incomplete map data
@@ -111,15 +139,7 @@ export class VirusMap extends mixin<Props, {}>() {
           textStyle: {
             fontSize: 10
           },
-          pieces: [
-            { min: 0, max: 0, color: '#FFFFFF' },
-            { min: 1, lte: 10, color: '#FFFADD' },
-            { gt: 10, lte: 50, color: '#FFDC90' },
-            { gt: 50, lte: 100, color: '#FFA060' },
-            { gt: 100, lte: 500, color: '#DD6C5C' },
-            { gt: 500, lte: 1000, color: '#AC2F13' },
-            { gt: 1000, color: '#3e130e' }
-          ]
+          pieces: createPieces(breaks, PALETTE)
           /*
         formatter: (gt: number, lte: number) =>  {
           console.log(gt, lte);
@@ -201,7 +221,7 @@ export class VirusMap extends mixin<Props, {}>() {
   public chartAdjustLabel(param: any, chart: any): void {
     const isForceRatio = 0.75;
     const isAdjustLabel = true;
-    let options = this.baseOptions(this.props.name);
+    let options = this.baseOptions(this.props.name, this.props.breaks);
     if (chart && options) {
       const domWidth = chart.getWidth();
       const domHeight = chart.getHeight();
@@ -272,7 +292,7 @@ export class VirusMap extends mixin<Props, {}>() {
 
   public getChartOptions(data: MapDataType, options: any = null) {
     if (!options) {
-      options = this.baseOptions(this.props.name);
+      options = this.baseOptions(this.props.name, this.props.breaks);
     }
     let extra = this.overrides(data);
     options.series[0].data = extra.series[0].data;
@@ -281,7 +301,7 @@ export class VirusMap extends mixin<Props, {}>() {
   }
   public getSTChartOptions(data: STMapDataType, options: any = null) {
     if (!options) {
-      options = this.baseOptions(this.props.name);
+      options = this.baseOptions(this.props.name, this.props.breaks);
     }
     options['timeline'] = {
       axisType: 'time',

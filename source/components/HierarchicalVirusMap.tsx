@@ -29,6 +29,17 @@ interface State {
   currentChartArea: string;
 }
 
+function autoBreaks(values: number[]) {
+  const base = [1, 10, 50, 100, 500, 1000];
+  const k =
+    (Math.floor(Math.max(...values.filter(v => v !== undefined)) / 5 / 500) *
+      500) /
+    Math.max(...base);
+  let res = base.map(b => k * b);
+  res[0] = 1;
+  return res;
+}
+
 @observer
 @component({
   tagName: 'hierarchical-virus-map',
@@ -64,31 +75,23 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
   getVirusMapConfig(path, data, resolution) {
     let name = '中国';
 
-    let dataOnMap: MapDataType | STMapDataType;
+    let dataOnMap: STMapDataType;
     if (path.length === 0) {
-      if ((data as CountryData).provinces) {
-        dataOnMap = data.provinces;
-      } else {
-        dataOnMap = {
-          timeline: Object.keys(data as Series<ProvinceData>)
-            .map(t => parseInt(t, 10))
-            .sort(),
-          data
-        };
-      }
+      dataOnMap = {
+        timeline: Object.keys(data as Series<ProvinceData>)
+          .map(t => parseInt(t, 10))
+          .sort(),
+        data
+      };
     } else if (path.length === 1) {
       name = path[0];
-      if ((data as CountryData).provinces) {
-        dataOnMap = data.provinces[name].cities;
-      } else {
-        const citiesSeries = extractCitiesSeries(data, name, resolution, true);
-        dataOnMap = {
-          timeline: Object.keys(citiesSeries)
-            .map(t => parseInt(t, 10))
-            .sort(),
-          data: citiesSeries
-        };
-      }
+      const citiesSeries = extractCitiesSeries(data, name, resolution, true);
+      dataOnMap = {
+        timeline: Object.keys(citiesSeries)
+          .map(t => parseInt(t, 10))
+          .sort(),
+        data: citiesSeries
+      };
     }
     return {
       name,
@@ -116,12 +119,20 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
       resolution
     );
 
+    const current =
+      data.provincesSeries[
+        Math.max(...Object.keys(data.provincesSeries).map(t => parseInt(t, 10)))
+      ];
+
     return (
       <div>
         <div style={{ position: 'relative' }}>
           <VirusMap
             name={config.name}
             data={config.data}
+            breaks={autoBreaks(
+              Object.values(current).map(prov => prov.confirmed)
+            )} // use current province values to calculate viable mapping breaks
             chartData={data}
             chartPath={path}
             currentChartArea={currentChartArea}
