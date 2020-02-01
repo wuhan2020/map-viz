@@ -81,6 +81,7 @@ export default {
     },
     {
       name: '红安县人民医院',
+      type: "hospital",
       coord: [114.625222, 31.286868],
       url: 'https://mp.weixin.qq.com/s/geO3CCd0_8B3L-r_xlBbZQ',
       address: '红安县人民医院红安县城关镇陵园大道附50号',

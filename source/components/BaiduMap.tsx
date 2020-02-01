@@ -10,9 +10,11 @@
 
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
+// import hospitalImage from '../../icon/hospital.json';
 
 interface Marker {
   point: Array<number>,
+  icon: string,
   labelText: string,
   labelStyle: Object,
   infoWindowTitle: string,
@@ -69,12 +71,15 @@ export class BaiduMap extends mixin<BaiduMapProps, {}>() {
 
         for (const item of this.props.mapOptions.markerArray) {
           const position = new (window as any).BMap.Point(item.point[0], item.point[1]);
-          const marker = new (window as any).BMap.Marker(position);
-          const label = new (window as any).BMap.Label(item.labelText, {
-            position: position,
-            offset: new (window as any).BMap.Size(17, -22)
+          const myIcon = new (window as any).BMap.Icon(item.icon, new (window as any).BMap.Size(25, 25), {
+            offset: new (window as any).BMap.Size(10, 25)
           });
-          label.setStyle(item.labelStyle);
+          const marker = new (window as any).BMap.Marker(position, { icon: myIcon });
+          // const label = new (window as any).BMap.Label(item.labelText, {
+          //   position: position,
+          //   offset: new (window as any).BMap.Size(17, -22)
+          // });
+          // label.setStyle(item.labelStyle);
 
           marker.addEventListener('click', function () {
             var infoWindow = new (window as any).BMap.InfoWindow(item.infoWindowContent, {
@@ -84,7 +89,7 @@ export class BaiduMap extends mixin<BaiduMapProps, {}>() {
           });
 
           map.addOverlay(marker);
-          map.addOverlay(label);
+          // map.addOverlay(label);
         }
       }
     }, 0)
