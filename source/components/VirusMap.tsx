@@ -266,7 +266,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     };
     return {
       baseOption: options,
-      options: data.timeline.map(t => this.overrides(data.data[t]))
+      options: data.timeline.sort().map(t => this.overrides(data.data[t]))
     };
   }
 
