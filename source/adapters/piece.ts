@@ -50,7 +50,7 @@ export const create_pieces=(
         let d={}
 
         if (i==0){
-            d= { min: 0, max: 0, color:c }
+            d= { min: n, max: n, color:c }
         }else if(i==1){
             d={ min: n, lte: next, color:c }
         }else if (i == l-1){
