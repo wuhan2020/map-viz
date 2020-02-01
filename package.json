@@ -15,10 +15,11 @@
   "main": "source/index.html",
   "dependencies": {
     "boot-cell": "^0.24.0",
+    "cell-router": "^2.0.0-rc.6",
     "classnames": "^2.2.6",
     "echarts": "^4.6.0",
     "js-base64": "^2.5.1",
-    "mobx": "^5.15.3",
+    "mobx": "^5.15.4",
     "mobx-web-cell": "^0.2.5",
     "web-cell": "^2.0.0-rc.15",
     "yaml": "^1.7.2"

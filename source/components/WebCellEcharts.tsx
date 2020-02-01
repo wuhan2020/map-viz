@@ -39,15 +39,18 @@ export class WebCellEcharts extends mixin<ChartProps, {}>() {
 
   connectedCallback() {
     setTimeout(() => {
-      this.chart = echarts.init(document.getElementById(this.chartId));
-      this.chart.setOption(this.chartOptions);
-      let onResizeFunction = (window as any).onresize;
-      window.onresize = () => {
-        if (onResizeFunction) {
-          onResizeFunction();
-        }
-        this.chart.resize();
-      };
+      if (document.getElementById(this.chartId)) {
+        this.chart = echarts.init(document.getElementById(this.chartId));
+        this.chart.setOption(this.chartOptions);
+        let onResizeFunction = (window as any).onresize;
+        window.onresize = () => {
+          if (onResizeFunction) {
+            onResizeFunction();
+          }
+          this.chart.resize();
+        };
+      }
+      
     }, 0);
   }
 

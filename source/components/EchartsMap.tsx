@@ -80,6 +80,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
       chartOnClickCallBack,
       chartGeoRoamCallBack
     } = this.props;
+    
     if (this.chart !== undefined) {
       this.chart.showLoading();
     }
@@ -87,6 +88,9 @@ export class EchartsMap extends mixin<MapProps, {}>() {
       .then(response => response.json())
       .then(data => {
         // convert to short names, better to use a map already with short names
+        if (!document.getElementById(this.chartId)) {
+          return;
+        }
         data.features.forEach(
           (f: { properties: { name: string } }) =>
             (f.properties.name = long2short(f.properties.name))
