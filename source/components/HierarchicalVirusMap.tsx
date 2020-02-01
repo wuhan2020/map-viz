@@ -135,8 +135,8 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
               width: '30px',
               height: '30px',
               position: 'absolute',
-              bottom: '20px',
-              left: '20px',
+              top: '50px',
+              left: '120px',
               padding: '5px'
             }}
             onClick={this.navigateUp.bind(this)}

@@ -78,10 +78,11 @@ export class VirusMap extends mixin<Props, {}>() {
     this.overrides = this.overrides.bind(this);
   }
 
-  baseOptions() {
+  baseOptions(name: string) {
     return {
       title: {
-        text: '疫情地图',
+        text:
+          name === '中国' ? '中国大陆及港澳台地区疫情地图' : name + '疫情地图', // workaround for incomplete map data
         left: '20px',
         top: '20px'
       },
@@ -92,12 +93,12 @@ export class VirusMap extends mixin<Props, {}>() {
           left: '20px',
           right: undefined,
           show: true,
-          top: undefined,
+          top: '50px',
           orient: 'vertical',
           itemHeight: 10,
           itemWidth: 14,
           itemGap: 10,
-          bottom: '10%',
+          bottom: undefined,
           itemSymbol: 'circle',
           backgroundColor: 'rgba(200,200,200, 0.2)',
           padding: 10,
@@ -193,7 +194,7 @@ export class VirusMap extends mixin<Props, {}>() {
   public chartAdjustLabel(param: any, chart: any): void {
     const isForceRatio = 0.75;
     const isAdjustLabel = true;
-    let options = this.baseOptions();
+    let options = this.baseOptions(this.props.name);
     if (chart && options) {
       const domWidth = chart.getWidth();
       const domHeight = chart.getHeight();
@@ -221,14 +222,14 @@ export class VirusMap extends mixin<Props, {}>() {
           options.visualMap[0].orient = 'vertical';
           options.visualMap[0].left = '20px';
           options.visualMap[0].right = 0 as any;
-          options.visualMap[0].bottom = '10%';
-          options.visualMap[0].top = undefined;
+          options.visualMap[0].bottom = undefined;
+          options.visualMap[0].top = '50px';
         } else {
           options.visualMap[0].show = true;
           options.visualMap[0].orient = 'vertical';
           options.visualMap[0].right = undefined;
-          options.visualMap[0].top = undefined;
-          options.visualMap[0].bottom = '10%';
+          options.visualMap[0].top = '50px';
+          options.visualMap[0].bottom = 'undefined';
           options.visualMap[0].left = '20px';
         }
       }
@@ -264,7 +265,7 @@ export class VirusMap extends mixin<Props, {}>() {
 
   public getChartOptions(data: MapDataType, options: any = null) {
     if (!options) {
-      options = this.baseOptions();
+      options = this.baseOptions(this.props.name);
     }
     let extra = this.overrides(data);
     options.series[0].data = extra.series[0].data;
@@ -273,7 +274,7 @@ export class VirusMap extends mixin<Props, {}>() {
   }
   public getSTChartOptions(data: STMapDataType, options: any = null) {
     if (!options) {
-      options = this.baseOptions();
+      options = this.baseOptions(this.props.name);
     }
     options['timeline'] = {
       axisType: 'time',
