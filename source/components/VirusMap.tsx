@@ -89,6 +89,7 @@ export class VirusMap extends mixin<Props, {}>() {
           type: 'piecewise',
           right: '10%',
           left: undefined,
+          show: true,
           top: undefined,
           orient: 'vertical',
           itemHeight: 10,
@@ -102,12 +103,12 @@ export class VirusMap extends mixin<Props, {}>() {
             fontSize: 10
           },
           pieces: [
-            { min: 0, max: 0, color: '#f9f3f5' },
-            { min: 1, lte: 10, color: '#ffc9c0' },
-            { gt: 10, lte: 50, color: '#ffa18c' },
-            { gt: 50, lte: 100, color: '#ff6440' },
-            { gt: 100, lte: 500, color: '#cc4f33' },
-            { gt: 500, lte: 1000, color: '#682419' },
+            { min: 0, max: 0, color: '#FFFFFF' },
+            { min: 1, lte: 10, color: '#FFFADD' },
+            { gt: 10, lte: 50, color: '#FFDC90' },
+            { gt: 50, lte: 100, color: '#FFA060' },
+            { gt: 100, lte: 500, color: '#DD6C5C' },
+            { gt: 500, lte: 1000, color: '#AC2F13' },
             { gt: 1000, color: '#3e130e' }
           ]
           /*
@@ -198,7 +199,10 @@ export class VirusMap extends mixin<Props, {}>() {
         const maxWidth = Math.min(domWidth, domHeight / isForceRatio);
         const maxHeight = Math.min(domHeight, maxWidth * isForceRatio);
         // move the item MUCH closer
-        if (domHeight > domWidth) {
+
+        //if (domHeight > domWidth) {
+        options.visualMap[0].show = false;
+        /*
           options.visualMap[0].orient = 'horizontal';
           options.visualMap[0].right = undefined;
           options.visualMap[0].top = Math.max(
@@ -207,13 +211,18 @@ export class VirusMap extends mixin<Props, {}>() {
           );
           options.visualMap[0].bottom = undefined;
           options.visualMap[0].left = 'center';
-        } else if (domHeight > domWidth * isForceRatio) {
+          */
+        //} else if (domHeight > domWidth * isForceRatio) {
+
+        if (domHeight > domWidth * isForceRatio) {
+          options.visualMap[0].show = true;
           options.visualMap[0].orient = 'vertical';
           options.visualMap[0].left = undefined;
           options.visualMap[0].right = 0 as any;
           options.visualMap[0].bottom = '10%';
           options.visualMap[0].top = undefined;
         } else {
+          options.visualMap[0].show = true;
           options.visualMap[0].orient = 'vertical';
           options.visualMap[0].right = undefined;
           options.visualMap[0].top = undefined;
@@ -225,12 +234,17 @@ export class VirusMap extends mixin<Props, {}>() {
         }
       }
       const scale = param ? param.scale : 1;
-      if (isAdjustLabel && scale) {
+
+      if (isAdjustLabel && scale && isForceRatio) {
+        const maxWidth = Math.min(domWidth, domHeight / isForceRatio);
+        const maxHeight = Math.min(domHeight, maxWidth * isForceRatio);
         options.series.forEach(s => (s.zoom *= scale));
-        const size = options.series[0].zoom * Math.min(domWidth, domHeight);
-        if (size < 200) {
+        const size = options.series[0].zoom * maxHeight;
+        if (size < 300) {
+          options.visualMap[0].show = false;
           options.series.forEach(s => (s.label.show = false));
         } else {
+          options.visualMap[0].show = true;
           options.series.forEach(s => (s.label.show = true));
         }
       }
@@ -293,7 +307,6 @@ export class VirusMap extends mixin<Props, {}>() {
   private isTimelineData(data: MapDataType | STMapDataType): boolean {
     return (data as STMapDataType).timeline !== undefined;
   }
-
 
   public render({ name, data, chartOnClickCallBack, currentChartArea, chartData, chartPath }: Props, { }) {
     const isPC = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
