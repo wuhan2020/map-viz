@@ -10,13 +10,8 @@
 
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
-import { VirusMap, MapDataType, STMapDataType } from './VirusMap';
-import {
-  Series,
-  ProvinceData,
-  CountryData,
-  OverallCountryData
-} from '../adapters/patientStatInterface';
+import { VirusMap, STMapDataType } from './VirusMap';
+import { Series, ProvinceData, OverallCountryData } from '../adapters/patientStatInterface';
 import { extractCitiesSeries } from '../adapters/isaaclin';
 
 interface Props {
@@ -121,7 +116,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
 
     const current =
       data.provincesSeries[
-        Math.max(...Object.keys(data.provincesSeries).map(t => parseInt(t, 10)))
+      Math.max(...Object.keys(data.provincesSeries).map(t => parseInt(t, 10)))
       ];
 
     return (
