@@ -118,14 +118,15 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
             onDblClick={this.navigateUp.bind(this)}
           />
           <button
-            class="btn btn-light"
+            class="btn btn-dark"
             style={{
               display: this.state.path.length > 0 ? 'block' : 'none',
               width: '30px',
               height: '30px',
               position: 'absolute',
-              bottom: '10px',
-              left: '10px',
+              bottom: '20px',
+              right: '35%',
+              'margin-right': '10px',
               padding: '5px'
             }}
             onClick={this.navigateUp.bind(this)}
