@@ -260,7 +260,9 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           baseline: 'middle'
         },
         formatter: function(s) {
-          return new Date(parseInt(s, 10)).toISOString().substring(5, 10); // year is not necessary, standardize to ISO
+          return new Date(parseInt(s, 10))
+            .toLocaleDateString('zh-CN')
+            .substring(5); // year is not necessary, standardize to ISO
         }
       }
     };
