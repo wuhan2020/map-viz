@@ -113,7 +113,38 @@ export class VirusMap extends mixin<Props, {}>() {
     this.overrides = this.overrides.bind(this);
   }
 
-  baseOptions(name: string, breaks: number[]) {
+  private genBasicVisualMap() {
+    return {
+      show: true,
+      type: 'piecewise',
+      left: '20px',
+      right: undefined,
+      top: '50px',
+      bottom: undefined,
+      orient: 'vertical',
+      itemHeight: 10,
+      itemWidth: 14,
+      itemGap: 10,
+      itemSymbol: 'circle',
+      backgroundColor: 'rgba(200,200,200, 0.2)',
+      padding: 10,
+      textStyle: {
+        fontSize: 10
+      },
+      /*
+    formatter: (gt: number, lte: number) =>  {
+      console.log(gt, lte);
+      return lte === Infinity ? `> ${gt}` : lte > gt ? `(${gt}, ${lte}]` : `= ${lte}`}
+    */
+    }
+  }
+
+  private baseOptions(name: string, breaks: number[]) {
+    const pieceDict = { pieces: createPieces(breaks, PALETTE) };
+    const visualMap = {
+      ...this.genBasicVisualMap(),
+      ...pieceDict
+    }
     return {
       title: {
         text: name + '疫情地图', // workaround for incomplete map data
@@ -121,32 +152,7 @@ export class VirusMap extends mixin<Props, {}>() {
         top: '20px'
       },
       tooltip: {},
-      visualMap: [
-        {
-          type: 'piecewise',
-          left: '20px',
-          right: undefined,
-          show: true,
-          top: '50px',
-          orient: 'vertical',
-          itemHeight: 10,
-          itemWidth: 14,
-          itemGap: 10,
-          bottom: undefined,
-          itemSymbol: 'circle',
-          backgroundColor: 'rgba(200,200,200, 0.2)',
-          padding: 10,
-          textStyle: {
-            fontSize: 10
-          },
-          pieces: createPieces(breaks, PALETTE)
-          /*
-        formatter: (gt: number, lte: number) =>  {
-          console.log(gt, lte);
-          return lte === Infinity ? `> ${gt}` : lte > gt ? `(${gt}, ${lte}]` : `= ${lte}`}
-        */
-        }
-      ],
+      visualMap: [ visualMap ],
       series: [
         {
           name: '疫情数据',
@@ -173,7 +179,7 @@ export class VirusMap extends mixin<Props, {}>() {
     };
   }
 
-  overrides(data: MapDataType) {
+  private overrides(data: MapDataType) {
     return {
       tooltip: {
         trigger: 'item',
@@ -231,7 +237,7 @@ export class VirusMap extends mixin<Props, {}>() {
         // move the item MUCH closer
 
         //if (domHeight > domWidth) {
-        options.visualMap[0].show = false;
+        //options.visualMap[0].show = false;
         /*
           options.visualMap[0].orient = 'horizontal';
           options.visualMap[0].right = undefined;
@@ -243,20 +249,17 @@ export class VirusMap extends mixin<Props, {}>() {
           options.visualMap[0].left = 'center';
           */
         //} else if (domHeight > domWidth * isForceRatio) {
-
+        const visualMap = {
+          ...options.visualMap[0],
+          ...this.genBasicVisualMap()
+        }
         if (domHeight > domWidth * isForceRatio) {
-          options.visualMap[0].show = true;
-          options.visualMap[0].orient = 'vertical';
-          options.visualMap[0].left = '20px';
-          options.visualMap[0].right = 0 as any;
-          options.visualMap[0].bottom = undefined;
+          options.visualMap[0].left = 0 as any; //'20px';
+          //options.visualMap[0].right = 0 as any;
+          //options.visualMap[0].bottom = undefined;
           options.visualMap[0].top = '50px';
         } else {
-          options.visualMap[0].show = true;
-          options.visualMap[0].orient = 'vertical';
-          options.visualMap[0].right = undefined;
-          options.visualMap[0].top = '50px';
-          options.visualMap[0].bottom = 'undefined';
+          //options.visualMap[0].top = 0 as any; //'50px';
           options.visualMap[0].left = '20px';
         }
       }
@@ -268,10 +271,10 @@ export class VirusMap extends mixin<Props, {}>() {
         options.series.forEach(s => (s.zoom *= scale));
         const size = options.series[0].zoom * maxHeight;
         if (size < 300) {
-          options.visualMap[0].show = false;
+          //options.visualMap[0].show = false;
           options.series.forEach(s => (s.label.show = false));
         } else {
-          options.visualMap[0].show = true;
+          //options.visualMap[0].show = true;
           options.series.forEach(s => (s.label.show = true));
         }
       }

@@ -22,7 +22,7 @@ const history = new History();
 export class MapViz extends HTMLRouter {
   protected history = history;
 
-  menu = [
+  protected menu = [
     {
       title: '疫情地图',
       href: 'virusMap'
@@ -32,8 +32,12 @@ export class MapViz extends HTMLRouter {
       href: 'informationMap'
     }
   ];
+  protected routes = [
+    { paths: ['informationMap'], component: InformationMapDemo },
+    { paths: ['virusMap', ""], component: HierarchicalVirusMapDemo }
+];
 
-  public render({ }, { }) {
+  public render() {
     return (
       <Fragment>
         <NavBar
@@ -43,20 +47,7 @@ export class MapViz extends HTMLRouter {
         />
         <main>
           <div style={{ marginTop: '56px', width: '100%', height: '90%' }}>
-            {matchRoutes(
-              [
-                {
-                  paths: ['informationMap'],
-                  component: InformationMapDemo
-                },
-                {
-                  paths: ['virusMap', ''],
-                  component: HierarchicalVirusMapDemo
-                },
-
-              ],
-              history.path
-            )}
+          <div>{super.render()}</div>
           </div>
         </main>
       </Fragment>
