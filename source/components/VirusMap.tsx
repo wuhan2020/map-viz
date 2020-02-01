@@ -92,12 +92,12 @@ export class VirusMap extends mixin<Props, {}>() {
             fontSize: 10
           },
           pieces: [
-            { min: 0, max: 0, color: '#f9f3f5' },
-            { min: 1, lte: 10, color: '#ffc9c0' },
-            { gt: 10, lte: 50, color: '#ffa18c' },
-            { gt: 50, lte: 100, color: '#ff6440' },
-            { gt: 100, lte: 500, color: '#cc4f33' },
-            { gt: 500, lte: 1000, color: '#682419' },
+            { min: 0, max: 0, color: '#FFFFFF' },
+            { min: 1, lte: 10, color: '#FFFADD' },
+            { gt: 10, lte: 50, color: '#FFDC90' },
+            { gt: 50, lte: 100, color: '#FFA060' },
+            { gt: 100, lte: 500, color: '#DD6C5C' },
+            { gt: 500, lte: 1000, color: '#AC2F13' },
             { gt: 1000, color: '#3e130e' }
           ]
           /*
@@ -284,24 +284,43 @@ export class VirusMap extends mixin<Props, {}>() {
     return (data as STMapDataType).timeline !== undefined;
   }
 
-
-  public render({ name, data, chartOnClickCallBack, chartData }: Props, { }) {
+  public render({ name, data, chartOnClickCallBack, chartData }: Props, {}) {
     // 缩放时间重新set一下option
     return (
       <div
         style={
-          (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
-            (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) ?
-            { display: 'flex', flexDirection: 'row', width: '100%', height: '100%', margin: '0 10px' } :
-            { display: 'flex', flexDirection: 'column', width: '100%', height: '200%', margin: '0 10px' }
+          (window.innerWidth ||
+            document.documentElement.clientWidth ||
+            document.body.clientWidth) >
+          (window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight)
+            ? {
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                height: '100%',
+                margin: '0 10px'
+              }
+            : {
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '200%',
+                margin: '0 10px'
+              }
         }
       >
         <EchartsMap
           style={
-            (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
-              (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) ?
-              { width: '65%', height: '100%', margin: '0 10px' } :
-              { width: '100%', height: '100%', margin: '0 10px' }
+            (window.innerWidth ||
+              document.documentElement.clientWidth ||
+              document.body.clientWidth) >
+            (window.innerHeight ||
+              document.documentElement.clientHeight ||
+              document.body.clientHeight)
+              ? { width: '65%', height: '100%', margin: '0 10px' }
+              : { width: '100%', height: '100%', margin: '0 10px' }
           }
           mapUrl={MapUrls[name]}
           chartOptions={
@@ -314,10 +333,14 @@ export class VirusMap extends mixin<Props, {}>() {
         />
         <VirusChart
           style={
-            (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
-              (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) ?
-              { width: '35%', height: '100%', margin: '0 10px' } :
-              { width: '100%', height: '100%', margin: '0 10px' }
+            (window.innerWidth ||
+              document.documentElement.clientWidth ||
+              document.body.clientWidth) >
+            (window.innerHeight ||
+              document.documentElement.clientHeight ||
+              document.body.clientHeight)
+              ? { width: '35%', height: '100%', margin: '0 10px' }
+              : { width: '100%', height: '100%', margin: '0 10px' }
           }
           data={chartData}
           area={name}
