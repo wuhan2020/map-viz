@@ -32,8 +32,16 @@ type Series<T extends CountryData | ProvinceData | CityData> = {
 };
 
 interface OverallCountryData {
-  provincesSeries: Series<ProvinceData> | CountryData;
+  provincesSeries: Series<ProvinceData>;
   countrySeries: Series<CountryOverviewData>;
 }
 
-export { PatientStatData, CountryData, ProvinceData, CityData, Series, CountryOverviewData, OverallCountryData };
+export {
+  PatientStatData,
+  CountryData,
+  ProvinceData,
+  CityData,
+  Series,
+  CountryOverviewData,
+  OverallCountryData
+};

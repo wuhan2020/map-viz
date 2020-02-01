@@ -16,6 +16,7 @@ import { PatientStatData } from '../adapters/patientStatInterface';
 import { VirusChart } from '../components/VirusChart';
 import { OverallCountryData } from '../adapters/patientStatInterface';
 import MapUrls from '../../map_data/map_dict.json';
+//import create_pieces from "../adapters/piece"
 
 type MapDataType = { [name: string]: PatientStatData };
 type STMapDataType = {
@@ -26,10 +27,40 @@ type STMapDataType = {
 interface Props {
   name: string;
   data?: MapDataType | STMapDataType;
+  breaks?: number[];
   chartData?: OverallCountryData;
   chartPath?: Array<string>;
   currentChartArea: string;
   chartOnClickCallBack?: Function;
+}
+
+function mapName(name: string) {
+  return name === '中国' ? 'china' : 'map';
+}
+
+const PALETTE = [
+  '#FFFFFF',
+  '#FFFADD',
+  '#FFDC90',
+  '#FFA060',
+  '#DD6C5C',
+  '#AC2F13',
+  '#3E130E'
+];
+
+const pair = (s: any[]) =>
+  s.slice(0, s.length - 1).map((item, i) => [item, s[i + 1]]);
+
+function createPieces(breaks: number[], palette) {
+  return [
+    { min: 0, max: 0, color: palette[0] },
+    ...pair(breaks).map(([b1, b2], i) => ({
+      gte: b1,
+      lt: b2,
+      color: palette[i + 1]
+    })),
+    { gte: breaks[breaks.length - 1], color: palette[breaks.length] }
+  ];
 }
 
 @observer
@@ -45,6 +76,10 @@ export class VirusMap extends mixin<Props, {}>() {
   @attribute
   @watch
   public data: MapDataType = {};
+
+  @attribute
+  @watch
+  public breaks: number[] = [1, 10, 50, 100, 500, 1000];
 
   @attribute
   @watch
@@ -78,10 +113,10 @@ export class VirusMap extends mixin<Props, {}>() {
     this.overrides = this.overrides.bind(this);
   }
 
-  baseOptions() {
+  baseOptions(name: string, breaks: number[]) {
     return {
       title: {
-        text: '疫情地图',
+        text: name + '疫情地图', // workaround for incomplete map data
         left: '20px',
         top: '20px'
       },
@@ -92,27 +127,19 @@ export class VirusMap extends mixin<Props, {}>() {
           left: '20px',
           right: undefined,
           show: true,
-          top: undefined,
+          top: '50px',
           orient: 'vertical',
           itemHeight: 10,
           itemWidth: 14,
           itemGap: 10,
-          bottom: '10%',
+          bottom: undefined,
           itemSymbol: 'circle',
           backgroundColor: 'rgba(200,200,200, 0.2)',
           padding: 10,
           textStyle: {
             fontSize: 10
           },
-          pieces: [
-            { min: 0, max: 0, color: '#FFFFFF' },
-            { min: 1, lte: 10, color: '#FFFADD' },
-            { gt: 10, lte: 50, color: '#FFDC90' },
-            { gt: 50, lte: 100, color: '#FFA060' },
-            { gt: 100, lte: 500, color: '#DD6C5C' },
-            { gt: 500, lte: 1000, color: '#AC2F13' },
-            { gt: 1000, color: '#3e130e' }
-          ]
+          pieces: createPieces(breaks, PALETTE)
           /*
         formatter: (gt: number, lte: number) =>  {
           console.log(gt, lte);
@@ -124,6 +151,7 @@ export class VirusMap extends mixin<Props, {}>() {
         {
           name: '疫情数据',
           type: 'map',
+          map: mapName(name),
           mapType: 'map',
           // roam: true,
           zoom: 1,
@@ -193,7 +221,7 @@ export class VirusMap extends mixin<Props, {}>() {
   public chartAdjustLabel(param: any, chart: any): void {
     const isForceRatio = 0.75;
     const isAdjustLabel = true;
-    let options = this.baseOptions();
+    let options = this.baseOptions(this.props.name, this.props.breaks);
     if (chart && options) {
       const domWidth = chart.getWidth();
       const domHeight = chart.getHeight();
@@ -221,14 +249,14 @@ export class VirusMap extends mixin<Props, {}>() {
           options.visualMap[0].orient = 'vertical';
           options.visualMap[0].left = '20px';
           options.visualMap[0].right = 0 as any;
-          options.visualMap[0].bottom = '10%';
-          options.visualMap[0].top = undefined;
+          options.visualMap[0].bottom = undefined;
+          options.visualMap[0].top = '50px';
         } else {
           options.visualMap[0].show = true;
           options.visualMap[0].orient = 'vertical';
           options.visualMap[0].right = undefined;
-          options.visualMap[0].top = undefined;
-          options.visualMap[0].bottom = '10%';
+          options.visualMap[0].top = '50px';
+          options.visualMap[0].bottom = 'undefined';
           options.visualMap[0].left = '20px';
         }
       }
@@ -264,7 +292,7 @@ export class VirusMap extends mixin<Props, {}>() {
 
   public getChartOptions(data: MapDataType, options: any = null) {
     if (!options) {
-      options = this.baseOptions();
+      options = this.baseOptions(this.props.name, this.props.breaks);
     }
     let extra = this.overrides(data);
     options.series[0].data = extra.series[0].data;
@@ -273,7 +301,7 @@ export class VirusMap extends mixin<Props, {}>() {
   }
   public getSTChartOptions(data: STMapDataType, options: any = null) {
     if (!options) {
-      options = this.baseOptions();
+      options = this.baseOptions(this.props.name, this.props.breaks);
     }
     options['timeline'] = {
       axisType: 'time',
@@ -353,6 +381,7 @@ export class VirusMap extends mixin<Props, {}>() {
               : { width: '100%', height: '100%' }
           }
           mapUrl={MapUrls[name]}
+          mapName={mapName(name)}
           chartOptions={
             this.isTimelineData(data)
               ? this.getSTChartOptions(data as STMapDataType)

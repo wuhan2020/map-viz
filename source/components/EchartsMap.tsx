@@ -18,6 +18,7 @@ import long2short from '../adapters/long2short';
 interface MapProps {
   mapUrl?: string;
   chartOptions?: any;
+  mapName?: string;
   chartOnClickCallBack?: (param: any, chart: any) => void;
   chartGeoRoamCallBack?: (param: any, chart: any) => void;
   chartAdjustLabel?: (param: any, chart: any) => void;
@@ -32,6 +33,10 @@ export class EchartsMap extends mixin<MapProps, {}>() {
   @attribute
   @watch
   public mapUrl: string = '';
+
+  @attribute
+  @watch
+  public mapName: string = 'map';
 
   @attribute
   @watch
@@ -70,6 +75,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
   updatedCallback() {
     const {
       mapUrl,
+      mapName,
       chartOptions,
       chartOnClickCallBack,
       chartGeoRoamCallBack
@@ -85,7 +91,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
           (f: { properties: { name: string } }) =>
             (f.properties.name = long2short(f.properties.name))
         );
-        echarts.registerMap('map', data);
+        echarts.registerMap(mapName, data);
         this.chart = echarts.init(document.getElementById(this.chartId));
         this.chart.setOption(chartOptions);
 
