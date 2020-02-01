@@ -38,6 +38,8 @@ export const create_pieces=(
 
     if (l>l1) throw 'need more color!'
     if (l<2) throw "???"
+    
+    range.sort((a,b)=>a-b)
 
     let o=[]
     for (let i=0;i<l;i++){
