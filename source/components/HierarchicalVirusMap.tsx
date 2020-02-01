@@ -48,16 +48,18 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
 
   state = {
     path: [],
-    currentChartArea: "中国"
+    currentChartArea: '中国'
   };
   navigateDown(params) {
     // if has name and path length < max length
     // TODO: check the data to see whether we can navigate down
     this.setState({
-      path: params.name && this.state.path.length < 1 ? [...this.state.path, params.name] : this.state.path,
+      path:
+        params.name && this.state.path.length < 1
+          ? [...this.state.path, params.name]
+          : this.state.path,
       currentChartArea: params.name
     });
-
   }
   getVirusMapConfig(path, data, resolution) {
     let name = '中国';
@@ -104,7 +106,10 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
     }
   }
 
-  public render({ data, resolution }: Props, { path, currentChartArea }: State) {
+  public render(
+    { data, resolution }: Props,
+    { path, currentChartArea }: State
+  ) {
     const config = this.getVirusMapConfig(
       path,
       data.provincesSeries,
@@ -131,8 +136,7 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
               height: '30px',
               position: 'absolute',
               bottom: '20px',
-              right: '35%',
-              'margin-right': '10px',
+              left: '10px',
               padding: '5px'
             }}
             onClick={this.navigateUp.bind(this)}
