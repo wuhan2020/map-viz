@@ -36,13 +36,13 @@ export default {
   makerArray: [
     {
       name: '华中科技大学同济医学院附属协和医院',
-      type: "hospital",
+      type: 'hospital',
       coord: [114.281196, 30.590103],
       url: 'https://mp.weixin.qq.com/s/geO3CCd0_8B3L-r_xlBbZQ',
       metadata: [
         {
-          key: "request",
-          label: "物资需求",
+          key: 'request',
+          label: '物资需求',
           value: [
             ['普通医用口罩', 10000],
             ['医用外科口罩', true],
@@ -68,26 +68,30 @@ export default {
             ['空气消毒设备', true],
             ['医用紫外线消毒车', true]
           ]
-        }, {
-          key: "address",
-          value: '湖北省武汉市江汉区解放大道1277号华中科技大学同济医学院附属协和医院总务处',
-          label: "邮寄地址",
-        }, {
-          key: "note",
+        },
+        {
+          key: 'address',
+          value:
+            '湖北省武汉市江汉区解放大道1277号华中科技大学同济医学院附属协和医院总务处',
+          label: '邮寄地址'
+        },
+        {
+          key: 'note',
           value: null,
-          label: "备注信息",
+          label: '备注信息'
         }
       ]
     },
     {
       name: '红安县人民医院',
+      type: 'hospital',
       coord: [114.625222, 31.286868],
       url: 'https://mp.weixin.qq.com/s/geO3CCd0_8B3L-r_xlBbZQ',
       address: '红安县人民医院红安县城关镇陵园大道附50号',
       metadata: [
         {
-          key: "request",
-          label: "物资需求",
+          key: 'request',
+          label: '物资需求',
           value: [
             ['普通医用口罩', 1000],
             ['医用外科口罩', 1000],
@@ -113,21 +117,22 @@ export default {
             ['空气消毒设备', true],
             ['医用紫外线消毒车', true]
           ]
-        }, {
-          key: "address",
-          value: '湖北省武汉市江汉区解放大道1277号华中科技大学同济医学院附属协和医院总务处',
-          label: "邮寄地址",
-        }, {
-          key: "note",
+        },
+        {
+          key: 'address',
+          value:
+            '湖北省武汉市江汉区解放大道1277号华中科技大学同济医学院附属协和医院总务处',
+          label: '邮寄地址'
+        },
+        {
+          key: 'note',
           value: null,
-          label: "备注信息",
-        }, {
-          key: "contact",
-          label: "联系方式",
-          value: [
-            ['0713-5242320'],
-            ['设备科周主任, 13636105950']
-          ]
+          label: '备注信息'
+        },
+        {
+          key: 'contact',
+          label: '联系方式',
+          value: [['0713-5242320'], ['设备科周主任, 13636105950']]
         }
       ]
     },
@@ -137,30 +142,30 @@ export default {
       coord: [114.881337, 30.205063],
       metadata: [
         {
-          key: "capability",
+          key: 'capability',
           value: 100,
-          label: "容量",
-        }, {
-          key: "note",
+          label: '容量'
+        },
+        {
+          key: 'note',
           value: '发布日期, 2020年1月25日',
-          label: "备注信息",
-        }, {
-          key: "contact",
-          label: "联系方式",
-          value: [
-            ['XXX：123456789'],
-          ]
+          label: '备注信息'
+        },
+        {
+          key: 'contact',
+          label: '联系方式',
+          value: [['XXX：123456789']]
         }
       ]
     },
-    
+
     {
       type: 'others',
       name: '其他数据',
       coord: [114.681337, 30.295063],
       metadata: [
         {
-          key: "内容",
+          key: '内容',
           value: '我是内容'
         }
       ]
