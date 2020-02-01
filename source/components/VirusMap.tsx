@@ -93,22 +93,13 @@ export class VirusMap extends mixin<Props, {}>() {
             fontSize: 10
           },
           pieces: [
-            { min: 0, max: 0, color: '#EEFFEE' },
+            { min: 0, max: 0, color: '#FFFFFF' },
             { min: 1, lte: 10, color: '#FFFADD' },
             { gt: 10, lte: 50, color: '#FFDC90' },
-            { gt: 50, lte: 100, color: '#FF9040' },
-            { gt: 100, lte: 500, color: '#DD5C5C' },
-            { gt: 500, lte: 1000, color: '#901010' },
-            { gt: 1000, color: '#600000' }
-            /*
-            { min: 0, max: 0, color: '#f9f3f5' },
-            { min: 1, lte: 10, color: '#ffc9c0' },
-            { gt: 10, lte: 50, color: '#ffa18c' },
-            { gt: 50, lte: 100, color: '#ff6440' },
-            { gt: 100, lte: 500, color: '#cc4f33' },
-            { gt: 500, lte: 1000, color: '#682419' },
+            { gt: 50, lte: 100, color: '#FFA060' },
+            { gt: 100, lte: 500, color: '#DD6C5C' },
+            { gt: 500, lte: 1000, color: '#AC2F13' },
             { gt: 1000, color: '#3e130e' }
-            */
           ]
           /*
         formatter: (gt: number, lte: number) =>  {
@@ -198,10 +189,10 @@ export class VirusMap extends mixin<Props, {}>() {
         const maxWidth = Math.min(domWidth, domHeight / isForceRatio);
         const maxHeight = Math.min(domHeight, maxWidth * isForceRatio);
         // move the item MUCH closer
-        
+
         //if (domHeight > domWidth) {
-          options.visualMap[0].show = false;
-          /*
+        options.visualMap[0].show = false;
+        /*
           options.visualMap[0].orient = 'horizontal';
           options.visualMap[0].right = undefined;
           options.visualMap[0].top = Math.max(
@@ -212,7 +203,7 @@ export class VirusMap extends mixin<Props, {}>() {
           options.visualMap[0].left = 'center';
           */
         //} else if (domHeight > domWidth * isForceRatio) {
-        
+
         if (domHeight > domWidth * isForceRatio) {
           options.visualMap[0].show = true;
           options.visualMap[0].orient = 'vertical';
@@ -307,24 +298,43 @@ export class VirusMap extends mixin<Props, {}>() {
     return (data as STMapDataType).timeline !== undefined;
   }
 
-
-  public render({ name, data, chartOnClickCallBack, chartData }: Props, { }) {
+  public render({ name, data, chartOnClickCallBack, chartData }: Props, {}) {
     // 缩放时间重新set一下option
     return (
       <div
         style={
-          (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
-            (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) ?
-            { display: 'flex', flexDirection: 'row', width: '100%', height: '100%', margin: '0 10px' } :
-            { display: 'flex', flexDirection: 'column', width: '100%', height: '200%', margin: '0 10px' }
+          (window.innerWidth ||
+            document.documentElement.clientWidth ||
+            document.body.clientWidth) >
+          (window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight)
+            ? {
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                height: '100%',
+                margin: '0 10px'
+              }
+            : {
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '200%',
+                margin: '0 10px'
+              }
         }
       >
         <EchartsMap
           style={
-            (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
-              (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) ?
-              { width: '65%', height: '100%', margin: '0 10px' } :
-              { width: '100%', height: '100%', margin: '0 10px' }
+            (window.innerWidth ||
+              document.documentElement.clientWidth ||
+              document.body.clientWidth) >
+            (window.innerHeight ||
+              document.documentElement.clientHeight ||
+              document.body.clientHeight)
+              ? { width: '65%', height: '100%', margin: '0 10px' }
+              : { width: '100%', height: '100%', margin: '0 10px' }
           }
           mapUrl={MapUrls[name]}
           chartOptions={
@@ -337,10 +347,14 @@ export class VirusMap extends mixin<Props, {}>() {
         />
         <VirusChart
           style={
-            (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
-              (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) ?
-              { width: '35%', height: '100%', margin: '0 10px' } :
-              { width: '100%', height: '100%', margin: '0 10px' }
+            (window.innerWidth ||
+              document.documentElement.clientWidth ||
+              document.body.clientWidth) >
+            (window.innerHeight ||
+              document.documentElement.clientHeight ||
+              document.body.clientHeight)
+              ? { width: '35%', height: '100%', margin: '0 10px' }
+              : { width: '100%', height: '100%', margin: '0 10px' }
           }
           data={chartData}
           area={name}
