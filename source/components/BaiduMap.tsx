@@ -10,7 +10,6 @@
 
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
-// import hospitalImage from '../../icon/hospital.json';
 
 interface Marker {
   point: Array<number>;
@@ -90,11 +89,6 @@ export class BaiduMap extends mixin<BaiduMapProps, {}>() {
           const marker = new (window as any).BMap.Marker(position, {
             icon: myIcon
           });
-          // const label = new (window as any).BMap.Label(item.labelText, {
-          //   position: position,
-          //   offset: new (window as any).BMap.Size(17, -22)
-          // });
-          // label.setStyle(item.labelStyle);
 
           marker.addEventListener('click', function() {
             var infoWindow = new (window as any).BMap.InfoWindow(
@@ -107,7 +101,6 @@ export class BaiduMap extends mixin<BaiduMapProps, {}>() {
           });
 
           map.addOverlay(marker);
-          // map.addOverlay(label);
         }
       };
     }, 0);
