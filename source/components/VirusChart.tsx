@@ -22,6 +22,9 @@ interface State {
   echartOptions: any;
 }
 
+const LINE_WIDTH = 5;
+const SYMOBL_SIZE = 10;
+
 @observer
 @component({
   tagName: 'virus-line-charts',
@@ -98,6 +101,7 @@ export class VirusChart extends mixin<Props, State>() {
     );
 
     return {
+      height: "50%",
       title: {
         text: area + '疫情确诊/疑似数'
       },
@@ -121,17 +125,21 @@ export class VirusChart extends mixin<Props, State>() {
           data: confirmedData,
           type: 'line',
           stack: '总量',
-          areaStyle: {}
+          symbolSize: SYMOBL_SIZE,
+          lineStyle: {width: LINE_WIDTH},
+          areaStyle: {color: '#f6bdcd'}
         },
         {
           name: '疑似',
           data: suspectedData,
           type: 'line',
           stack: '总量',
-          areaStyle: {}
+          symbolSize: SYMOBL_SIZE,
+          lineStyle: {width: LINE_WIDTH},
+          areaStyle: {color: '#f9e4ba'}
         }
       ],
-      color: ['#FF2400', '#FFC30F']
+      color: ['#c22b49', '#cca42d']
     };
   }
 
@@ -147,6 +155,7 @@ export class VirusChart extends mixin<Props, State>() {
     );
 
     return {
+      height: "50%",
       title: {
         text: '疫情治愈/死亡数'
       },
@@ -155,28 +164,35 @@ export class VirusChart extends mixin<Props, State>() {
       },
       xAxis: {
         name: '时间',
+        title: "时间" ,
         type: 'time'
       },
       yAxis: {
+        title: "人数",
         name: '例'
       },
       legend: {
         orient: 'horizontal',
-        data: ['治愈', '死亡']
+        data: ['治愈', '死亡'],
+        
       },
       series: [
         {
           name: '治愈',
           data: curedData,
-          type: 'line'
+          type: 'line',
+          symbolSize: SYMOBL_SIZE,
+          lineStyle: {width: LINE_WIDTH},
         },
         {
           name: '死亡',
           data: deadData,
-          type: 'line'
+          type: 'line',
+          symbolSize: SYMOBL_SIZE,
+          lineStyle: {width: LINE_WIDTH},
         }
       ],
-      color: ['#30cb00', '#808080']
+      color: ['#2dce89', '#86868d']
     };
   }
 
