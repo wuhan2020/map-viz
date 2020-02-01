@@ -61,10 +61,6 @@ TL;DR:
 
 ![img2](./screenshots/virus-map-timeline.gif)
 
-- [x] 支持 resize:
-
-![img1](./screenshots/virus-map-resize.gif)
-
 #### TODO
 
 - [ ] 接入手动收集的省级数据
@@ -73,10 +69,10 @@ TL;DR:
 ### 通用组件
 
 已经有可视化其他地理信息 (e.g. 求援医院地理位置，酒店位置) 的通用地图控件，用百度地图 API，可以精确在地图上标出。
+现在用 mock 数据做，之后应该会按照指示接入前端用来可视化他们的数据。
 
 ![img3](./screenshots/info-map-demo.gif)
 
-现在用 mock 数据做，之后应该会按照指示接入前端用来可视化他们的数据。[接入数据后的一个展示见这里](https://github.com/wuhan2020/map-viz/blob/master/screenshots/ifno-map-demo-realdata.png)(图太大……)
 
 ## 技术栈
 
