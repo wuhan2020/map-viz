@@ -27,6 +27,7 @@ interface Props {
   name: string;
   data?: MapDataType | STMapDataType;
   chartData?: OverallCountryData;
+  chartPath?: Array<string>;
   currentChartArea: string;
   chartOnClickCallBack?: Function;
 }
