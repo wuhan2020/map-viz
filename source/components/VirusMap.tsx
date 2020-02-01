@@ -32,6 +32,10 @@ interface Props {
   chartOnClickCallBack?: Function;
 }
 
+function mapName(name: string) {
+  return name === '中国' ? 'china' : 'map';
+}
+
 @observer
 @component({
   tagName: 'virus-map',
@@ -81,8 +85,7 @@ export class VirusMap extends mixin<Props, {}>() {
   baseOptions(name: string) {
     return {
       title: {
-        text:
-          name === '中国' ? '中国大陆及港澳台地区疫情地图' : name + '疫情地图', // workaround for incomplete map data
+        text: name + '疫情地图', // workaround for incomplete map data
         left: '20px',
         top: '20px'
       },
@@ -125,6 +128,7 @@ export class VirusMap extends mixin<Props, {}>() {
         {
           name: '疫情数据',
           type: 'map',
+          map: mapName(name),
           mapType: 'map',
           // roam: true,
           zoom: 1,
@@ -354,6 +358,7 @@ export class VirusMap extends mixin<Props, {}>() {
               : { width: '100%', height: '100%' }
           }
           mapUrl={MapUrls[name]}
+          mapName={mapName(name)}
           chartOptions={
             this.isTimelineData(data)
               ? this.getSTChartOptions(data as STMapDataType)
