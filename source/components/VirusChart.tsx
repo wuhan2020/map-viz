@@ -135,13 +135,20 @@ export class VirusChart extends mixin<Props, State>() {
       title: {
         text: area + '疫情确诊/疑似数'
       },
+      legend: {
+        orient: 'horizontal',
+        data: ['确诊', '疑似']
+      },
       tooltip: {
         trigger: 'axis'
       },
       xAxis: {
+        name: '时间',
         type: 'time'
       },
-      yAxis: {},
+      yAxis: {
+        name: '例'
+      },
       series: [
         {
           name: '确诊',
@@ -157,7 +164,8 @@ export class VirusChart extends mixin<Props, State>() {
           stack: '总量',
           areaStyle: {}
         }
-      ]
+      ],
+      color: ['#FF2400', '#FFC30F']
     };
   }
 
@@ -180,9 +188,16 @@ export class VirusChart extends mixin<Props, State>() {
         trigger: 'axis'
       },
       xAxis: {
+        name: '时间',
         type: 'time'
       },
-      yAxis: {},
+      yAxis: {
+        name: '例'
+      },
+      legend: {
+        orient: 'horizontal',
+        data: ['治愈', '死亡']
+      },
       series: [
         {
           name: '治愈',
@@ -194,7 +209,8 @@ export class VirusChart extends mixin<Props, State>() {
           data: deadData,
           type: 'line'
         }
-      ]
+      ],
+      color: ['#30cb00', '#808080']
     };
   }
 
