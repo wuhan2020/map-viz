@@ -14,11 +14,14 @@ import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import { EchartsMap } from '../components/EchartsMap';
 import { PatientStatData } from '../adapters/patientStatInterface';
 import MapUrls from '../../map_data/map_dict.json';
+//import create_pieces from "../adapters/piece"
+
 
 type MapDataType = { [name: string]: PatientStatData };
 type STMapDataType = {
   timeline: number[];
   data: { [timestamp: number]: MapDataType };
+  
 }; // spatio-temporal data
 
 interface VirusMapProps {
