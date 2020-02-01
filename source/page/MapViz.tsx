@@ -14,10 +14,14 @@ import { HierarchicalVirusMap } from '../components/HierarchicalVirusMap';
 import patchData from '../../data/isaaclin/patch.json';
 import {
   convertProvincesSeries,
-  convertCountrySeries,
+  convertCountrySeries
 } from '../adapters/isaaclin';
 
-import { InformationMap, GeoData, Metadata } from '../components/InformationMap';
+import {
+  InformationMap,
+  GeoData,
+  Metadata
+} from '../components/InformationMap';
 import informationMockData from '../../mock/information_map_general_mock_data';
 import rawData from '../../data/isaaclin/history.json';
 import overviewData from '../../data/isaaclin/overall.json';
@@ -50,7 +54,6 @@ export class MapViz extends mixin<{}, State>() {
   }
 
   public generateMockData(): GeoData[] {
-
     return [];
   }
 
@@ -64,7 +67,8 @@ export class MapViz extends mixin<{}, State>() {
           <InformationMap
             initPoint={informationMockData.initPoint}
             zoom={informationMockData.zoom}
-            markers={informationMockData.makerArray} />
+            markers={informationMockData.makerArray}
+          />
         </div>
       </div>
     );
