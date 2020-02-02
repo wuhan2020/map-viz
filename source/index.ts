@@ -8,6 +8,7 @@ import {
 
 import patchData from './../data/isaaclin/patch.json';
 import rawData from './../data/isaaclin/history.json';
+import rawCurrentData from './../data/isaaclin/current.json';
 import overviewData from './../data/isaaclin/overall.json';
 
 const resolution = 3600000 * 24;
@@ -18,7 +19,7 @@ const VirusData = {
     true
   ),
   countrySeries: convertCountrySeries(overviewData['results'], resolution),
-  countryData: convertCountry([...rawData['results'], ...patchData])
+  countryData: convertCountry(rawCurrentData)
 };
 
 const rawVirus = { patchData, rawData, overviewData };

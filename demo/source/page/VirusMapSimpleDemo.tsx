@@ -9,13 +9,6 @@ import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell } from 'web-cell';
 import { VirusData, VirusMap } from 'wuhan2020-map-viz';
 
-const data = {
-  timeline: Object.keys(VirusData.provincesSeries)
-    .map(t => parseInt(t, 10))
-    .sort(),
-  data: VirusData.provincesSeries
-};
-
 @observer
 @component({
   tagName: 'virus-map-simple-demo',
@@ -27,7 +20,7 @@ export class VirusMapSimpleDemo extends mixin<{}, {}>() {
       <div style={{ width: '100%', height: '100%' }}>
         <VirusMap
           name="中国"
-          data={data}
+          data={VirusData.countryData.provinces}
           chartData={VirusData}
           currentChartArea="中国"
         ></VirusMap>
