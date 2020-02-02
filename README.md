@@ -54,7 +54,7 @@ npm install https://github.com/wuhan2020/map-viz.git --save
 
 ### 使用
 
-1. 疫情地图：[文档](https://github.com/wuhan2020/map-viz/blob/master/source/components/hierarchical-virus-map-components-readme%20copy.md), [引用例子](https://github.com/wuhan2020/map-viz/blob/master/demo/source/page/HierarchicalVirusMapDemo.tsx)
+1. 疫情地图：[文档](https://github.com/wuhan2020/map-viz/blob/master/source/components/hierarchical-virus-map-components-readme.md), [引用例子](https://github.com/wuhan2020/map-viz/blob/master/demo/source/page/HierarchicalVirusMapDemo.tsx)
 2. 地图组件：[文档](https://github.com/wuhan2020/map-viz/blob/master/source/components/information-map-components-readme.md), [引用例子](https://github.com/wuhan2020/map-viz/blob/master/demo/source/page/InformationMapDemo.tsx)
 
 ### 完全版 demo
