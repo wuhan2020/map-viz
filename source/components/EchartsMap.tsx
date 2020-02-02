@@ -72,6 +72,21 @@ export class EchartsMap extends mixin<MapProps, {}>() {
     return 'map' + random.toString() + dateStr.toString();
   }
 
+  connectedCallback() {
+    let originFunction = (window as any).onresize;
+    window.onresize = () => {
+      if (typeof originFunction === 'function') {
+        originFunction();
+      }
+
+      if (this.chart) {
+        this.chart.resize();
+      }
+      this.adjustLabel();
+      // this.adjustOption();
+    };
+  }
+
   updatedCallback() {
     const {
       mapUrl,
@@ -80,7 +95,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
       chartOnClickCallBack,
       chartGeoRoamCallBack
     } = this.props;
-    
+
     if (this.chart !== undefined) {
       this.chart.showLoading();
     }
@@ -136,22 +151,17 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         //     chartGeoRoamCallBack(params, this.chart);
         //   }
         // });
-        let originFunction = (window as any).onresize;
-        window.onresize = () => {
-          originFunction();
 
-          this.chart.resize();
-          if (this.props.chartAdjustLabel) {
-            this.props.chartAdjustLabel(null, this.chart);
-          }
-          // this.adjustOption();
-        };
-        if (this.props.chartAdjustLabel) {
-          this.props.chartAdjustLabel(null, this.chart);
-        }
+        this.adjustLabel();
         this.chart.hideLoading();
       })
       .catch(e => console.log('获取地图失败', e));
+  }
+
+  adjustLabel() {
+    if (this.props.chartAdjustLabel && this.chart) {
+      this.props.chartAdjustLabel(null, this.chart);
+    }
   }
 
   public render() {
