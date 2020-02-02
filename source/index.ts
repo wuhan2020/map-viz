@@ -1,6 +1,7 @@
 import './style.css';
 
 import {
+  convertCountry,
   convertProvincesSeries,
   convertCountrySeries
 } from './adapters/isaaclin';
@@ -16,7 +17,8 @@ const VirusData = {
     resolution,
     true
   ),
-  countrySeries: convertCountrySeries(overviewData['results'], resolution)
+  countrySeries: convertCountrySeries(overviewData['results'], resolution),
+  countryData: convertCountry([...rawData['results'], ...patchData])
 };
 
 const rawVirus = { patchData, rawData, overviewData };
@@ -27,6 +29,7 @@ export { VirusChart } from './components/VirusChart';
 export { EchartsMap } from './components/EchartsMap';
 export { InformationMap } from './components/InformationMap';
 export {
+  convertCountry,
   convertProvincesSeries,
   convertCountrySeries
 } from './adapters/isaaclin';
