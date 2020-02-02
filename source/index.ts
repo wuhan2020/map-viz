@@ -22,6 +22,9 @@ const VirusData = {
 const rawVirus = { patchData, rawData, overviewData };
 export { VirusData, rawVirus };
 export { HierarchicalVirusMap } from './components/HierarchicalVirusMap';
+export { VirusMap } from './components/VirusMap';
+export { VirusChart } from './components/VirusChart';
+export { EchartsMap } from './components/EchartsMap';
 export { InformationMap } from './components/InformationMap';
 export {
   convertProvincesSeries,
