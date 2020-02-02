@@ -1,12 +1,10 @@
-# WE PROVIDE ENGLISH VERSION, PLEASE CLICK [HERE](https://github.com/wuhan2020/map-viz/blob/master/README_EN.md)
-
 # 武汉新型冠状病毒防疫信息收集平台-地图可视化项目
 
 本项目负责平台的信息展示，可视化地理信息。
 
 ## 项目介绍
 
-基于 ECharts 可视化库及其他技术栈：
+提供基于 ECharts 可视化库的前端组件。
 
 ### 创建一个完整独立的疫情地图
 
@@ -43,29 +41,7 @@
 
 ## 使用
 
-### 安装
-
-```sh
-# go into your project
-cd ${project}/
-# install from github
-npm install https://github.com/wuhan2020/map-viz.git --save
-```
-
-### 使用
-
-1. 疫情地图：[文档](https://github.com/wuhan2020/map-viz/blob/master/source/components/hierarchical-virus-map-components-readme.md), [引用例子](https://github.com/wuhan2020/map-viz/blob/master/demo/source/page/HierarchicalVirusMapDemo.tsx)
-2. 地图组件：[文档](https://github.com/wuhan2020/map-viz/blob/master/source/components/information-map-components-readme.md), [引用例子](https://github.com/wuhan2020/map-viz/blob/master/demo/source/page/InformationMapDemo.tsx)
-
-### 完全版 demo
-
-进入`demo/`文件夹查看完整使用：
-
-```sh
-cd demo
-npm install
-npm start
-```
+详情参考/src/pages/hierarchicalVirusMapDemo.tsx以及/src/pages/informationMapDemo.tsx
 
 ## 本地开发
 
@@ -101,14 +77,10 @@ TL;DR:
 
 ## 技术栈
 
-- 可视化库: [ECharts v4][13]
-- 逻辑语言: [TypeScript v3][5]
-- 组件引擎: [WebCell v2][6]
-- 组件库: [BootCell v1][7]
-- 状态管理: [MobX v5][8]
-- PWA 框架: [Workbox v4][9]
-- 打包工具: [Parcel v1][10]
-- CI / CD: [Travis CI][11] + [GitHub Pages][12]
+- 可视化库: [ECharts v4][4]
+- 逻辑语言: [TypeScript v3][1]
+- 开发框架: [React.js][2]
+- 组件库: [Ant Design][3]
 
 ## 教程及有用链接
 
@@ -150,16 +122,7 @@ TL;DR:
 
 [新闻收集接口](http://ncov.news.dragon-yuan.me/api/news?search=&page=)
 
-[1]: https://developers.google.cn/web/progressive-web-apps
-[2]: https://david-dm.org/wuhan2020/wuhan2020.github.io
-[3]: https://travis-ci.com/wuhan2020/wuhan2020.github.io
-[4]: https://www.w3.org/
-[5]: https://typescriptlang.org
-[6]: https://web-cell.dev/
-[7]: https://web-cell.dev/BootCell/
-[8]: https://mobx.js.org
-[9]: https://developers.google.com/web/tools/workbox
-[10]: https://parceljs.org
-[11]: https://travis-ci.com/
-[12]: https://pages.github.com/
-[13]: https://www.echartsjs.com/
+[1]: https://typescriptlang.org
+[2]: https://react.docschina.org
+[3]: https://ant.design
+[4]: https://www.echartsjs.com/
