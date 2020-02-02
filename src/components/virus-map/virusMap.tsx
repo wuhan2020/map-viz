@@ -273,14 +273,14 @@ export class VirusMap extends React.Component<Props>  {
               display: 'flex',
               flexDirection: 'column',
               width: '100%',
-              height: '200%'
+              height: '100%'
             }
         }
       >
         <div
           style={isPC
             ? { width: '65%', height: '100%' }
-            : { width: '100%', height: '100%' }
+            : { width: '100%', height: '50%' }
           }>
           <EchartsMap
             mapUrl={mapUrl}
@@ -293,7 +293,7 @@ export class VirusMap extends React.Component<Props>  {
             chartOnClickCallBack={chartOnClickCallBack}
           />
         </div>
-        <div style={isPC ? { width: '35%', height: '100%' } : { width: '100%', height: '100%' }}>
+        <div style={isPC ? { width: '35%', height: '100%' } : { width: '100%', height: '50%' }}>
           <VirusChart
             data={chartData}
             area={currentChartArea}
