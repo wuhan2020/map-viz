@@ -11,7 +11,13 @@
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, watch, attribute } from 'web-cell';
 import { WebCellEcharts } from './WebCellEcharts';
-import { Series, ProvinceData, CountryData, CountryOverviewData, OverallCountryData } from '../adapters/patientStatInterface';
+import {
+  Series,
+  ProvinceData,
+  CountryData,
+  CountryOverviewData,
+  OverallCountryData
+} from '../adapters/patientStatInterface';
 import provinceName from '../../data/isaaclin/provinces.json';
 
 interface Props {
@@ -63,13 +69,31 @@ export class VirusChart extends mixin<Props, State>() {
   }
 
   public fixChartFontSize(baseFontSize: number) {
-    const isPC = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >
-      (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) * 0.8
+    const isPC =
+      (window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth) >
+      (window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight) *
+        0.8;
 
     if (isPC) {
-      return baseFontSize * (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) / 1000;
+      return (
+        (baseFontSize *
+          (window.innerWidth ||
+            document.documentElement.clientWidth ||
+            document.body.clientWidth)) /
+        1000
+      );
     } else {
-      return baseFontSize * (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) / 500;
+      return (
+        (baseFontSize *
+          (window.innerWidth ||
+            document.documentElement.clientWidth ||
+            document.body.clientWidth)) /
+        500
+      );
     }
   }
 
@@ -100,33 +124,37 @@ export class VirusChart extends mixin<Props, State>() {
       }
     } else if (path.length === 1 && provinceName.indexOf(area) === -1) {
       for (const item of orderedProvinceData) {
-        confirmedData.push([item.date,
-        item[path[0]] ?
-          item[path[0]].cities[area] ?
-            item[path[0]].cities[area].confirmed
+        confirmedData.push([
+          item.date,
+          item[path[0]]
+            ? item[path[0]].cities[area]
+              ? item[path[0]].cities[area].confirmed
+              : 0
             : 0
-          : 0
         ]);
-        suspectedData.push([item.date,
-        item[path[0]] ?
-          item[path[0]].cities[area] ?
-            item[path[0]].cities[area].suspected
+        suspectedData.push([
+          item.date,
+          item[path[0]]
+            ? item[path[0]].cities[area]
+              ? item[path[0]].cities[area].suspected
+              : 0
             : 0
-          : 0
         ]);
-        curedData.push([item.date,
-        item[path[0]] ?
-          item[path[0]].cities[area] ?
-            item[path[0]].cities[area].cured
+        curedData.push([
+          item.date,
+          item[path[0]]
+            ? item[path[0]].cities[area]
+              ? item[path[0]].cities[area].cured
+              : 0
             : 0
-          : 0
         ]);
-        deadData.push([item.date,
-        item[path[0]] ?
-          item[path[0]].cities[area] ?
-            item[path[0]].cities[area].dead
+        deadData.push([
+          item.date,
+          item[path[0]]
+            ? item[path[0]].cities[area]
+              ? item[path[0]].cities[area].dead
+              : 0
             : 0
-          : 0
         ]);
       }
     }
@@ -160,6 +188,9 @@ export class VirusChart extends mixin<Props, State>() {
       tooltip: {
         trigger: 'axis'
       },
+      grid: {
+        bottom: 30
+      },
       xAxis: {
         name: '时间',
         type: 'time',
@@ -171,9 +202,9 @@ export class VirusChart extends mixin<Props, State>() {
           textStyle: {
             fontSize: this.fixChartFontSize(7)
           },
-          formatter: function (params) {
+          formatter: function(params) {
             const date = new Date(params);
-            return (date.getMonth() + 1) + '/' + date.getDate();
+            return date.getMonth() + 1 + '/' + date.getDate();
           }
         }
       },
@@ -186,7 +217,7 @@ export class VirusChart extends mixin<Props, State>() {
         axisLabel: {
           textStyle: {
             fontSize: this.fixChartFontSize(7)
-          },
+          }
         }
       },
       series: [
@@ -230,9 +261,12 @@ export class VirusChart extends mixin<Props, State>() {
       tooltip: {
         trigger: 'axis'
       },
+      grid: {
+        bottom: 30
+      },
       xAxis: {
         name: '时间',
-        title: "时间",
+        title: '时间',
         type: 'time',
         nameTextStyle: {
           fontSize: this.fixChartFontSize(9)
@@ -242,9 +276,9 @@ export class VirusChart extends mixin<Props, State>() {
           textStyle: {
             fontSize: this.fixChartFontSize(7)
           },
-          formatter: function (params) {
+          formatter: function(params) {
             const date = new Date(params);
-            return (date.getMonth() + 1) + '/' + date.getDate();
+            return date.getMonth() + 1 + '/' + date.getDate();
           }
         }
       },
@@ -257,13 +291,12 @@ export class VirusChart extends mixin<Props, State>() {
         axisLabel: {
           textStyle: {
             fontSize: this.fixChartFontSize(7)
-          },
+          }
         }
       },
       legend: {
         orient: 'horizontal',
-        data: ['治愈', '死亡'],
-
+        data: ['治愈', '死亡']
       },
       series: [
         {
@@ -271,14 +304,14 @@ export class VirusChart extends mixin<Props, State>() {
           data: curedData,
           type: 'line',
           symbolSize: SYMOBL_SIZE,
-          lineStyle: { width: LINE_WIDTH },
+          lineStyle: { width: LINE_WIDTH }
         },
         {
           name: '死亡',
           data: deadData,
           type: 'line',
           symbolSize: SYMOBL_SIZE,
-          lineStyle: { width: LINE_WIDTH },
+          lineStyle: { width: LINE_WIDTH }
         }
       ],
       color: ['#2dce89', '#86868d']
@@ -291,9 +324,32 @@ export class VirusChart extends mixin<Props, State>() {
     const orderedCountryData = this.getOrderedTimeData(data.countrySeries);
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-        <WebCellEcharts style={{ width: '100%', height: '50%' }} chartOptions={this.getConfirmedSuspectChartOptions(orderedProvincesData, orderedCountryData, area, path)} />
-        <WebCellEcharts style={{ width: '100%', height: '50%' }} chartOptions={this.getCuredDeadChartOptions(orderedProvincesData, orderedCountryData, area, path)} />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+          height: '100%'
+        }}
+      >
+        <WebCellEcharts
+          style={{ width: '100%', height: '50%' }}
+          chartOptions={this.getConfirmedSuspectChartOptions(
+            orderedProvincesData,
+            orderedCountryData,
+            area,
+            path
+          )}
+        />
+        <WebCellEcharts
+          style={{ width: '100%', height: '50%' }}
+          chartOptions={this.getCuredDeadChartOptions(
+            orderedProvincesData,
+            orderedCountryData,
+            area,
+            path
+          )}
+        />
       </div>
     );
   }
