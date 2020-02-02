@@ -18,19 +18,20 @@ mapOptions 入参样例：
     {
       name: '华中科技大学同济医学院附属协和医院',
       //目前支持的 type 有：hospital,hotel,others 三种
-      type: "hospital", 
+      type: "hospital",
       // 坐标
       coord: [114.281196, 30.590103],
       // 有则填，无则不填
       url?: 'https://mp.weixin.qq.com/s/geO3CCd0_8B3L-r_xlBbZQ',
       // 一些属性，可能会不同
-      metadata: [] 
+      metadata: []
     }
   ]
 }
 ```
 
-其中metadata的type: 
+其中 metadata 的 type:
+
 ```js
 {
   key: string; // 一个关键词
@@ -58,13 +59,10 @@ metadata: [
 ]
 ```
 
-
 ## 使用样例
+
 ```js
-<InformationMap 
-  initPoint={initPoint} 
-  zoom={zoom} 
-  markers={makerArray} />
+<InformationMap initPoint={initPoint} zoom={zoom} markers={makerArray} />
 ```
 
-使用样例见 MapViz.tsx 组件
+使用样例见 [`InformationMapDemo.tsx`](https://github.com/wuhan2020/map-viz/blob/master/demo/source/page/InformationMapDemo.tsx) 组件
