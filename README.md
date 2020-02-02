@@ -49,7 +49,7 @@
 # go into your project
 cd ${project}/
 # install from github
-npm install https://github.com/wuhan2020/map-viz.git
+npm install https://github.com/wuhan2020/map-viz.git --save
 ```
 
 ### 使用
