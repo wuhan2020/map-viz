@@ -130,13 +130,13 @@ export class VirusMap extends mixin<Props, {}>() {
       padding: 10,
       textStyle: {
         fontSize: 10
-      },
+      }
       /*
     formatter: (gt: number, lte: number) =>  {
       console.log(gt, lte);
       return lte === Infinity ? `> ${gt}` : lte > gt ? `(${gt}, ${lte}]` : `= ${lte}`}
     */
-    }
+    };
   }
 
   private baseOptions(name: string, breaks: number[]) {
@@ -144,7 +144,7 @@ export class VirusMap extends mixin<Props, {}>() {
     const visualMap = {
       ...this.genBasicVisualMap(),
       ...pieceDict
-    }
+    };
     return {
       title: {
         text: name + '疫情地图', // workaround for incomplete map data
@@ -152,7 +152,7 @@ export class VirusMap extends mixin<Props, {}>() {
         top: '20px'
       },
       tooltip: {},
-      visualMap: [ visualMap ],
+      visualMap: [visualMap],
       series: [
         {
           name: '疫情数据',
@@ -252,7 +252,7 @@ export class VirusMap extends mixin<Props, {}>() {
         const visualMap = {
           ...options.visualMap[0],
           ...this.genBasicVisualMap()
-        }
+        };
         if (domHeight > domWidth * isForceRatio) {
           options.visualMap[0].left = 0 as any; //'20px';
           //options.visualMap[0].right = 0 as any;
