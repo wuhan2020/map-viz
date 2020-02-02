@@ -1,20 +1,26 @@
 {
   "compilerOptions": {
-    "rootDir": "source/",
-    "target": "ES5",
-    "module": "ES6",
-    "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "resolveJsonModule": true,
-    "jsx": "react",
-    "jsxFactory": "createCell",
+    "target": "es5",
     "lib": [
-      "ES2019",
-      "DOM"
-    ]
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react",
+    "suppressImplicitAnyIndexErrors": true
   },
-  "includes": [
-    "./externals.d.ts"
+  "include": [
+    "src"
   ]
 }
