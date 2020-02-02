@@ -9,6 +9,7 @@ import { observer } from 'mobx-web-cell';
 import { component, createCell, Fragment } from 'web-cell';
 import { HierarchicalVirusMapDemo } from './HierarchicalVirusMapDemo';
 import { InformationMapDemo } from './InformationMapDemo';
+import { VirusMapSimpleDemo } from './VirusMapSimpleDemo';
 import { History, HTMLRouter, matchRoutes } from 'cell-router/source';
 import { NavBar } from 'boot-cell/source/Navigator/NavBar';
 
@@ -28,13 +29,18 @@ export class MapViz extends HTMLRouter {
       href: 'virusMap'
     },
     {
+      title: '疫情地图精简版',
+      href: 'virusMapSimple'
+    },
+    {
       title: '通用地图',
       href: 'informationMap'
     }
   ];
   protected routes = [
     { paths: ['informationMap'], component: InformationMapDemo },
-    { paths: ['virusMap', ''], component: HierarchicalVirusMapDemo }
+    { paths: ['virusMap', ''], component: HierarchicalVirusMapDemo },
+    { paths: ['virusMapSimple', ''], component: VirusMapSimpleDemo }
   ];
 
   public render() {

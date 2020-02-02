@@ -7,20 +7,30 @@
 
 import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell } from 'web-cell';
-import { VirusData, HierarchicalVirusMap } from 'wuhan2020-map-viz';
+import { VirusData, VirusMap } from 'wuhan2020-map-viz';
 
-const resolution = 3600000 * 24;
+const data = {
+  timeline: Object.keys(VirusData.provincesSeries)
+    .map(t => parseInt(t, 10))
+    .sort(),
+  data: VirusData.provincesSeries
+};
 
 @observer
 @component({
-  tagName: 'hierarchical-virus-map-demo',
+  tagName: 'virus-map-simple-demo',
   renderTarget: 'children'
 })
-export class HierarchicalVirusMapDemo extends mixin<{}, {}>() {
+export class VirusMapSimpleDemo extends mixin<{}, {}>() {
   public render() {
     return (
       <div style={{ width: '100%', height: '100%' }}>
-        <HierarchicalVirusMap data={VirusData} resolution={resolution} />
+        <VirusMap
+          name="中国"
+          data={data}
+          chartData={VirusData}
+          currentChartArea="中国"
+        ></VirusMap>
       </div>
     );
   }
