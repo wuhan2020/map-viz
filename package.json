@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/EasyWebApp/wuhan2020/issues"
   },
-  "main": "source/index.html",
+  "main": "source/index.ts",
   "dependencies": {
     "boot-cell": "^0.24.0",
     "cell-router": "^2.0.0-rc.6",
