@@ -19,7 +19,7 @@ const VirusData = {
     true
   ),
   countrySeries: convertCountrySeries(overviewData['results'], resolution),
-  countryData: convertCountry(rawCurrentData)
+  countryData: convertCountry(rawCurrentData['results'])
 };
 
 const rawVirus = { patchData, rawData, overviewData };
