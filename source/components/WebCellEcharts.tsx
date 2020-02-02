@@ -1,10 +1,10 @@
 /**
- * WebCell Echarts可视化通用组件
- * 本地图组件为使用echarts进行开发提供了基础组件
+ * WebCell Echarts 可视化通用组件
+ * 本地图组件为使用 ECharts 进行开发提供了基础组件
  * @author: shadowingszy
  *
  * 传入props说明:
- * chartOptions: echarts中的所有options。
+ * chartOptions: ECharts 中的所有 options。
  */
 
 import { observer } from 'mobx-web-cell';
@@ -38,28 +38,30 @@ export class WebCellEcharts extends mixin<ChartProps, {}>() {
   }
 
   connectedCallback() {
-    setTimeout(() => {
-      if (document.getElementById(this.chartId)) {
-        this.chart = echarts.init(document.getElementById(this.chartId));
-        this.chart.setOption(this.chartOptions);
-        let onResizeFunction = (window as any).onresize;
-        window.onresize = () => {
-          if (onResizeFunction) {
-            onResizeFunction();
-          }
-          this.chart.resize();
-        };
+    this.registerResizeHook();
+  }
+
+  registerResizeHook() {
+    const onResizeFunction = (window as any).onresize;
+    window.onresize = () => {
+      if (onResizeFunction) {
+        onResizeFunction();
       }
-      
-    }, 0);
+      this.chart.resize();
+    };
   }
 
   public render() {
-    if (this.chart) {
-      this.chart.setOption(this.props.chartOptions, false, false);
-    }
     return (
       <div id={this.chartId} style={{ width: '100%', height: '100%' }}></div>
     );
+  }
+
+  updatedCallback() {
+    const chartContainerEl = document.getElementById(this.chartId);
+    if (!this.chart) {
+      this.chart = echarts.init(chartContainerEl);
+    }
+    this.chart.setOption(this.props.chartOptions, false, false);
   }
 }

@@ -186,11 +186,11 @@ export class VirusChart extends mixin<Props, State>() {
         bottom: '13%',
         data: ['确诊', '疑似']
       },
-      title:{
+      title: {
         text: area + '确诊/疑似患者人数',
         top: '5%',
-        x: 'center',
-      }
+        x: 'center'
+      },
       grid: {
         bottom: '25%'
       },
@@ -267,11 +267,11 @@ export class VirusChart extends mixin<Props, State>() {
       tooltip: {
         trigger: 'axis'
       },
-      title:{
+      title: {
         text: area + '治愈/死亡患者人数',
         top: '5%',
         x: 'center'
-      }
+      },
       grid: {
         bottom: '25%'
       },
