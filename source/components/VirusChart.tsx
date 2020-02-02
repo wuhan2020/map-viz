@@ -183,16 +183,22 @@ export class VirusChart extends mixin<Props, State>() {
     return {
       legend: {
         orient: 'horizontal',
+        bottom: '13%',
         data: ['确诊', '疑似']
       },
+      title:{
+        text: area + '确诊/疑似患者人数',
+        top: '5%',
+        x: 'center',
+      }
       grid: {
-        bottom: '11%'
+        bottom: '25%'
       },
       tooltip: {
         trigger: 'axis'
       },
       xAxis: {
-        name: '时间',
+        name: '日期',
         type: 'time',
         nameTextStyle: {
           fontSize: this.fixChartFontSize(9)
@@ -209,7 +215,7 @@ export class VirusChart extends mixin<Props, State>() {
         }
       },
       yAxis: {
-        name: '确诊/疑似数',
+        name: '人数',
         nameTextStyle: {
           fontSize: this.fixChartFontSize(9)
         },
@@ -261,12 +267,16 @@ export class VirusChart extends mixin<Props, State>() {
       tooltip: {
         trigger: 'axis'
       },
+      title:{
+        text: area + '治愈/死亡患者人数',
+        top: '5%',
+        x: 'center'
+      }
       grid: {
-        bottom: '11%'
+        bottom: '25%'
       },
       xAxis: {
-        name: '时间',
-        title: '时间',
+        name: '日期',
         type: 'time',
         nameTextStyle: {
           fontSize: this.fixChartFontSize(9)
@@ -283,7 +293,7 @@ export class VirusChart extends mixin<Props, State>() {
         }
       },
       yAxis: {
-        name: '治愈/死亡数',
+        name: '人数',
         nameTextStyle: {
           fontSize: this.fixChartFontSize(9)
         },
@@ -296,6 +306,7 @@ export class VirusChart extends mixin<Props, State>() {
       },
       legend: {
         orient: 'horizontal',
+        bottom: '13%',
         data: ['治愈', '死亡']
       },
       series: [
