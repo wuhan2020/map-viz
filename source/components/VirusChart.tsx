@@ -185,6 +185,9 @@ export class VirusChart extends mixin<Props, State>() {
         orient: 'horizontal',
         data: ['确诊', '疑似']
       },
+      grid: {
+        bottom: '11%'
+      },
       tooltip: {
         trigger: 'axis'
       },
@@ -262,7 +265,7 @@ export class VirusChart extends mixin<Props, State>() {
         trigger: 'axis'
       },
       grid: {
-        bottom: 30
+        bottom: '11%'
       },
       xAxis: {
         name: '时间',
