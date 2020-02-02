@@ -2,7 +2,7 @@
  * WebCell百度地图地图可视化通用组件，接入百度地图API
  * 本地图组件为百度地图定制化开发提供了最高的自由度
  * @author: shadowingszy
- * 
+ *
  * 传入props说明:
  * key: 百度地图API的密钥，默认为我自己申请的百度地图API密钥，建议自己申请。
  * mapUrl: 地图json文件地址。
@@ -12,17 +12,18 @@ import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 
 interface Marker {
-  point: Array<number>,
-  labelText: string,
-  labelStyle: Object,
-  infoWindowTitle: string,
-  infoWindowContent: string
+  point: Array<number>;
+  icon: string;
+  labelText: string;
+  labelStyle: Object;
+  infoWindowTitle: string;
+  infoWindowContent: string;
 }
 
 interface MapOptions {
-  initPoint: Array<number>,
-  zoom: number,
-  markerArray: Array<Marker>
+  initPoint: Array<number>;
+  zoom: number;
+  markerArray: Array<Marker>;
 }
 
 interface BaiduMapProps {
@@ -58,36 +59,51 @@ export class BaiduMap extends mixin<BaiduMapProps, {}>() {
   connectedCallback() {
     setTimeout(() => {
       const script = document.createElement('script');
-      script.src = 'http://api.map.baidu.com/api?v=2.0&ak=' + this.props.baiduMapKey + '&callback=initialize';
+      script.src =
+        'http://api.map.baidu.com/api?v=2.0&ak=' +
+        this.props.baiduMapKey +
+        '&callback=initialize';
       document.body.appendChild(script);
       (window as any).initialize = () => {
         const map = new (window as any).BMap.Map(this.mapId);
-        let point = new (window as any).BMap.Point(this.props.mapOptions.initPoint[0], this.props.mapOptions.initPoint[1]);
+        let point = new (window as any).BMap.Point(
+          this.props.mapOptions.initPoint[0],
+          this.props.mapOptions.initPoint[1]
+        );
         map.centerAndZoom(point, this.props.mapOptions.zoom);
         map.enableScrollWheelZoom(true);
         map.addControl(new (window as any).BMap.NavigationControl());
 
         for (const item of this.props.mapOptions.markerArray) {
-          const position = new (window as any).BMap.Point(item.point[0], item.point[1]);
-          const marker = new (window as any).BMap.Marker(position);
-          const label = new (window as any).BMap.Label(item.labelText, {
-            position: position,
-            offset: new (window as any).BMap.Size(17, -22)
+          const position = new (window as any).BMap.Point(
+            item.point[0],
+            item.point[1]
+          );
+          const myIcon = new (window as any).BMap.Icon(
+            item.icon,
+            new (window as any).BMap.Size(25, 25),
+            {
+              offset: new (window as any).BMap.Size(10, 25)
+            }
+          );
+          const marker = new (window as any).BMap.Marker(position, {
+            icon: myIcon
           });
-          label.setStyle(item.labelStyle);
 
-          marker.addEventListener('click', function () {
-            var infoWindow = new (window as any).BMap.InfoWindow(item.infoWindowContent, {
-              title: item.infoWindowTitle
-            });
+          marker.addEventListener('click', function() {
+            var infoWindow = new (window as any).BMap.InfoWindow(
+              item.infoWindowContent,
+              {
+                title: item.infoWindowTitle
+              }
+            );
             marker.openInfoWindow(infoWindow, map.getCenter());
           });
 
           map.addOverlay(marker);
-          map.addOverlay(label);
         }
-      }
-    }, 0)
+      };
+    }, 0);
   }
 
   public render() {

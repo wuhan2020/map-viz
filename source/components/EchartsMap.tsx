@@ -18,8 +18,7 @@ import long2short from '../adapters/long2short';
 interface MapProps {
   mapUrl?: string;
   chartOptions?: any;
-  isForceRatio?: number;
-  isAdjustLabel?: boolean;
+  mapName?: string;
   chartOnClickCallBack?: (param: any, chart: any) => void;
   chartGeoRoamCallBack?: (param: any, chart: any) => void;
   chartAdjustLabel?: (param: any, chart: any) => void;
@@ -37,11 +36,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
 
   @attribute
   @watch
-  public isForceRatio: number = null;
-
-  @attribute
-  @watch
-  public isAdjustLabel: number = null;
+  public mapName: string = 'map';
 
   @attribute
   @watch
@@ -80,10 +75,12 @@ export class EchartsMap extends mixin<MapProps, {}>() {
   updatedCallback() {
     const {
       mapUrl,
+      mapName,
       chartOptions,
       chartOnClickCallBack,
       chartGeoRoamCallBack
     } = this.props;
+    
     if (this.chart !== undefined) {
       this.chart.showLoading();
     }
@@ -91,11 +88,14 @@ export class EchartsMap extends mixin<MapProps, {}>() {
       .then(response => response.json())
       .then(data => {
         // convert to short names, better to use a map already with short names
+        if (!document.getElementById(this.chartId)) {
+          return;
+        }
         data.features.forEach(
           (f: { properties: { name: string } }) =>
             (f.properties.name = long2short(f.properties.name))
         );
-        echarts.registerMap('map', data);
+        echarts.registerMap(mapName, data);
         this.chart = echarts.init(document.getElementById(this.chartId));
         this.chart.setOption(chartOptions);
 
@@ -136,8 +136,10 @@ export class EchartsMap extends mixin<MapProps, {}>() {
         //     chartGeoRoamCallBack(params, this.chart);
         //   }
         // });
+        let originFunction = (window as any).onresize;
         window.onresize = () => {
-          // this.chart.resize();
+          originFunction();
+
           this.chart.resize();
           if (this.props.chartAdjustLabel) {
             this.props.chartAdjustLabel(null, this.chart);
@@ -154,7 +156,9 @@ export class EchartsMap extends mixin<MapProps, {}>() {
 
   public render() {
     return (
-      <div id={this.chartId} style={{ width: '100%', height: '100%' }}></div>
+      <div>
+        <div id={this.chartId} style={{ width: '100%', height: '100%' }}></div>
+      </div>
     );
   }
 }

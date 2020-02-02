@@ -52,27 +52,27 @@ TL;DR:
 
 已经有基础疫情地图，界面排布根据界面大小的缩放而改动，能显示省市两个层级的疫情信息。已经接好了数据接口，可以从官方 API 拿到每日信息 (但是为了避免对 API 造成巨大负担现在是每日手动拉下来的。)
 
+- [x] 基础疫情地图，并用统计图（线图+ stacked area chart）显示疫情发展数据
+
+![img0](./screenshots/virus-map-overview.png)
+
 - [x] 省市层级交互
 - [x] 时间轴交互:
 
 ![img2](./screenshots/virus-map-timeline.gif)
 
-- [x] 支持 resize:
-
-![img1](./screenshots/virus-map-resize.gif)
-
 #### TODO
 
-- [ ] 在疫情数据中加入统计图（线图或者 stacked area chart）显示疫情发展数据
-- [ ] 时间轴与统计图与地图互动
+- [ ] 接入手动收集的省级数据
+- [ ] 疫情地图时间轴与统计图联动
 
 ### 通用组件
 
 已经有可视化其他地理信息 (e.g. 求援医院地理位置，酒店位置) 的通用地图控件，用百度地图 API，可以精确在地图上标出。
+现在用 mock 数据做，之后应该会按照指示接入前端用来可视化他们的数据。
 
 ![img3](./screenshots/info-map-demo.gif)
 
-现在用 mock 数据做，之后应该会按照指示接入前端用来可视化他们的数据。[接入数据后的一个展示见这里](https://github.com/wuhan2020/map-viz/blob/master/screenshots/ifno-map-demo-realdata.png)(图太大……)
 
 ## 技术栈
 
@@ -141,6 +141,7 @@ npm start
 [百度地图地址转经纬度](https://service-qf7o2c4u-1252957949.gz.apigw.tencentcs.com/release/bmap?address=华中科技大学)
 
 [新闻收集接口](http://ncov.news.dragon-yuan.me/api/news?search=&page=)
+
 
 [1]: https://developers.google.cn/web/progressive-web-apps
 [2]: https://david-dm.org/wuhan2020/wuhan2020.github.io

@@ -9,7 +9,7 @@ import { observer } from 'mobx-web-cell';
 import { component, createCell, Fragment } from 'web-cell';
 import { HierarchicalVirusMapDemo } from './HierarchicalVirusMapDemo';
 import { InformationMapDemo } from './InformationMapDemo';
-import { History, HTMLRouter } from 'cell-router/source';
+import { History, HTMLRouter, matchRoutes } from 'cell-router/source';
 import { NavBar } from 'boot-cell/source/Navigator/NavBar';
 
 const history = new History();

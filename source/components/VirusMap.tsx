@@ -13,7 +13,10 @@ import { observer } from 'mobx-web-cell';
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import { EchartsMap } from '../components/EchartsMap';
 import { PatientStatData } from '../adapters/patientStatInterface';
+import { VirusChart } from '../components/VirusChart';
+import { OverallCountryData } from '../adapters/patientStatInterface';
 import MapUrls from '../../map_data/map_dict.json';
+//import create_pieces from "../adapters/piece"
 
 type MapDataType = { [name: string]: PatientStatData };
 type STMapDataType = {
@@ -21,10 +24,43 @@ type STMapDataType = {
   data: { [timestamp: number]: MapDataType };
 }; // spatio-temporal data
 
-interface VirusMapProps {
+interface Props {
   name: string;
   data?: MapDataType | STMapDataType;
+  breaks?: number[];
+  chartData?: OverallCountryData;
+  chartPath?: Array<string>;
+  currentChartArea: string;
   chartOnClickCallBack?: Function;
+}
+
+function mapName(name: string) {
+  return name === '中国' ? 'china' : 'map';
+}
+
+const PALETTE = [
+  '#FFFFFF',
+  '#FFFADD',
+  '#FFDC90',
+  '#FFA060',
+  '#DD6C5C',
+  '#AC2F13',
+  '#3E130E'
+];
+
+const pair = (s: any[]) =>
+  s.slice(0, s.length - 1).map((item, i) => [item, s[i + 1]]);
+
+function createPieces(breaks: number[], palette) {
+  return [
+    { min: 0, max: 0, color: palette[0] },
+    ...pair(breaks).map(([b1, b2], i) => ({
+      gte: b1,
+      lt: b2,
+      color: palette[i + 1]
+    })),
+    { gte: breaks[breaks.length - 1], color: palette[breaks.length] }
+  ];
 }
 
 @observer
@@ -32,7 +68,7 @@ interface VirusMapProps {
   tagName: 'virus-map',
   renderTarget: 'children'
 })
-export class VirusMap extends mixin<VirusMapProps, {}>() {
+export class VirusMap extends mixin<Props, {}>() {
   @attribute
   @watch
   public name: string = '';
@@ -43,12 +79,29 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
 
   @attribute
   @watch
+  public breaks: number[] = [1, 10, 50, 100, 500, 1000];
+
+  @attribute
+  @watch
+  public chartData = {};
+
+  @attribute
+  @watch
+  public currentChartArea: string = '';
+
+  @attribute
+  @watch
+  public chartPath: Array<string> = [];
+
+  @attribute
+  @watch
   public chartOnClickCallBack = (param, chart) => {
     console.log(param, chart);
   };
 
   public state = {
-    mapScale: 1
+    mapScale: 1,
+    chartArea: this.props.name
   };
 
   constructor() {
@@ -60,49 +113,51 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     this.overrides = this.overrides.bind(this);
   }
 
-  baseOptions() {
+  private genBasicVisualMap() {
+    return {
+      show: true,
+      type: 'piecewise',
+      left: '20px',
+      right: undefined,
+      top: '50px',
+      bottom: undefined,
+      orient: 'vertical',
+      itemHeight: 10,
+      itemWidth: 14,
+      itemGap: 10,
+      itemSymbol: 'circle',
+      backgroundColor: 'rgba(200,200,200, 0.2)',
+      padding: 10,
+      textStyle: {
+        fontSize: 10
+      }
+      /*
+    formatter: (gt: number, lte: number) =>  {
+      console.log(gt, lte);
+      return lte === Infinity ? `> ${gt}` : lte > gt ? `(${gt}, ${lte}]` : `= ${lte}`}
+    */
+    };
+  }
+
+  private baseOptions(name: string, breaks: number[]) {
+    const pieceDict = { pieces: createPieces(breaks, PALETTE) };
+    const visualMap = {
+      ...this.genBasicVisualMap(),
+      ...pieceDict
+    };
     return {
       title: {
-        text: '疫情地图'
+        text: name + '疫情地图', // workaround for incomplete map data
+        left: '20px',
+        top: '20px'
       },
       tooltip: {},
-      visualMap: [
-        {
-          type: 'piecewise',
-          right: '10%',
-          left: undefined,
-          top: undefined,
-          orient: 'vertical',
-          itemHeight: 10,
-          itemWidth: 14,
-          itemGap: 10,
-          bottom: '10%',
-          itemSymbol: 'circle',
-          backgroundColor: 'rgba(200,200,200, 0.2)',
-          padding: 10,
-          textStyle: {
-            fontSize: 10
-          },
-          pieces: [
-            { min: 0, max: 0, color: '#EEFFEE' },
-            { min: 1, lte: 10, color: '#FFFADD' },
-            { gt: 10, lte: 50, color: '#FFDC90' },
-            { gt: 50, lte: 100, color: '#FF9040' },
-            { gt: 100, lte: 500, color: '#DD5C5C' },
-            { gt: 500, lte: 1000, color: '#901010' },
-            { gt: 1000, color: '#600000' }
-          ]
-          /*
-        formatter: (gt: number, lte: number) =>  {
-          console.log(gt, lte);
-          return lte === Infinity ? `> ${gt}` : lte > gt ? `(${gt}, ${lte}]` : `= ${lte}`}
-        */
-        }
-      ],
+      visualMap: [visualMap],
       series: [
         {
           name: '疫情数据',
           type: 'map',
+          map: mapName(name),
           mapType: 'map',
           // roam: true,
           zoom: 1,
@@ -124,7 +179,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
     };
   }
 
-  overrides(data: MapDataType) {
+  private overrides(data: MapDataType) {
     return {
       tooltip: {
         trigger: 'item',
@@ -138,6 +193,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
               );
             }
           }
+
           const outputArray = [params.name];
           if (data[params.name] === undefined) {
             return params.name + '<br/>暂无数据';
@@ -171,7 +227,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
   public chartAdjustLabel(param: any, chart: any): void {
     const isForceRatio = 0.75;
     const isAdjustLabel = true;
-    let options = this.baseOptions();
+    let options = this.baseOptions(this.props.name, this.props.breaks);
     if (chart && options) {
       const domWidth = chart.getWidth();
       const domHeight = chart.getHeight();
@@ -179,7 +235,10 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
         const maxWidth = Math.min(domWidth, domHeight / isForceRatio);
         const maxHeight = Math.min(domHeight, maxWidth * isForceRatio);
         // move the item MUCH closer
-        if (domHeight > domWidth) {
+
+        //if (domHeight > domWidth) {
+        //options.visualMap[0].show = false;
+        /*
           options.visualMap[0].orient = 'horizontal';
           options.visualMap[0].right = undefined;
           options.visualMap[0].top = Math.max(
@@ -188,30 +247,34 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           );
           options.visualMap[0].bottom = undefined;
           options.visualMap[0].left = 'center';
-        } else if (domHeight > domWidth * isForceRatio) {
-          options.visualMap[0].orient = 'vertical';
-          options.visualMap[0].left = undefined;
-          options.visualMap[0].right = 0 as any;
-          options.visualMap[0].bottom = '10%';
-          options.visualMap[0].top = undefined;
+          */
+        //} else if (domHeight > domWidth * isForceRatio) {
+        const visualMap = {
+          ...options.visualMap[0],
+          ...this.genBasicVisualMap()
+        };
+        if (domHeight > domWidth * isForceRatio) {
+          options.visualMap[0].left = 0 as any; //'20px';
+          //options.visualMap[0].right = 0 as any;
+          //options.visualMap[0].bottom = undefined;
+          options.visualMap[0].top = '50px';
         } else {
-          options.visualMap[0].orient = 'vertical';
-          options.visualMap[0].right = undefined;
-          options.visualMap[0].top = undefined;
-          options.visualMap[0].bottom = '10%';
-          options.visualMap[0].left = Math.min(
-            domWidth / 2 + maxWidth / 2,
-            domWidth - 100
-          );
+          //options.visualMap[0].top = 0 as any; //'50px';
+          options.visualMap[0].left = '20px';
         }
       }
       const scale = param ? param.scale : 1;
-      if (isAdjustLabel && scale) {
+
+      if (isAdjustLabel && scale && isForceRatio) {
+        const maxWidth = Math.min(domWidth, domHeight / isForceRatio);
+        const maxHeight = Math.min(domHeight, maxWidth * isForceRatio);
         options.series.forEach(s => (s.zoom *= scale));
-        const size = options.series[0].zoom * Math.min(domWidth, domHeight);
-        if (size < 200) {
+        const size = options.series[0].zoom * maxHeight;
+        if (size < 300) {
+          //options.visualMap[0].show = false;
           options.series.forEach(s => (s.label.show = false));
         } else {
+          //options.visualMap[0].show = true;
           options.series.forEach(s => (s.label.show = true));
         }
       }
@@ -232,7 +295,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
 
   public getChartOptions(data: MapDataType, options: any = null) {
     if (!options) {
-      options = this.baseOptions();
+      options = this.baseOptions(this.props.name, this.props.breaks);
     }
     let extra = this.overrides(data);
     options.series[0].data = extra.series[0].data;
@@ -241,7 +304,7 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
   }
   public getSTChartOptions(data: STMapDataType, options: any = null) {
     if (!options) {
-      options = this.baseOptions();
+      options = this.baseOptions(this.props.name, this.props.breaks);
     }
     options['timeline'] = {
       axisType: 'time',
@@ -260,34 +323,87 @@ export class VirusMap extends mixin<VirusMapProps, {}>() {
           baseline: 'middle'
         },
         formatter: function(s) {
-          return new Date(parseInt(s, 10)).toLocaleDateString().slice(5); // year is not necessary
+          return new Date(parseInt(s, 10))
+            .toLocaleDateString('zh-CN')
+            .substring(5); // year is not necessary, standardize to ISO
         }
       }
     };
     return {
       baseOption: options,
-      options: data.timeline.map(t => this.overrides(data.data[t]))
+      options: data.timeline.sort().map(t => this.overrides(data.data[t]))
     };
   }
-
   private isTimelineData(data: MapDataType | STMapDataType): boolean {
     return (data as STMapDataType).timeline !== undefined;
   }
-  public render({ name, data, chartOnClickCallBack }: VirusMapProps, {}) {
+
+  public render(
+    {
+      name,
+      data,
+      chartOnClickCallBack,
+      currentChartArea,
+      chartData,
+      chartPath
+    }: Props,
+    {}
+  ) {
+    const isPC =
+      (window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth) >
+      (window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight) *
+        0.8;
+
     // 缩放时间重新set一下option
     return (
-      <EchartsMap
-        mapUrl={MapUrls[name]}
-        isForceRatio={0.75}
-        isAdjustLabel={true}
-        chartOptions={
-          this.isTimelineData(data)
-            ? this.getSTChartOptions(data as STMapDataType)
-            : this.getChartOptions(data as MapDataType)
+      <div
+        style={
+          isPC
+            ? {
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                height: '100%'
+              }
+            : {
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '200%'
+              }
         }
-        chartOnClickCallBack={chartOnClickCallBack}
-        chartAdjustLabel={this.chartAdjustLabel}
-      />
+      >
+        <EchartsMap
+          style={
+            isPC
+              ? { width: '65%', height: '100%' }
+              : { width: '100%', height: '100%' }
+          }
+          mapUrl={MapUrls[name]}
+          mapName={mapName(name)}
+          chartOptions={
+            this.isTimelineData(data)
+              ? this.getSTChartOptions(data as STMapDataType)
+              : this.getChartOptions(data as MapDataType)
+          }
+          chartAdjustLabel={this.chartAdjustLabel}
+          chartOnClickCallBack={chartOnClickCallBack}
+        />
+        <VirusChart
+          style={
+            isPC
+              ? { width: '35%', height: '100%' }
+              : { width: '100%', height: '100%' }
+          }
+          data={chartData}
+          area={currentChartArea}
+          path={chartPath}
+        />
+      </div>
     );
   }
 }
