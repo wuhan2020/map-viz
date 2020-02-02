@@ -1,0 +1,11 @@
+.info-label {
+    white-space: pre;
+    /*margin-top: 1px!important; */
+    /*margin-bottom: 1px!important; */
+    display: inline-block;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    background-color: #ffa18c;
+    font-weight: bold;
+  }

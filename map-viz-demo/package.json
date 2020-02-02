@@ -1,0 +1,72 @@
+{
+  "name": "wuhan2020-map-viz-demo",
+  "version": "0.0.1",
+  "license": "AGPL-3.0",
+  "author": "https://github.com/yarray",
+  "description": "针对 2020 新冠病毒疫情中的武汉援助信息网站/地图可视化部分 demo",
+  "homepage": "https://wuhan2020.github.io/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wuhan2020/wuhan2020.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EasyWebApp/wuhan2020/issues"
+  },
+  "main": "source/index.html",
+  "dependencies": {
+    "boot-cell": "^0.24.0",
+    "cell-router": "^2.0.0-rc.6",
+    "classnames": "^2.2.6",
+    "echarts": "^4.6.0",
+    "js-base64": "^2.5.1",
+    "mobx": "^5.15.4",
+    "mobx-web-cell": "^0.2.5",
+    "web-cell": "^2.0.0-rc.15",
+    "wuhan2020-map-viz": "github:yarray/map-viz",
+    "yaml": "^1.7.2"
+  },
+  "devDependencies": {
+    "@types/js-base64": "^2.3.1",
+    "@types/yaml": "^1.2.0",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.8.0",
+    "husky": "^4.2.1",
+    "lint-staged": "^10.0.2",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.5",
+    "workbox-cli": "^4.3.1"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "tabWidth": 2,
+    "overrides": [
+      {
+        "files": "*.yml",
+        "options": {
+          "tabWidth": 2
+        }
+      }
+    ]
+  },
+  "lint-staged": {
+    "*.{html,md,less,js,json,yml,ts,tsx}": [
+      "prettier --write"
+    ]
+  },
+  "scripts": {
+    "test": "lint-staged",
+    "start": "rm -rf dist/  &&  parcel source/index.html --open",
+    "pack-dist": "cross-env NODE_ENV=production  parcel build source/index.html --public-url .",
+    "pack-sw": "rm -f dist/sw.js.map  &&  workbox generateSW",
+    "build": "rm -rf dist/  &&  npm run pack-dist  &&  npm run pack-sw"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm run build"
+    }
+  }
+}
