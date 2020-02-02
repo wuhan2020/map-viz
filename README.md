@@ -4,7 +4,7 @@
 
 本项目负责平台的信息展示，可视化地理信息。
 
-## 任务
+## 项目介绍
 
 基于 ECharts 可视化库及其他技术栈：
 
@@ -17,6 +17,15 @@
 - **使用**：取决于数据
   - 如果自动抓取省市级数据：疫情地图与前端其他组件交互较少，且数据可以[通过 API 直接获取](http://lab.isaaclin.cn/nCoV/api/area?latest=0)，可以作为单独 webpage，最终作为 iframe 整合进前端页面。
   - 如果使用手动抓取的县级数据，则作为组件融入前端，接受传入数据。[讨论](https://github.com/wuhan2020/map-viz/issues/52)
+- **进度**
+
+![img0](./screenshots/virus-map-overview.gif)
+
+- [x] 基础疫情地图，并用统计图（线图+ stacked area chart）显示疫情发展数据
+- [x] 省市层级交互
+- [x] 时间轴交互
+- [ ] 接入手动收集的省级数据
+- [ ] 疫情地图时间轴与统计图联动
 
 ### 创建一个通用地图组件
 
@@ -28,62 +37,35 @@
   - 接受传入的 mouseEvent，可以帮助做信息过滤及定位（e.g., 点击一个省选中它的信息）
   - ([相关讨论](https://github.com/wuhan2020/map-viz/issues/2#issuecomment-578626578))
 - [数据格式设计讨论](https://github.com/wuhan2020/map-viz/issues/3)
-
-## 任务拆分&参与指南
-
-[合作指南参考主 repo](https://github.com/wuhan2020/wuhan2020/blob/master/CONTRIBUTING.md)（viz 没有项目机器人+注意将 demo script 改成我们的 repo）
-TL;DR:
-
-1. 请在[project 面板](https://github.com/wuhan2020/map-viz/projects/1)自行认领&self-assign issues（如果不能更改 assignee，请回复 issue 表示认领，我们会后面添加 assign）
-2. 对数据和设计如果有讨论请参见如下 issue:
-
-- [地图设计讨论](https://github.com/wuhan2020/map-viz/issues/2)
-- [数据格式设计讨论](https://github.com/wuhan2020/map-viz/issues/3)
-- [收集已有数据及可视化](https://github.com/wuhan2020/map-viz/issues/7)
-
-3. 如有其它建议请开 issue
-4. 参与更多讨论请加入[slack 讨论组](https://join.slack.com/t/wuhan2020/shared_invite/enQtOTI2NTU1NzU3MTM2LWQ1YjIzMDllYjYzYTE1OTNhMWU4OTZkOGYzOGJhOWM2MzdlMjgwMmZiOWEzYTQwNmJkZDI4OWRmM2Q2ZDM1MTc)，我们在 channel #proj-map-visualization
-
-## 进度一览
-
-**!!具体进行中及待领任务请看[project 面板](https://github.com/wuhan2020/map-viz/projects/1)**
-
-### 疫情地图
-
-已经有基础疫情地图，界面排布根据界面大小的缩放而改动，能显示省市两个层级的疫情信息。已经接好了数据接口，可以从官方 API 拿到每日信息 (但是为了避免对 API 造成巨大负担现在是每日手动拉下来的。)
-
-- [x] 基础疫情地图，并用统计图（线图+ stacked area chart）显示疫情发展数据
-
-![img0](./screenshots/virus-map-overview.png)
-
-- [x] 省市层级交互
-- [x] 时间轴交互:
-
-![img2](./screenshots/virus-map-timeline.gif)
-
-#### TODO
-
-- [ ] 接入手动收集的省级数据
-- [ ] 疫情地图时间轴与统计图联动
-
-### 通用组件
-
-已经有可视化其他地理信息 (e.g. 求援医院地理位置，酒店位置) 的通用地图控件，用百度地图 API，可以精确在地图上标出。
-现在用 mock 数据做，之后应该会按照指示接入前端用来可视化他们的数据。
+- **进度**
 
 ![img3](./screenshots/info-map-demo.gif)
 
+## 使用
 
-## 技术栈
+### 安装
 
-- 可视化库: [ECharts v4][13]
-- 逻辑语言: [TypeScript v3][5]
-- 组件引擎: [WebCell v2][6]
-- 组件库: [BootCell v1][7]
-- 状态管理: [MobX v5][8]
-- PWA 框架: [Workbox v4][9]
-- 打包工具: [Parcel v1][10]
-- CI / CD: [Travis CI][11] + [GitHub Pages][12]
+```sh
+# go into your project
+cd ${project}/
+# install from github
+npm install https://github.com/wuhan2020/map-viz.git --save
+```
+
+### 使用
+
+1. 疫情地图：[文档](https://github.com/wuhan2020/map-viz/blob/master/source/components/hierarchical-virus-map-components-readme%20copy.md), [引用例子](https://github.com/wuhan2020/map-viz/blob/master/demo/source/page/HierarchicalVirusMapDemo.tsx)
+2. 地图组件：[文档](https://github.com/wuhan2020/map-viz/blob/master/source/components/information-map-components-readme.md), [引用例子](https://github.com/wuhan2020/map-viz/blob/master/demo/source/page/InformationMapDemo.tsx)
+
+### 完全版 demo
+
+进入`demo/`文件夹查看完整使用：
+
+```sh
+cd demo
+npm install
+npm start
+```
 
 ## 本地开发
 
@@ -102,7 +84,33 @@ npm install
 npm start
 ```
 
-### 教程及有用链接
+### 任务拆分&参与指南
+
+[合作指南参考主 repo](https://github.com/wuhan2020/wuhan2020/blob/master/CONTRIBUTING.md)（viz 没有项目机器人+注意将 demo script 改成我们的 repo）
+TL;DR:
+
+1. 请在[project 面板](https://github.com/wuhan2020/map-viz/projects/1)自行认领&self-assign issues（如果不能更改 assignee，请回复 issue 表示认领，我们会后面添加 assign）
+2. 对数据和设计如果有讨论请参见如下 issue:
+
+- [地图设计讨论](https://github.com/wuhan2020/map-viz/issues/2)
+- [数据格式设计讨论](https://github.com/wuhan2020/map-viz/issues/3)
+- [收集已有数据及可视化](https://github.com/wuhan2020/map-viz/issues/7)
+
+3. 如有其它建议请开 issue
+4. 参与更多讨论请加入[slack 讨论组](https://join.slack.com/t/wuhan2020/shared_invite/enQtOTI2NTU1NzU3MTM2LWQ1YjIzMDllYjYzYTE1OTNhMWU4OTZkOGYzOGJhOWM2MzdlMjgwMmZiOWEzYTQwNmJkZDI4OWRmM2Q2ZDM1MTc)，我们在 channel #proj-map-visualization
+
+## 技术栈
+
+- 可视化库: [ECharts v4][13]
+- 逻辑语言: [TypeScript v3][5]
+- 组件引擎: [WebCell v2][6]
+- 组件库: [BootCell v1][7]
+- 状态管理: [MobX v5][8]
+- PWA 框架: [Workbox v4][9]
+- 打包工具: [Parcel v1][10]
+- CI / CD: [Travis CI][11] + [GitHub Pages][12]
+
+## 教程及有用链接
 
 [5 分钟上手 ECharts](https://www.echartsjs.com/zh/tutorial.html#5%20%E5%88%86%E9%92%9F%E4%B8%8A%E6%89%8B%20ECharts)
 
@@ -112,7 +120,7 @@ npm start
 
 [坐标拾取](http://api.map.baidu.com/lbsapi/getpoint/index.html)
 
-#### 例子
+### 例子
 
 [百度迁徙](https://qianxi.baidu.com/?from=shoubai#city=420100)
 
@@ -122,7 +130,7 @@ npm start
 
 [qq 实时疫情数据](https://news.qq.com/zt2020/page/feiyan.htm)
 
-#### 临时接口
+### 临时接口
 
 [省市每日历史数据](http://ncov.nosensor.com:8080/api/)
 
@@ -141,7 +149,6 @@ npm start
 [百度地图地址转经纬度](https://service-qf7o2c4u-1252957949.gz.apigw.tencentcs.com/release/bmap?address=华中科技大学)
 
 [新闻收集接口](http://ncov.news.dragon-yuan.me/api/news?search=&page=)
-
 
 [1]: https://developers.google.cn/web/progressive-web-apps
 [2]: https://david-dm.org/wuhan2020/wuhan2020.github.io
