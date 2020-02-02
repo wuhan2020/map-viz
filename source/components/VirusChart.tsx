@@ -191,9 +191,6 @@ export class VirusChart extends mixin<Props, State>() {
       tooltip: {
         trigger: 'axis'
       },
-      grid: {
-        bottom: 30
-      },
       xAxis: {
         name: '时间',
         type: 'time',
