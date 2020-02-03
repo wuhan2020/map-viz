@@ -21,6 +21,6 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "include": [
-    "src", "lib.webpack.config.js"
+    "src", "lib.webpack.config.js", "index.js"
   ]
 }
