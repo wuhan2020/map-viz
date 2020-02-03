@@ -10,6 +10,7 @@
  * chartData: 折线图数据。
  * chartPath: 热力图点击路径
  * currentChartArea: 当前点击位置
+ * type: overview, pc, mobile 三种不同的charts显示方式
  * chartOnClickCallBack: 点击地图后的回调函数。
  */
 
@@ -17,6 +18,7 @@ import React from 'react';
 import { EchartsMap } from './echartsMap';
 import { VirusChart } from './virusChart';
 import mapUrls from '../../data/map/mapDict.json';
+import './style.css';
 
 type MapDataType = {
   [name: string]: any
@@ -34,6 +36,7 @@ interface Props {
   chartData: any;
   chartPath: Array<string>;
   currentChartArea: string;
+  type: string;
   chartOnClickCallBack: Function;
 }
 
@@ -83,6 +86,7 @@ export class VirusMap extends React.Component<Props>  {
     chartData: {},
     chartPath: [],
     currentChartArea: '',
+    type: 'pc',
     chartOnClickCallBack: (param: any, chart: any) => {
       console.log(param, chart);
     }
@@ -134,18 +138,17 @@ export class VirusMap extends React.Component<Props>  {
           type: 'map',
           map: mapName(name),
           mapType: 'map',
-          // roam: true,
           zoom: 1,
           label: {
-            show: true, //mapScale > 2.5,
-            fontSize: 10, //2 * mapScale
+            show: this.props.type === 'pc',
+            fontSize: 8,
             textBorderColor: '#FAFAFA',
             textBorderWidth: 1
           },
           emphasis: {
             label: {
-              show: true, //mapScale > 2.5,
-              fontSize: 10 //2 * mapScale
+              show: this.props.type === 'pc',
+              fontSize: 8
             }
           },
           data: []
@@ -158,7 +161,9 @@ export class VirusMap extends React.Component<Props>  {
     return {
       tooltip: {
         trigger: 'item',
-        formatter: function (params: any) {
+        triggerOn: 'onmousemove',
+        confine: 'true',
+        formatter: (params: any) => {
           if (params.componentType === 'timeline') {
             if ((params.dataIndex % 24) * 3600000 === 0) {
               return new Date(params.dataIndex).toLocaleDateString('zh-CN');
@@ -184,6 +189,9 @@ export class VirusMap extends React.Component<Props>  {
           }
           if (data[params.name].dead !== undefined) {
             outputArray.push('死亡：' + data[params.name].dead);
+          }
+          if (this.props.type === 'mobile') {
+            outputArray.push('<br/><div id="tooltip-detail">再次点击查看详情</div>');
           }
           return outputArray.join('<br/>');
         }
@@ -247,41 +255,12 @@ export class VirusMap extends React.Component<Props>  {
   }
 
   public render() {
-    const isPC =
-      (window.innerWidth ||
-        document.documentElement.clientWidth ||
-        document.body.clientWidth) >
-      (window.innerHeight ||
-        document.documentElement.clientHeight ||
-        document.body.clientHeight) *
-      0.8;
-
-    const { name, data, chartOnClickCallBack, chartData, chartPath, currentChartArea } = this.props;
+    const { name, data, chartOnClickCallBack, chartData, chartPath, currentChartArea, type } = this.props;
     const mapUrl = mapUrls[name]
 
     return (
-      <div
-        style={
-          isPC
-            ? {
-              display: 'flex',
-              flexDirection: 'row',
-              width: '100%',
-              height: '100%'
-            }
-            : {
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              height: '100%'
-            }
-        }
-      >
-        <div
-          style={isPC
-            ? { width: '65%', height: '100%' }
-            : { width: '100%', height: '50%' }
-          }>
+      <div className={type + '-virus-map'}>
+        <div className={type + '-echarts-map'}>
           <EchartsMap
             mapUrl={mapUrl}
             mapName={mapName(name)}
@@ -291,9 +270,10 @@ export class VirusMap extends React.Component<Props>  {
                 : this.getChartOptions(data as MapDataType)
             }
             chartOnClickCallBack={chartOnClickCallBack}
+            mobile={type === 'mobile'}
           />
         </div>
-        <div style={isPC ? { width: '35%', height: '100%' } : { width: '100%', height: '50%' }}>
+        <div className={type + '-virus-chart'}>
           <VirusChart
             data={chartData}
             area={currentChartArea}

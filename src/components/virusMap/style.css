@@ -1,0 +1,53 @@
+.overview-virus-map {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.pc-virus-map {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.mobile-virus-map {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.overview-echarts-map {
+  width: 100%;
+  height: 100%;
+}
+
+.pc-echarts-map {
+  width: 65%;
+  height: 100%;
+}
+
+.mobile-echarts-map {
+  width: 100%;
+  height: 50%;
+}
+
+.overview-virus-chart {
+  display: none;
+}
+
+.pc-virus-chart {
+  width: 35%;
+  height: 100%;
+}
+
+.mobile-virus-chart {
+  width: 100%;
+  height: 50%;
+}
+
+#tooltip-detail {
+  font-size: 10px;
+}

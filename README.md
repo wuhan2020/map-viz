@@ -6,18 +6,14 @@
 
 提供基于 ECharts 可视化库的前端组件。
 
-### 创建一个完整独立的疫情地图
+### 1、提供一个完整独立的疫情地图组件
 
 - **目的&设计**：创建一个独立的疫情地图可视化，有两个主要目标
   1. 地理精度：有市级地理粒度，最开始是一个全国地图的 heatmap，点击一个省重绘成省 map。（[重绘参考](https://gallery.echartsjs.com/editor.html?c=xm3iS_cb0g)）
   - optional: 可能会做成县级精度，具体见[讨论](https://github.com/wuhan2020/map-viz/issues/52)
   2. 时间信息：有时间轴，点击一个地区可以画出[stacked area chart](https://echarts.apache.org/examples/en/editor.html?c=area-stack)之类的疫情发展图 (确诊/疑似/死亡为不同层)，也可以根据选择的时间点重绘地图。([时间轴参考案例](https://echarts.apache.org/examples/en/editor.html?c=mix-timeline-finance))
-- **使用**：取决于数据
-  - 如果自动抓取省市级数据：疫情地图与前端其他组件交互较少，且数据可以[通过 API 直接获取](http://lab.isaaclin.cn/nCoV/api/area?latest=0)，可以作为单独 webpage，最终作为 iframe 整合进前端页面。
-  - 如果使用手动抓取的县级数据，则作为组件融入前端，接受传入数据。[讨论](https://github.com/wuhan2020/map-viz/issues/52)
+  
 - **进度**
-
-![img0](./screenshots/virus-map-overview.gif)
 
 - [x] 基础疫情地图，并用统计图（线图+ stacked area chart）显示疫情发展数据
 - [x] 省市层级交互
@@ -25,23 +21,20 @@
 - [ ] 接入手动收集的省级数据
 - [ ] 疫情地图时间轴与统计图联动
 
-### 创建一个通用地图组件
+### 2、提供一个通用地图组件
 
 - **目的**：用于可视化各种不同地理信息（例如医院位置，酒店位置，etc.）
 - **使用**：作为组件被前端调用，数据来自前端。
-- **基础设计**：点图+地图（[参考例子](https://www.echartsjs.com/examples/zh/editor.html?c=effectScatter-bmap)）
-- **交互**：
-  - 不自带过滤等交互组件，上层应该自己创建 checkbox, slider, etc. 过滤后数据传入地图组件可以重绘地图
-  - 接受传入的 mouseEvent，可以帮助做信息过滤及定位（e.g., 点击一个省选中它的信息）
-  - ([相关讨论](https://github.com/wuhan2020/map-viz/issues/2#issuecomment-578626578))
-- [数据格式设计讨论](https://github.com/wuhan2020/map-viz/issues/3)
-- **进度**
-
-![img3](./screenshots/info-map-demo.gif)
 
 ## 使用
 
-详情参考/src/pages/hierarchicalVirusMapDemo.tsx以及/src/pages/informationMapDemo.tsx
+详情参考:
+[/src/pages/hierarchicalVirusMapDemo.tsx](./src/pages/hierarchicalVirusMapDemo.tsx)
+[/src/pages/informationMapDemo.tsx](./src/pages/informationMapDemo.tsx)
+
+具体组件说明请参考:
+[/src/components/virusMap/README.md](./src/components/virusMap/README.md)
+[/src/components/informationMap/README.md](./src/components/informationMap/README.md)
 
 ## 本地开发
 
@@ -53,8 +46,11 @@
 ```sh
 # clone the repo
 git clone git@github.com:wuhan2020/map-viz.git
-# setup the npm env
+
 cd map-viz
+# checkout react branch
+git checkout react
+# setup the npm env
 npm install
 # start the project
 npm start
@@ -62,8 +58,7 @@ npm start
 
 ### 任务拆分&参与指南
 
-[合作指南参考主 repo](https://github.com/wuhan2020/wuhan2020/blob/master/CONTRIBUTING.md)（viz 没有项目机器人+注意将 demo script 改成我们的 repo）
-TL;DR:
+[合作指南参考](https://github.com/wuhan2020/wuhan2020/blob/master/CONTRIBUTING.md)（注意将 demo script 改成我们的 repo）
 
 1. 请在[project 面板](https://github.com/wuhan2020/map-viz/projects/1)自行认领&self-assign issues（如果不能更改 assignee，请回复 issue 表示认领，我们会后面添加 assign）
 2. 对数据和设计如果有讨论请参见如下 issue:
