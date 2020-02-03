@@ -17,7 +17,7 @@
 import React from 'react';
 import { EchartsMap } from './echartsMap';
 import { VirusChart } from './virusChart';
-import mapUrls from '../../data/map/mapDict.json';
+import mapUrls from '../../data/map/district';
 import './style.css';
 
 type MapDataType = {

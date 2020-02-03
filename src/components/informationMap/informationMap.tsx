@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { BaiduMap } from './baiduMap';
-import markerIcon from './marker.json';
+import markerIcon from './marker';
 import './style.css';
 
 type InquiryMeta = [string, number | string | boolean];

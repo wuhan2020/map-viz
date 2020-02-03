@@ -1,7 +1,13 @@
 {
-  "name": "map-viz-for-react",
+  "name": "wuhan2020-map-viz",
   "version": "0.1.0",
-  "private": true,
+  "description": "map visualization components for wuhan 2020",
+  "repository": "wuhan2020/map-viz",
+  "license": "MIT",
+  "keywords": [
+    "wuhan2020"
+  ],
+  "author": "shadowings-zy",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -18,11 +24,22 @@
     "react-scripts": "3.3.1",
     "typescript": "~3.7.2"
   },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "awesome-typescript-loader": "^5.2.1",
+    "browserslist": "^4.8.6",
+    "css-loader": "^3.4.2",
+    "json-loader": "^0.5.7",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lib": "npx webpack --config lib.webpack.config.js"
   },
   "eslintConfig": {
     "extends": "react-app"
