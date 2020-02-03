@@ -6,6 +6,7 @@
  * 传入参数说明:
  * data: 地图数据
  * resolution: 时间精度
+ * type: overview, pc, mobile 三种不同的charts显示方式
  */
 
 import React from 'react';
@@ -24,6 +25,8 @@ type STMapDataType = {
 type Props = {
   data: any;
   resolution: number;
+  type: string;
+  detail: boolean;
 }
 
 type State = {
@@ -46,12 +49,13 @@ export class HierarchicalVirusMap extends React.Component<Props, Readonly<State>
       provincesSeries: {},
       countrySeries: {}
     },
-    resolution: 3600000
+    resolution: 3600000,
+    type: 'pc',
+    detail: true
   }
 
   navigateDown(params: any) {
-    // if has name and path length < max length
-    // TODO: check the data to see whether we can navigate down
+    // enter province view
     this.setState({
       path:
         params.name && this.state.path.length < 1
@@ -114,7 +118,7 @@ export class HierarchicalVirusMap extends React.Component<Props, Readonly<State>
   }
 
   public render() {
-    const { data, resolution } = this.props;
+    const { data, resolution, type } = this.props;
     const { path, currentChartArea } = this.state;
 
     const config = this.getVirusMapConfig(
@@ -136,7 +140,8 @@ export class HierarchicalVirusMap extends React.Component<Props, Readonly<State>
           chartData={data}
           chartPath={path}
           currentChartArea={currentChartArea}
-          chartOnClickCallBack={config.navigateDown}
+          chartOnClickCallBack={type === 'overview' ? () => { } : config.navigateDown}
+          type={type}
         // onDblClick={this.navigateUp.bind(this)}
         />
         <button

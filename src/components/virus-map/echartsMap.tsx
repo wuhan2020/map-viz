@@ -7,6 +7,7 @@
  * mapUrl: 地图json文件地址
  * chartOptions: echarts中的所有options
  * mapName: 地图名称
+ * mobile: 是否为手机端
  * chartOnClickCallBack: 点击地图后的回调函数
  */
 
@@ -18,6 +19,7 @@ interface Props {
   mapUrl: string;
   chartOptions: any;
   mapName: string;
+  mobile: boolean;
   chartOnClickCallBack: Function;
 }
 
@@ -27,6 +29,7 @@ export class EchartsMap extends React.Component<Props> {
     mapUrl: '',
     chartOptions: {},
     mapName: '',
+    mobile: true,
     chartOnClickCallBack: (param: any, chart: any) => {
       console.log(param, chart);
     }
@@ -62,25 +65,27 @@ export class EchartsMap extends React.Component<Props> {
         );
         echarts.registerMap(mapName, data);
         if (!this.chart) {
+          let previousClick = {
+            times: 0,
+            name: ''
+          }
+
           this.chart = echarts.init((document.getElementById(this.chartId)) as HTMLDivElement);
-          // implement hover-then-click on mobile devices
-          let eventState = {
-            hovered: ''
-          };
-          this.chart.on('mouseover', 'series', (params: { name: string; }) => {
-            // prevent click event to trigger immediately
-            setTimeout(() => (eventState.hovered = params.name), 0);
-          });
-          this.chart.on('mouseout', 'series', () => {
-            eventState.hovered = '';
-          });
           this.chart.on('click', 'series', (params: any) => {
-            if (eventState.hovered.length > 0) {
+            console.log(params);
+            if (this.props.mobile) {
+              if (previousClick.name === params.name && previousClick.times === 1) {
+                chartOnClickCallBack(params, this.chart);
+                previousClick.times = 0;
+                previousClick.name = '';
+              } else {
+                previousClick.times = 1;
+                previousClick.name = params.name;
+              }
+            } else {
               chartOnClickCallBack(params, this.chart);
-              eventState.hovered = '';
             }
           });
-
           this.chart.on('click', 'timeline', (params: { dataIndex: any; }) => {
             this.chart.dispatchAction({
               type: 'timelineChange',
