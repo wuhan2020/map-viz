@@ -1,5 +1,5 @@
 import React from 'react';
-import { HierarchicalVirusMap } from '../components/virus-map/hierarchicalVirusMap';
+import { HierarchicalVirusMap } from '../components/virusMap/hierarchicalVirusMap';
 import { convertProvincesSeries, convertCountrySeries, } from '../adapters/isaaclin';
 import patchData from '../data/isaaclin/patch.json';
 import rawData from '../data/isaaclin/history.json';
@@ -20,8 +20,8 @@ export class HierarchicalVirusMapDemo extends React.Component<{}, {}> {
     return (
       <div style={{ width: '100%', height: '100%' }}>
         {/* <HierarchicalVirusMap data={data} resolution={resolution} type={'overview'} /> */}
-        {/* <HierarchicalVirusMap data={data} resolution={resolution} type={'pc'} /> */}
-        <HierarchicalVirusMap data={data} resolution={resolution} type={'mobile'} />
+        <HierarchicalVirusMap data={data} resolution={resolution} type={'pc'} />
+        {/* <HierarchicalVirusMap data={data} resolution={resolution} type={'mobile'} /> */}
       </div>
     );
   }

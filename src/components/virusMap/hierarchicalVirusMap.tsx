@@ -25,8 +25,7 @@ type STMapDataType = {
 type Props = {
   data: any;
   resolution: number;
-  type: string;
-  detail: boolean;
+  type: 'overview' | 'pc' | 'mobile';
 }
 
 type State = {
