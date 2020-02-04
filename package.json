@@ -1,6 +1,6 @@
 {
   "name": "wuhan2020-mapviz",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "map visualization components for wuhan 2020",
   "repository": "wuhan2020/map-viz",
   "license": "MIT",
@@ -13,6 +13,11 @@
     "wuhan2020"
   ],
   "author": "shadowings-zy",
+  "peerDependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "echarts": "^4.6.0"
+  },
   "dependencies": {
     "echarts": "^4.6.0"
   },

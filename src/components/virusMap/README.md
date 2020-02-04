@@ -5,9 +5,9 @@
 
 ## 传入参数:
 
-resolution: 时间精度。
-data: echarts 中每个区域的疫情数据。
-type: 三种不同的charts显示方式(可选值为: overview, pc, mobile)。
+- resolution: 时间精度。
+- data: echarts 中每个区域的疫情数据。
+- type: 三种不同的charts显示方式(可选值为: overview, pc, mobile)。
 
 ## 参数说明：
 
@@ -16,113 +16,124 @@ type: 三种不同的charts显示方式(可选值为: overview, pc, mobile)。
 ```typescript
 interface Props {
   resolution: number; // 地图放大的程度
-  data: { [name: string]: PatientStatData };//echarts 中每个区域的疫情数据。
-  type: 'overview' | 'pc' | 'mobile';
+  type: 'overview' | 'pc' | 'mobile'; // 三种不同的显示模式，分别对应总览（不支持下钻，无折线图）、pc端（支持下钻，折线图在地图右方）、移动端（支持下钻，折线图在地图下方）
+  data: { 
+    provinceSeries: {
+      [time: number]: ProvinceData
+    },
+    countrySeries: {
+      [time: number]: CountryData
+    } 
+  }; //echarts 中每个区域的疫情数据。
+}
+
+interface ProvinceData {
+  name: string;
+  timestamp: number;
+  confirmed: number;
+  suspected: number;
+  cured: number;
+  dead: number;
+  cities: {
+    [name: string]: PatientStatData 
+  }
 }
 
 interface PatientStatData {
+  name: string,
+	timestamp: 1580699799130,
   confirmed: number;
   suspected: number;
   cured: number;
   dead: number;
 }
+
+interface CountryData {
+  confirmedCount: number;
+	suspectedCount: number;
+	curedCount: number;
+	deadCount: number;
+	seriousCount: number;
+  updateTime: number;
+}
 ```
 
-data属性数据样例1:
+data属性数据样例:
 
 ```json
 {
-  "吉林": {
-    "name": "吉林",
-    "timestamp": 1580260529915,
-    "confirmed": 9,
-    "suspected": 0,
-    "cured": 0,
-    "dead": 0
-  },
-  "西藏": {
-    "name": "西藏",
-    "timestamp": 1580264158978,
-    "confirmed": 0,
-    "suspected": 1,
-    "cured": 0,
-    "dead": 0
-  },
-  "北京": {
-    "confirmed": 102,
-    "suspected": 0,
-    "cured": 4,
-    "dead": 1
-  },
-```
-
-数据样例2:
-
-```json
-{
-  "晋中": {
-    "name": "晋中",
-    "confirmed": 9,
-    "suspected": 0,
-    "cured": 0,
-    "dead": 0
-  },
-  "运城": {
-    "name": "运城",
-    "confirmed": 4,
-    "suspected": 0,
-    "cured": 0,
-    "dead": 0
-  },
-  "太原": {
-    "name": "太原",
-    "confirmed": 3,
-    "suspected": 0,
-    "cured": 0,
-    "dead": 0
-  },
-  "大同": {
-    "name": "大同",
-    "confirmed": 3,
-    "suspected": 0,
-    "cured": 0,
-    "dead": 0
-  },
-  "吕梁": {
-    "name": "吕梁",
-    "confirmed": 3,
-    "suspected": 0,
-    "cured": 0,
-    "dead": 0
-  },
-  "朔州": {
-    "name": "朔州",
-    "confirmed": 2,
-    "suspected": 0,
-    "cured": 0,
-    "dead": 0
-  },
-  "阳泉": {
-    "name": "阳泉",
-    "confirmed": 1,
-    "suspected": 0,
-    "cured": 0,
-    "dead": 0
-  },
-  "长治": {
-    "name": "长治",
-    "confirmed": 1,
-    "suspected": 0,
-    "cured": 0,
-    "dead": 0
-  },
-  "临汾": {
-    "name": "临汾",
-    "confirmed": 1,
-    "suspected": 0,
-    "cured": 0,
-    "dead": 0
-  }
+	"provincesSeries":{
+		"1580659200000": {
+			"name": "福建",
+			"timestamp": 1580699799130,
+			"cities": {
+				"福州": {
+					"name": "福州",
+					"timestamp": 1580699799130,
+					"confirmed": 47,
+					"suspected": 0,
+					"cured": 0,
+					"dead": 0,
+				}, 
+				"莆田": {
+					"name": "莆田",
+					"timestamp": 1580699799130,
+					"confirmed": 47,
+					"suspected": 0,
+					"cured": 0,
+					"dead": 0,
+				}
+			},
+			"confirmed": 179,
+			"suspected": 0,
+			"cured": 0,
+			"dead": 0,
+		},
+		"1580572800000": {
+			"name": "福建",
+			"timestamp": 1580699799130,
+			"cities": {
+				"福州": {
+					"name": "福州",
+					"timestamp": 1580699799130,
+					"confirmed": 97,
+					"suspected": 0,
+					"cured": 0,
+					"dead": 0,
+				}, 
+				"莆田": {
+					"name": "莆田",
+					"timestamp": 1580699799130,
+					"confirmed": 107,
+					"suspected": 0,
+					"cured": 0,
+					"dead": 0,
+				}
+			},
+			"confirmed": 219,
+			"suspected": 0,
+			"cured": 0,
+			"dead": 0,
+		}
+	},
+	"countrySeries": {
+		"1580659200000": {
+			"confirmedCount": 14490,
+			"suspectedCount": 19544,
+			"curedCount": 434,
+			"deadCount": 304,
+			"seriousCount": 0,
+			"updateTime": 1580659262067
+		},
+		"1580572800000": {
+			"confirmedCount": 14490,
+			"suspectedCount": 19544,
+			"curedCount": 434,
+			"deadCount": 304,
+			"seriousCount": 0,
+			"updateTime": 1580572800000
+		},
+	}
 }
 ```
 

@@ -20,22 +20,26 @@ module.exports = {
         use: [
           'awesome-typescript-loader'
         ],
+        exclude: /node_modules/
       },
       {
         test: /\.ts?$/,
         use: [
           'awesome-typescript-loader'
         ],
+        exclude: /node_modules/
       },
       {
         test: /\.js?$/,
-        loader: [
+        use: [
           'babel-loader'
-        ]
+        ],
+        exclude: /node_modules/
       }
     ]
   },
   externals: {
-    jquery: "jQuery"
+    react: 'React',
+    echarts: 'echarts',
   }
 }
