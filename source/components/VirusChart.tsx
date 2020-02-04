@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * WebCell 疫情数据折线图可视化组件
  * 本组件使用stack line chart和line chart展现信息
@@ -19,6 +20,7 @@ import {
   OverallCountryData
 } from '../adapters/patientStatInterface';
 import provinceName from '../../data/isaaclin/provinces.json';
+import { isLandscape } from '../utils';
 
 interface Props {
   data: OverallCountryData;
@@ -69,15 +71,7 @@ export class VirusChart extends mixin<Props, State>() {
   }
 
   public fixChartFontSize(baseFontSize: number) {
-    const isPC =
-      (window.innerWidth ||
-        document.documentElement.clientWidth ||
-        document.body.clientWidth) >
-      (window.innerHeight ||
-        document.documentElement.clientHeight ||
-        document.body.clientHeight) *
-        0.8;
-
+    const isPC = isLandscape();
     if (isPC) {
       return (
         (baseFontSize *

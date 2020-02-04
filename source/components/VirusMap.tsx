@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * WebCell疫情地图组件
  * 基于EchartsMap组件构建的疫情地图组件，传入地图url及各区域的具体信息后自动生成疫情地图。
@@ -16,6 +17,7 @@ import { PatientStatData } from '../adapters/patientStatInterface';
 import { VirusChart } from '../components/VirusChart';
 import { OverallCountryData } from '../adapters/patientStatInterface';
 import MapUrls from '../../map_data/map_dict.json';
+import { isLandscape } from '../utils';
 //import create_pieces from "../adapters/piece"
 
 type MapDataType = { [name: string]: PatientStatData };
@@ -314,6 +316,8 @@ export class VirusMap extends mixin<Props, {}>() {
       playInterval: 1500,
       currentIndex: data.timeline.length - 1,
       data: data.timeline,
+      left: 'left',
+      right: 0,
       label: {
         fontSize: 10,
         position: 10,
@@ -338,51 +342,42 @@ export class VirusMap extends mixin<Props, {}>() {
     return (data as STMapDataType).timeline !== undefined;
   }
 
-  public render(
-    {
-      name,
-      data,
-      chartOnClickCallBack,
-      currentChartArea,
-      chartData,
-      chartPath
-    }: Props,
-    {}
-  ) {
-    const isPC =
-      (window.innerWidth ||
-        document.documentElement.clientWidth ||
-        document.body.clientWidth) >
-      (window.innerHeight ||
-        document.documentElement.clientHeight ||
-        document.body.clientHeight) *
-        0.8;
-
+  public render({
+    name,
+    data,
+    chartOnClickCallBack,
+    currentChartArea,
+    chartData,
+    chartPath
+  }: Props) {
     // 缩放时间重新set一下option
+    const pcStyle = {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      height: '100%'
+    };
+    const mobileStyle = {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      height: '100%'
+    };
+    const isPC = isLandscape();
+    const containerStyle = isPC ? pcStyle : mobileStyle;
+    const mapStyle = {
+      width: isPC ? '65%' : '100%',
+      height: '100%'
+    };
+    const virusChartStyle = {
+      width: isPC ? '35%' : '100%',
+      height: '100%'
+    };
+
     return (
-      <div
-        style={
-          isPC
-            ? {
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                height: '100%'
-              }
-            : {
-                display: 'flex',
-                flexDirection: 'column',
-                width: '100%',
-                height: '200%'
-              }
-        }
-      >
+      <div style={containerStyle}>
         <EchartsMap
-          style={
-            isPC
-              ? { width: '65%', height: '100%' }
-              : { width: '100%', height: '100%' }
-          }
+          style={mapStyle}
           mapUrl={MapUrls[name]}
           mapName={mapName(name)}
           chartOptions={
@@ -394,11 +389,7 @@ export class VirusMap extends mixin<Props, {}>() {
           chartOnClickCallBack={chartOnClickCallBack}
         />
         <VirusChart
-          style={
-            isPC
-              ? { width: '35%', height: '100%' }
-              : { width: '100%', height: '100%' }
-          }
+          style={virusChartStyle}
           data={chartData}
           area={currentChartArea}
           path={chartPath}

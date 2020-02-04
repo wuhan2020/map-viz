@@ -11,6 +11,7 @@
  */
 
 import { observer } from 'mobx-web-cell';
+// eslint-disable-next-line no-unused-vars
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
 import echarts from 'echarts';
 import long2short from '../adapters/long2short';
@@ -78,7 +79,6 @@ export class EchartsMap extends mixin<MapProps, {}>() {
       if (typeof originFunction === 'function') {
         originFunction();
       }
-
       if (this.chart) {
         this.chart.resize();
       }
@@ -88,13 +88,7 @@ export class EchartsMap extends mixin<MapProps, {}>() {
   }
 
   updatedCallback() {
-    const {
-      mapUrl,
-      mapName,
-      chartOptions,
-      chartOnClickCallBack,
-      chartGeoRoamCallBack
-    } = this.props;
+    const { mapUrl, mapName, chartOptions, chartOnClickCallBack } = this.props;
 
     if (this.chart !== undefined) {
       this.chart.showLoading();
