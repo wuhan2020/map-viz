@@ -163,4 +163,3 @@ class HierarchicalVirusMap extends React.Component<Props, Readonly<State>> {
 }
 
 export default HierarchicalVirusMap;
-// module.exports = HierarchicalVirusMap;

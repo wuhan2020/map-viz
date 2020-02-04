@@ -1,27 +1,25 @@
+// 此文件为webpack打包组件时的配置
+
 const path = require('path');
 
 module.exports = {
-  entry: './src/components/virusMap/hierarchicalVirusMap.tsx',
-  mode: 'development',
+  entry: './webpack.lib.entry.js',
+  mode: 'production',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'component.js',
+    path: path.resolve(__dirname, './lib/'),
+    filename: 'components.js',
     libraryTarget: 'commonjs2',
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
   },
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.tsx?$/,
         use: [
-          "style-loader",
-          "css-loader"
-        ]
-      },
-      {
-        test: /\.js?$/,
-        loader: [
-          'babel-loader'
-        ]
+          'awesome-typescript-loader'
+        ],
       },
       {
         test: /\.ts?$/,
@@ -30,11 +28,14 @@ module.exports = {
         ],
       },
       {
-        test: /\.tsx?$/,
-        use: [
-          'awesome-typescript-loader'
-        ],
+        test: /\.js?$/,
+        loader: [
+          'babel-loader'
+        ]
       }
     ]
+  },
+  externals: {
+    jquery: "jQuery"
   }
 }
