@@ -18,9 +18,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "outDir": "js",
+    "removeComments": false
   },
   "include": [
-    "src", "lib.webpack.config.js", "index.js"
+    "src"
   ]
 }

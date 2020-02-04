@@ -1,5 +1,5 @@
 import React from 'react';
-import { HierarchicalVirusMap } from '../components/virusMap/hierarchicalVirusMap';
+import HierarchicalVirusMap from '../components/virusMap/hierarchicalVirusMap';
 import { convertProvincesSeries, convertCountrySeries, } from '../adapters/isaaclin';
 import patchData from '../data/isaaclin/patch.json';
 import rawData from '../data/isaaclin/history.json';

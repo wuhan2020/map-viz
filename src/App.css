@@ -1,6 +1,13 @@
-@import '~antd/dist/antd.css';
-
 .App {
   width: 100vw;
   height: 100vh;
+}
+
+.navigator {
+  display: flex;
+  flex-direction: row;
+}
+
+.item {
+  margin: 10px 20px;
 }

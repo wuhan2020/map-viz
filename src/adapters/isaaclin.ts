@@ -11,7 +11,7 @@ function convertStat(source: any): any {
 
 function convertCountry(source: any): any {
   let provinces = {};
-
+  
   source.forEach(
     (p: { provinceShortName: string }) =>
       (provinces[p.provinceShortName] = convertProvince(p))
