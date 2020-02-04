@@ -9,10 +9,18 @@
  */
 
 import { observer } from 'mobx-web-cell';
+// eslint-disable-next-line no-unused-vars
 import { component, mixin, createCell, attribute, watch } from 'web-cell';
+// eslint-disable-next-line no-unused-vars
 import { VirusMap, STMapDataType } from './VirusMap';
-import { Series, ProvinceData, OverallCountryData } from '../adapters/patientStatInterface';
+// eslint-disable-next-line no-unused-vars
+import {
+  Series,
+  ProvinceData,
+  OverallCountryData
+} from '../adapters/patientStatInterface';
 import { extractCitiesSeries } from '../adapters/isaaclin';
+import { isLandscape } from '../utils';
 
 interface Props {
   data: OverallCountryData;
@@ -22,6 +30,18 @@ interface Props {
 interface State {
   path: string[];
   currentChartArea: string;
+}
+
+interface DrillUpBtnStyle {
+  display: string;
+  position: string;
+  width: string;
+  height: string;
+  padding: string;
+  top?: string;
+  bottom?: string;
+  left?: string;
+  right?: string;
 }
 
 function autoBreaks(values: number[]) {
@@ -116,8 +136,31 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
 
     const current =
       data.provincesSeries[
-      Math.max(...Object.keys(data.provincesSeries).map(t => parseInt(t, 10)))
+        Math.max(...Object.keys(data.provincesSeries).map(t => parseInt(t, 10)))
       ];
+
+    let drillUpBtnStyle: DrillUpBtnStyle = {
+      display: this.state.path.length > 0 ? 'block' : 'none',
+      position: 'absolute',
+      width: '30px',
+      height: '30px',
+      padding: '5px'
+    };
+    const isPC = isLandscape();
+
+    if (isPC) {
+      drillUpBtnStyle = {
+        ...drillUpBtnStyle,
+        top: '50px',
+        left: '120px'
+      };
+    } else {
+      drillUpBtnStyle = {
+        ...drillUpBtnStyle,
+        top: '10px',
+        right: '10px'
+      };
+    }
 
     return (
       <div>
@@ -136,18 +179,10 @@ export class HierarchicalVirusMap extends mixin<Props, State>() {
           />
           <button
             class="btn btn-dark"
-            style={{
-              display: this.state.path.length > 0 ? 'block' : 'none',
-              width: '30px',
-              height: '30px',
-              position: 'absolute',
-              top: '50px',
-              left: '120px',
-              padding: '5px'
-            }}
+            style={drillUpBtnStyle}
             onClick={this.navigateUp.bind(this)}
           >
-            <span class="fa fa-search-minus"></span>
+            <span class="fa fa-undo"></span>
           </button>
         </div>
       </div>
