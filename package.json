@@ -1,8 +1,31 @@
 {
-  "name": "map-viz-for-react",
-  "version": "0.1.0",
-  "private": true,
+  "name": "wuhan2020-mapviz",
+  "version": "1.0.5",
+  "description": "map visualization components for wuhan 2020",
+  "repository": "wuhan2020/map-viz",
+  "license": "MIT",
+  "main": "lib/components.js",
+  "files": [
+    "lib",
+    "index.d.ts"
+  ],
+  "keywords": [
+    "wuhan2020"
+  ],
+  "author": "shadowings-zy",
   "dependencies": {
+    "echarts": "^4.6.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/polyfill": "^7.8.3",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -11,18 +34,23 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.0",
-    "antd": "^3.26.7",
-    "echarts": "^4.6.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.1",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lib": "webpack --config ./webpack.config.lib.js"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,4 +1,4 @@
-{
+export default {
   "hospital": "http://i2.tiimg.com/708620/f869afffd7f03d19.png",
   "hotel": "http://i2.tiimg.com/708620/ad73337602f2cc9b.png",
   "others": "http://i2.tiimg.com/708620/15e58afc32dfc7bf.png"

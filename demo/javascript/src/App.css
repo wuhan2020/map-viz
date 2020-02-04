@@ -1,0 +1,14 @@
+.app {
+  text-align: center;
+}
+
+.virus-map {
+  width: 100vw;
+  height: 80vh;
+}
+
+.information-map {
+  margin: 50px 0 0 0;
+  width: 100vw;
+  height: 80vh;
+}

@@ -28,13 +28,19 @@
 
 ## 使用
 
-详情参考:
-[/src/pages/hierarchicalVirusMapDemo.tsx](./src/pages/hierarchicalVirusMapDemo.tsx)
-[/src/pages/informationMapDemo.tsx](./src/pages/informationMapDemo.tsx)
+```sh
+npm install wuhan2020-mapviz
+```
 
 具体组件说明请参考:
 [/src/components/virusMap/README.md](./src/components/virusMap/README.md)
 [/src/components/informationMap/README.md](./src/components/informationMap/README.md)
+
+javascript使用样例参考:
+[/demo/javascript/README.md](./demo/javascript/README.md)
+
+typescript使用样例参考
+[/demo/typescript/README.md](./demo/typescript/README.md)
 
 ## 本地开发
 

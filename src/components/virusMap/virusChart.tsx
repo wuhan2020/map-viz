@@ -11,7 +11,7 @@
 
 import React from 'react';
 import { ReactEcharts } from './reactEcharts';
-import provinceName from '../../data/isaaclin/provinces.json';
+import provinceName from '../../data/map/provinces';
 
 type Props = {
   data: any;

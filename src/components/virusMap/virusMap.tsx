@@ -17,8 +17,7 @@
 import React from 'react';
 import { EchartsMap } from './echartsMap';
 import { VirusChart } from './virusChart';
-import mapUrls from '../../data/map/mapDict.json';
-import './style.css';
+import mapUrls from '../../data/map/district';
 
 type MapDataType = {
   [name: string]: any
@@ -259,8 +258,18 @@ export class VirusMap extends React.Component<Props>  {
     const mapUrl = mapUrls[name]
 
     return (
-      <div className={type + '-virus-map'}>
-        <div className={type + '-echarts-map'}>
+      <div style={
+        type === 'mobile' ?
+          { display: 'flex', flexDirection: 'column', width: '100%', height: '100%' } :
+          { display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }
+      }>
+        <div style={
+          type !== 'mobile' ?
+            type !== 'overview' ?
+              { width: '65%', height: '100%' } :
+              { width: '100%', height: '100%' } :
+            { width: '100%', height: '50%' }
+        }>
           <EchartsMap
             mapUrl={mapUrl}
             mapName={mapName(name)}
@@ -273,7 +282,13 @@ export class VirusMap extends React.Component<Props>  {
             mobile={type === 'mobile'}
           />
         </div>
-        <div className={type + '-virus-chart'}>
+        <div style={
+          type !== 'mobile' ?
+            type !== 'overview' ?
+              { width: '65%', height: '100%' } :
+              { display: 'none' } :
+            { width: '100%', height: '50%' }
+        }>
           <VirusChart
             data={chartData}
             area={currentChartArea}

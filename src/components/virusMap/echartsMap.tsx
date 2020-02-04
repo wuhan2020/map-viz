@@ -72,7 +72,6 @@ export class EchartsMap extends React.Component<Props> {
 
           this.chart = echarts.init((document.getElementById(this.chartId)) as HTMLDivElement);
           this.chart.on('click', 'series', (params: any) => {
-            console.log(params);
             if (this.props.mobile) {
               if (previousClick.name === params.name && previousClick.times === 1) {
                 chartOnClickCallBack(params, this.chart);

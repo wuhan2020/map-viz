@@ -1,5 +1,5 @@
 import React from 'react';
-import { InformationMap } from '../components/informationMap/informationMap';
+import InformationMap from '../components/informationMap/informationMap';
 import informationMockData from '../mock/informationMapMockData';
 
 export class InformationMapDemo extends React.Component<{}, {}> {

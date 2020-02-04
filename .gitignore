@@ -2,6 +2,9 @@
 
 # dependencies
 /node_modules
+/demo/javascript/node_modules
+/demo/typescript/node_modules
+
 /.pnp
 .pnp.js
 

@@ -1,4 +1,4 @@
-{
+export default {
   "中国": "https://map-1252957949.cos.ap-guangzhou.myqcloud.com/china.json",
   "世界": "https://map-1252957949.cos.ap-guangzhou.myqcloud.com/world.json",
   "安徽": "https://map-1252957949.cos.ap-guangzhou.myqcloud.com/china/anhui.json",

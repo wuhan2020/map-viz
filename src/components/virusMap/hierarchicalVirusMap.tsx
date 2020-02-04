@@ -33,7 +33,7 @@ type State = {
   currentChartArea: string;
 }
 
-export class HierarchicalVirusMap extends React.Component<Props, Readonly<State>> {
+class HierarchicalVirusMap extends React.Component<Props, Readonly<State>> {
 
   constructor(props: Props) {
     super(props);
@@ -161,3 +161,5 @@ export class HierarchicalVirusMap extends React.Component<Props, Readonly<State>
     );
   }
 }
+
+export default HierarchicalVirusMap;

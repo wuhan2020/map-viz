@@ -7,8 +7,7 @@
 
 import React from 'react';
 import { BaiduMap } from './baiduMap';
-import markerIcon from './marker.json';
-import './style.css';
+import markerIcon from './marker';
 
 type InquiryMeta = [string, number | string | boolean];
 
@@ -32,7 +31,7 @@ type Props = {
   markers: GeoData[];
 }
 
-export class InformationMap extends React.Component<Props> {
+class InformationMap extends React.Component<Props> {
 
   static defaultProps = {
     initPoint: [0, 0],
@@ -127,3 +126,5 @@ export class InformationMap extends React.Component<Props> {
     );
   }
 }
+
+export default InformationMap;

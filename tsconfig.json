@@ -1,16 +1,21 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
+    "outDir": "./lib/",
+    "declaration": true,
+    "declarationDir": "./lib/types/",
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    "rootDir": "./",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -18,9 +23,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "removeComments": true
   },
   "include": [
-    "src"
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ]
 }

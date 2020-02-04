@@ -1,0 +1,1 @@
+declare module 'wuhan2020-mapviz';
