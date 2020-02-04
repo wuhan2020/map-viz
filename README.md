@@ -32,7 +32,7 @@
 npm install wuhan2020-mapviz
 ```
 
-- [疫情地图组件说明文档]](./src/components/virusMap/README.md)
+- [疫情地图组件说明文档](./src/components/virusMap/README.md)
 - [通用地图组件说明文档](./src/components/informationMap/README.md)
 
 - [javascript使用样例参考](./demo/javascript/README.md)
