@@ -14,7 +14,7 @@ import { VirusMap } from './virusMap';
 import { extractCitiesSeries } from '../../adapters/isaaclin';
 
 type MapDataType = {
-  [name: string]: any
+  [name: string]: any;
 };
 
 type STMapDataType = {
@@ -26,15 +26,14 @@ type Props = {
   data: any;
   resolution: number;
   type: 'overview' | 'pc' | 'mobile';
-}
+};
 
 type State = {
   path: string[];
   currentChartArea: string;
-}
+};
 
 class HierarchicalVirusMap extends React.Component<Props, Readonly<State>> {
-
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -51,7 +50,7 @@ class HierarchicalVirusMap extends React.Component<Props, Readonly<State>> {
     resolution: 3600000,
     type: 'pc',
     detail: true
-  }
+  };
 
   navigateDown(params: any) {
     // enter province view
@@ -126,7 +125,10 @@ class HierarchicalVirusMap extends React.Component<Props, Readonly<State>> {
       resolution
     );
 
-    const current = data.provincesSeries[Math.max(...Object.keys(data.provincesSeries).map(t => parseInt(t, 10)))];
+    const current =
+      data.provincesSeries[
+        Math.max(...Object.keys(data.provincesSeries).map(t => parseInt(t, 10)))
+      ];
 
     return (
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
@@ -139,23 +141,31 @@ class HierarchicalVirusMap extends React.Component<Props, Readonly<State>> {
           chartData={data}
           chartPath={path}
           currentChartArea={currentChartArea}
-          chartOnClickCallBack={type === 'overview' ? () => { } : config.navigateDown}
+          chartOnClickCallBack={
+            type === 'overview' ? () => {} : config.navigateDown
+          }
           type={type}
-        // onDblClick={this.navigateUp.bind(this)}
+          // onDblClick={this.navigateUp.bind(this)}
         />
         <button
           style={{
             display: this.state.path.length > 0 ? 'block' : 'none',
-            width: '50px',
+            width: '30px',
             height: '30px',
             position: 'absolute',
             top: '50px',
             left: '120px',
-            padding: '5px'
+            padding: '5px',
+            backgroundColor: '#86868d',
+            border: 'none',
+            borderRadius: '3px',
+            fontWeight: 'bolder',
+            color: 'white',
+            fontSize: '13pt'
           }}
           onClick={this.navigateUp.bind(this)}
         >
-          <span>back</span>
+          <span>-</span>
         </button>
       </div>
     );

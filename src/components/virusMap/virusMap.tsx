@@ -20,7 +20,7 @@ import { VirusChart } from './virusChart';
 import mapUrls from '../../data/map/district';
 
 type MapDataType = {
-  [name: string]: any
+  [name: string]: any;
 };
 
 type STMapDataType = {
@@ -41,7 +41,7 @@ interface Props {
 
 const mapName = (name: string) => {
   return name === '中国' ? 'china' : 'map';
-}
+};
 
 const PALETTE = [
   '#FFFFFF',
@@ -68,8 +68,7 @@ function createPieces(breaks: number[], palette: string[]) {
   ];
 }
 
-export class VirusMap extends React.Component<Props>  {
-
+export class VirusMap extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -89,7 +88,7 @@ export class VirusMap extends React.Component<Props>  {
     chartOnClickCallBack: (param: any, chart: any) => {
       console.log(param, chart);
     }
-  }
+  };
 
   public state = {
     mapScale: 1,
@@ -190,7 +189,9 @@ export class VirusMap extends React.Component<Props>  {
             outputArray.push('死亡：' + data[params.name].dead);
           }
           if (this.props.type === 'mobile') {
-            outputArray.push('<br/><div id="tooltip-detail">再次点击查看详情</div>');
+            outputArray.push(
+              '<br/><div id="tooltip-detail">再次点击查看详情</div>'
+            );
           }
           return outputArray.join('<br/>');
         }
@@ -227,6 +228,8 @@ export class VirusMap extends React.Component<Props>  {
       // autoPlay: true,
       playInterval: 1500,
       currentIndex: data.timeline.length - 1,
+      left: '20px',
+      right: '20px',
       data: data.timeline,
       label: {
         fontSize: 10,
@@ -236,7 +239,7 @@ export class VirusMap extends React.Component<Props>  {
           align: 'right',
           baseline: 'middle'
         },
-        formatter: function (param: any) {
+        formatter: function(param: any) {
           return new Date(parseInt(param, 10))
             .toLocaleDateString('zh-CN')
             .substring(5); // year is not necessary, standardize to ISO
@@ -254,22 +257,44 @@ export class VirusMap extends React.Component<Props>  {
   }
 
   public render() {
-    const { name, data, chartOnClickCallBack, chartData, chartPath, currentChartArea, type } = this.props;
-    const mapUrl = mapUrls[name]
+    const {
+      name,
+      data,
+      chartOnClickCallBack,
+      chartData,
+      chartPath,
+      currentChartArea,
+      type
+    } = this.props;
+    const mapUrl = mapUrls[name];
 
     return (
-      <div style={
-        type === 'mobile' ?
-          { display: 'flex', flexDirection: 'column', width: '100%', height: '100%' } :
-          { display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }
-      }>
-        <div style={
-          type !== 'mobile' ?
-            type !== 'overview' ?
-              { width: '65%', height: '100%' } :
-              { width: '100%', height: '100%' } :
-            { width: '100%', height: '50%' }
-        }>
+      <div
+        style={
+          type === 'mobile'
+            ? {
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%'
+              }
+            : {
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                height: '100%'
+              }
+        }
+      >
+        <div
+          style={
+            type !== 'mobile'
+              ? type !== 'overview'
+                ? { width: '65%', height: '100%' }
+                : { width: '100%', height: '100%' }
+              : { width: '100%', height: '50%' }
+          }
+        >
           <EchartsMap
             mapUrl={mapUrl}
             mapName={mapName(name)}
@@ -282,13 +307,15 @@ export class VirusMap extends React.Component<Props>  {
             mobile={type === 'mobile'}
           />
         </div>
-        <div style={
-          type !== 'mobile' ?
-            type !== 'overview' ?
-              { width: '65%', height: '100%' } :
-              { display: 'none' } :
-            { width: '100%', height: '50%' }
-        }>
+        <div
+          style={
+            type !== 'mobile'
+              ? type !== 'overview'
+                ? { width: '65%', height: '100%' }
+                : { display: 'none' }
+              : { width: '100%', height: '50%' }
+          }
+        >
           <VirusChart
             data={chartData}
             area={currentChartArea}
