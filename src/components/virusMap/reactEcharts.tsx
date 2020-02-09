@@ -49,6 +49,9 @@ export class ReactEcharts extends React.Component<Props> {
     }, 0);
   }
 
+  getEchartsInstance = () => echarts.getInstanceByDom(document.getElementById(this.chartId) as HTMLDivElement)||
+    echarts.init(document.getElementById(this.chartId) as HTMLDivElement);
+
   public render() {
     if (this.chart) {
       this.chart.setOption(this.props.chartOptions, false, false);

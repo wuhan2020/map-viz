@@ -12,6 +12,7 @@
 import React from 'react';
 import { ReactEcharts } from './reactEcharts';
 import provinceName from '../../data/map/provinces';
+import echarts from 'echarts';
 
 type Props = {
   data: any;
@@ -70,6 +71,8 @@ const fixChartFontSize = (baseFontSize: number) => {
 }
 
 export class VirusChart extends React.Component<Props, Readonly<State>> {
+  getConfirmedSuspectChart :any
+  curedDeadChart : any
 
   static defaultProps = {
     data: {
@@ -443,6 +446,17 @@ export class VirusChart extends React.Component<Props, Readonly<State>> {
     };
   }
 
+  componentDidMount() {
+    const {type } = this.props;
+    if (type === 'pc') {
+      let confirmedSuspectChart = this.getConfirmedSuspectChart.getEchartsInstance(); 
+      let curedDeadChart = this.curedDeadChart.getEchartsInstance();
+      confirmedSuspectChart.group = 'virusChart';
+      curedDeadChart.group = 'virusChart';
+      echarts.connect('virusChart');
+    }
+  }
+
   public render() {
     const { data, area, path, type } = this.props;
     const orderedProvincesData = this.getOrderedTimeData(data.provincesSeries);
@@ -473,6 +487,7 @@ export class VirusChart extends React.Component<Props, Readonly<State>> {
         >
           <div style={{ width: '100%', height: '50%' }}>
             <ReactEcharts
+              ref={(e) => { this.getConfirmedSuspectChart = e; }}
               chartOptions={this.getConfirmedSuspectChartOptions(
                 orderedProvincesData,
                 orderedCountryData,
@@ -484,6 +499,7 @@ export class VirusChart extends React.Component<Props, Readonly<State>> {
 
           <div style={{ width: '100%', height: '50%' }}>
             <ReactEcharts
+              ref={(e) => { this.curedDeadChart = e; }}
               chartOptions={this.getCuredDeadChartOptions(
                 orderedProvincesData,
                 orderedCountryData,
