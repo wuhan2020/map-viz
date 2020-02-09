@@ -457,7 +457,6 @@ export class VirusChart extends React.Component<Props, Readonly<State>> {
       default:
         return 0;
     }
-    return 0;
   }
 
   componentDidMount() {
