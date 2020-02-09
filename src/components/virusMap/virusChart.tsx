@@ -314,6 +314,15 @@ export class VirusChart extends React.Component<Props, Readonly<State>> {
           height: '100%'
         }}
       >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          {area}疫情统计
+        </div>
         <div style={{ width: '100%', height: '50%' }}>
           <ReactEcharts
             chartOptions={this.getConfirmedSuspectChartOptions(
