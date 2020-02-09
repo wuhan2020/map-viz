@@ -19,9 +19,10 @@
     "echarts": "^4.6.0"
   },
   "dependencies": {
+    "echarts": "^4.6.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "echarts": "^4.6.0"
+    "react-slider-light": "^4.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",

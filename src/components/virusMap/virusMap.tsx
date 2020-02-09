@@ -43,8 +43,9 @@ const mapName = (name: string) => {
   return name === '中国' ? 'china' : 'map';
 };
 
+const TITLE_SIZE = 15;
 const PALETTE = [
-  '#FFFFFF',
+  '#EEEEEE',
   '#FFFADD',
   '#FFDC90',
   '#FFA060',
@@ -53,10 +54,40 @@ const PALETTE = [
   '#3E130E'
 ];
 
-const pair = (s: any[]) =>
-  s.slice(0, s.length - 1).map((item, i) => [item, s[i + 1]]);
+const fixChartFontSize = (baseFontSize: number) => {
+  const isPC =
+    (window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth) >
+    (window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight) *
+    0.8;
 
-function createPieces(breaks: number[], palette: string[]) {
+  if (isPC) {
+    return (
+      (baseFontSize *
+        (window.innerWidth ||
+          document.documentElement.clientWidth ||
+          document.body.clientWidth)) /
+      1000
+    );
+  } else {
+    return (
+      (baseFontSize *
+        (window.innerWidth ||
+          document.documentElement.clientWidth ||
+          document.body.clientWidth)) /
+      500
+    );
+  }
+}
+
+const pair = (s: any[]) => {
+  return s.slice(0, s.length - 1).map((item, i) => [item, s[i + 1]]);
+}
+
+const createPieces = (breaks: number[], palette: string[]) => {
   return [
     { min: 0, max: 0, color: palette[0] },
     ...pair(breaks).map(([b1, b2], i) => ({
@@ -96,20 +127,18 @@ export class VirusMap extends React.Component<Props> {
   };
 
   private genBasicVisualMap() {
+    const { type } = this.props;
     return {
       show: true,
       type: 'piecewise',
-      left: '20px',
-      right: undefined,
-      top: '50px',
-      bottom: undefined,
+      left: type === 'mobile' ? 5 : 10,
+      top: type === 'mobile' ? 0 : 50,
       orient: 'vertical',
-      itemHeight: 10,
-      itemWidth: 14,
-      itemGap: 10,
+      itemHeight: type === 'mobile' ? 5 : 10,
+      itemWidth: type === 'mobile' ? 8 : 14,
+      itemGap: type === 'mobile' ? 5 : 10,
       itemSymbol: 'circle',
-      backgroundColor: 'rgba(200,200,200, 0.2)',
-      padding: 10,
+      padding: type === 'mobile' ? 3 : 10,
       textStyle: {
         fontSize: 10
       }
@@ -124,9 +153,11 @@ export class VirusMap extends React.Component<Props> {
     };
     return {
       title: {
-        text: name + '疫情地图', // workaround for incomplete map data
-        left: '20px',
-        top: '20px'
+        text: name + '疫情地图',
+        x: 'center',
+        textStyle: {
+          fontSize: fixChartFontSize(TITLE_SIZE)
+        }
       },
       tooltip: {},
       visualMap: [visualMap],
@@ -218,14 +249,18 @@ export class VirusMap extends React.Component<Props> {
   }
 
   public getSTChartOptions(data: STMapDataType, options: any = null) {
+    const { name, breaks } = this.props;
     if (!options) {
-      options = this.baseOptions(this.props.name, this.props.breaks);
+      options = this.baseOptions(name, breaks);
     }
     options['timeline'] = {
       axisType: 'time',
       show: true,
-      tooltip: {},
-      // autoPlay: true,
+      tooltip: {
+        formatter: function (param: any) {
+          return new Date(parseInt(param.dataIndex, 10)).toLocaleDateString('zh-CN');
+        }
+      },
       playInterval: 1500,
       currentIndex: data.timeline.length - 1,
       left: '20px',
@@ -234,15 +269,12 @@ export class VirusMap extends React.Component<Props> {
       label: {
         fontSize: 10,
         position: 10,
-        rotate: 45,
-        textStyle: {
-          align: 'right',
-          baseline: 'middle'
-        },
-        formatter: function(param: any) {
-          return new Date(parseInt(param, 10))
-            .toLocaleDateString('zh-CN')
-            .substring(5); // year is not necessary, standardize to ISO
+        formatter: function (param: any) {
+          if (param !== data.timeline[0] && param !== data.timeline[data.timeline.length - 1]) {
+            return '';
+          } else {
+            return new Date(parseInt(param, 10)).toLocaleDateString('zh-CN').substring(5);
+          }
         }
       }
     };
@@ -273,17 +305,17 @@ export class VirusMap extends React.Component<Props> {
         style={
           type === 'mobile'
             ? {
-                display: 'flex',
-                flexDirection: 'column',
-                width: '100%',
-                height: '100%'
-              }
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              height: '100%'
+            }
             : {
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                height: '100%'
-              }
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+              height: '100%'
+            }
         }
       >
         <div
@@ -292,7 +324,7 @@ export class VirusMap extends React.Component<Props> {
               ? type !== 'overview'
                 ? { width: '65%', height: '100%' }
                 : { width: '100%', height: '100%' }
-              : { width: '100%', height: '50%' }
+              : { width: '100%', height: '65%' }
           }
         >
           <EchartsMap
@@ -313,13 +345,14 @@ export class VirusMap extends React.Component<Props> {
               ? type !== 'overview'
                 ? { width: '65%', height: '100%' }
                 : { display: 'none' }
-              : { width: '100%', height: '50%' }
+              : { width: '100%', height: '35%' }
           }
         >
           <VirusChart
             data={chartData}
             area={currentChartArea}
             path={chartPath}
+            type={type}
           />
         </div>
       </div>
