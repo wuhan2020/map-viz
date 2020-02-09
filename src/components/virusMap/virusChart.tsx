@@ -446,9 +446,22 @@ export class VirusChart extends React.Component<Props, Readonly<State>> {
     };
   }
 
+  chartsCount(){
+    const { type } = this.props;
+    switch (type){
+      case 'pc':
+        return 2;
+      case 'mobile':
+        return 1;
+      case 'overview':
+      default:
+        return 0;
+    }
+    return 0;
+  }
+
   componentDidMount() {
-    const {type } = this.props;
-    if (type === 'pc') {
+    if (this.chartsCount() === 2) {
       let confirmedSuspectChart = this.getConfirmedSuspectChart.getEchartsInstance(); 
       let curedDeadChart = this.curedDeadChart.getEchartsInstance();
       confirmedSuspectChart.group = 'virusChart';
@@ -458,11 +471,11 @@ export class VirusChart extends React.Component<Props, Readonly<State>> {
   }
 
   public render() {
-    const { data, area, path, type } = this.props;
+    const { data, area, path } = this.props;
     const orderedProvincesData = this.getOrderedTimeData(data.provincesSeries);
     const orderedCountryData = this.getOrderedTimeData(data.countrySeries);
 
-    if (type === 'mobile') {
+    if (this.chartsCount() === 1) {
       return (
         <div style={{ width: '100%', height: '100%' }}>
           <ReactEcharts
@@ -475,7 +488,7 @@ export class VirusChart extends React.Component<Props, Readonly<State>> {
           />
         </div>
       );
-    } else {
+    } else if (this.chartsCount() === 2){
       return (
         <div
           style={{
@@ -510,6 +523,8 @@ export class VirusChart extends React.Component<Props, Readonly<State>> {
           </div>
         </div>
       );
+    } else {
+      return(<div/>)
     }
   }
 }
