@@ -25,9 +25,17 @@ function App() {
 
   return (
     <div className="app">
-      <h2>疫情地图组件</h2>
+      <h2>疫情地图组件-概要视图</h2>
+      <div className="virus-map">
+        <HierarchicalVirusMap data={data} resolution={resolution} type={'overview'} />
+      </div>
+      <h2>疫情地图组件-PC端视图</h2>
       <div className="virus-map">
         <HierarchicalVirusMap data={data} resolution={resolution} type={'pc'} />
+      </div>
+      <h2>疫情地图组件-移动端视图</h2>
+      <div className="virus-map">
+        <HierarchicalVirusMap data={data} resolution={resolution} type={'mobile'} />
       </div>
       <div className="information-map">
         <h2>通用地图组件</h2>

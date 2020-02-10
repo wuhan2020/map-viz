@@ -39,7 +39,7 @@ module.exports = {
     ]
   },
   externals: {
-    react: 'React',
+    react: 'react',
     echarts: 'echarts',
   }
 }

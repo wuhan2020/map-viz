@@ -249,7 +249,7 @@ export class VirusMap extends React.Component<Props> {
   }
 
   public getSTChartOptions(data: STMapDataType, options: any = null) {
-    const { name, breaks } = this.props;
+    const { name, breaks, type } = this.props;
     if (!options) {
       options = this.baseOptions(name, breaks);
     }
@@ -265,6 +265,10 @@ export class VirusMap extends React.Component<Props> {
       currentIndex: data.timeline.length - 1,
       left: '20px',
       right: '20px',
+      symbolSize: type === 'mobile' ? 5 : 10,
+      checkpointStyle: {
+        symbolSize: type === 'mobile' ? 8 : 13,
+      },
       data: data.timeline,
       label: {
         fontSize: 10,
